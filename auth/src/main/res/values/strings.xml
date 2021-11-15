@@ -1,0 +1,20 @@
+<resources>
+    <string name="authorization">Авторизация</string>
+    <string name="registration">Регистрация</string>
+    <string name="confirmation">Подтверждение</string>
+    <string name="login">логин</string>
+    <string name="password">пароль</string>
+    <string name="forgot_password_question">Забыли пароль?</string>
+    <string name="login_button_text">Войти</string>
+    <string name="signin_button_text">Создать аккаунт</string>
+    <string name="confirmation_button_text">Создать аккаунт</string>
+    <string name="no_account_question">Нет аккаунта? Зарегистрироваться</string>
+    <string name="name">имя</string>
+    <string name="email">email</string>
+    <string name="password_conf">подтвердите пароль</string>
+    <string name="send_code_again">Отправить код повторно (%1$d)</string>
+    <string name="enter_code">введите код</string>
+    <string name="get_code">Получить код</string>
+    <string name="change_password">Изменить пароль</string>
+    <string name="password_recovery">Восстановление пароля</string>
+</resources>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="ru.spbstu.blog.root.presentation.main.MainFragment"
+        android:label="MainFragment" />
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="ru.spbstu.auth.login.presentation.AuthFragment"
+        android:label="LoginFragment" />
+
+</navigation>

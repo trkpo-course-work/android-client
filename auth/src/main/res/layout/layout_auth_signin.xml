@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/layout_signin__rl_root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/layout_signin__mc_name"
+            android:layout_width="@dimen/auth_et_width"
+            android:layout_height="@dimen/auth_et_height"
+            android:background="@color/white"
+            app:cardCornerRadius="@dimen/auth_mc_corner_radius"
+            app:strokeColor="@color/black"
+            app:strokeWidth="1dp">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/layout_signin__et_name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:hint="@string/name"
+                android:paddingHorizontal="@dimen/auth_et_padding_horizontal"
+                android:textColorHint="@color/text_secondary" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/layout_signin__mc_login"
+            android:layout_width="@dimen/auth_et_width"
+            android:layout_height="@dimen/auth_et_height"
+            android:layout_below="@id/layout_signin__mc_name"
+            android:layout_marginTop="16dp"
+            android:background="@color/white"
+            app:cardCornerRadius="@dimen/auth_mc_corner_radius"
+            app:strokeColor="@color/black"
+            app:strokeWidth="1dp">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/layout_signin__et_login"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:hint="@string/login"
+                android:paddingHorizontal="@dimen/auth_et_padding_horizontal"
+                android:textColorHint="@color/text_secondary" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/layout_signin__mc_email"
+            android:layout_width="@dimen/auth_et_width"
+            android:layout_height="@dimen/auth_et_height"
+            android:layout_below="@id/layout_signin__mc_login"
+            android:layout_marginTop="16dp"
+            android:background="@color/white"
+            app:cardCornerRadius="@dimen/auth_mc_corner_radius"
+            app:strokeColor="@color/black"
+            app:strokeWidth="1dp">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/layout_signin__et_email"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:hint="@string/email"
+                android:paddingHorizontal="@dimen/auth_et_padding_horizontal"
+                android:textColorHint="@color/text_secondary" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/layout_signin__mc_password"
+            android:layout_width="@dimen/auth_et_width"
+            android:layout_height="@dimen/auth_et_height"
+            android:layout_below="@id/layout_signin__mc_email"
+            android:layout_marginTop="16dp"
+            android:background="@color/white"
+            app:cardCornerRadius="@dimen/auth_mc_corner_radius"
+            app:strokeColor="@color/black"
+            app:strokeWidth="1dp">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/layout_signin__et_password"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:hint="@string/password"
+                android:paddingHorizontal="@dimen/auth_et_padding_horizontal"
+                android:textColorHint="@color/text_secondary" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/layout_signin__mc_password_conf"
+            android:layout_width="@dimen/auth_et_width"
+            android:layout_height="@dimen/auth_et_height"
+            android:layout_below="@id/layout_signin__mc_password"
+            android:layout_marginTop="16dp"
+            android:background="@color/white"
+            app:cardCornerRadius="@dimen/auth_mc_corner_radius"
+            app:strokeColor="@color/black"
+            app:strokeWidth="1dp">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/layout_signin__et_password_conf"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:hint="@string/password_conf"
+                android:paddingHorizontal="@dimen/auth_et_padding_horizontal"
+                android:textColorHint="@color/text_secondary" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </RelativeLayout>
+
+</merge>

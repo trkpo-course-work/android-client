@@ -1,0 +1,5 @@
+rootProject.name = "BlogIn"
+include ':app'
+include ':common'
+include ':wall'
+include ':auth'

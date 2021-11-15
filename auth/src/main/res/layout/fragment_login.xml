@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".login.presentation.AuthFragment">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/frg_login__toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/frg_login__toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/white"
+            android:textAllCaps="true"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            tools:text="регистрация" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <include layout="@layout/layout_auth_login" />
+
+    <include layout="@layout/layout_auth_signin" />
+
+    <include layout="@layout/layout_auth_confirmation" />
+
+    <include layout="@layout/layout_auth_reset_password_email" />
+
+    <include layout="@layout/layout_auth_reset_password_new_password" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/frg_login__mb_action_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="48dp"
+        android:backgroundTint="@color/primary_color"
+        android:paddingHorizontal="48dp"
+        android:paddingVertical="16dp"
+        android:text="@string/login_button_text"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:cornerRadius="24dp" />
+
+    <TextView
+        android:id="@+id/frg_login__tv_no_account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="16dp"
+        android:text="@string/no_account_question"
+        android:textColor="@color/text_secondary"
+        android:textSize="16sp" />
+
+</FrameLayout>

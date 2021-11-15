@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="auth_et_width">280dp</dimen>
+    <dimen name="auth_et_height">48dp</dimen>
+    <dimen name="auth_mc_corner_radius">16dp</dimen>
+    <dimen name="auth_et_padding_horizontal">16dp</dimen>
+</resources>

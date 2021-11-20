@@ -1,13 +1,9 @@
 package ru.spbstu.blog.root.presentation
 
+import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import ru.spbstu.blog.R
 import ru.spbstu.blog.databinding.ActivityMainBinding
 import ru.spbstu.blog.navgiation.Navigator
@@ -42,6 +38,10 @@ class RootActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         navigator.detach()
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
     }
 
     private fun inject() {

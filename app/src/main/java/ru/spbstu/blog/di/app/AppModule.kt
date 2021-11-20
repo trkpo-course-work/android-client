@@ -1,5 +1,6 @@
 package ru.spbstu.blog.di.app
 
+import android.content.ContentResolver
 import android.content.Context
 import dagger.Module
 import dagger.Provides
@@ -13,5 +14,10 @@ class AppModule {
     @Provides
     fun provideContext(application: App): Context {
         return application
+    }
+
+    @Provides
+    fun provideContentResolver(context: Context): ContentResolver {
+        return context.contentResolver
     }
 }

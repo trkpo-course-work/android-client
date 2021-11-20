@@ -13,5 +13,7 @@ object Versions {
     const val junitExt = "1.1.2"
     const val espresso = "3.3.0"
     const val daggerVersion = "2.25.2"
+    const val circleImageView = "3.1.0"
+    const val coordinator = "1.1.0"
 
 }

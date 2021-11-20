@@ -8,6 +8,7 @@
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="gradleHome" value="$PROJECT_DIR$/../../../../Gradle" />
+        <option name="gradleJvm" value="15" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
@@ -15,6 +16,9 @@
             <option value="$PROJECT_DIR$/auth" />
             <option value="$PROJECT_DIR$/buildSrc" />
             <option value="$PROJECT_DIR$/common" />
+            <option value="$PROJECT_DIR$/diary" />
+            <option value="$PROJECT_DIR$/profile" />
+            <option value="$PROJECT_DIR$/search" />
             <option value="$PROJECT_DIR$/wall" />
           </set>
         </option>

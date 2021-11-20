@@ -1,4 +1,4 @@
-package studio.clapp.common.di.viewmodel
+package ru.spbstu.common.di.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

@@ -25,8 +25,13 @@ object Deps {
     private val viewModelKtx by lazy { "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycleKtx}" }
     private val fragmentKtx by lazy { "androidx.navigation:navigation-fragment-ktx:${Versions.navigationKtx}" }
     private val uiKtx by lazy { "androidx.navigation:navigation-ui-ktx:${Versions.navigationKtx}" }
+    private val legacySupport by lazy { "androidx.legacy:legacy-support-v4:1.0.0" }
+    private val glide by lazy { "com.github.bumptech.glide:glide:4.12.0" }
+    private val coordinator by lazy { "androidx.coordinatorlayout:coordinatorlayout:${Versions.coordinator}"}
     val daggerDep by lazy { "com.google.dagger:dagger:${Versions.daggerVersion}" }
+    val glideKapt by lazy { "com.github.bumptech.glide:compiler:4.12.0" }
     val daggerKapt by lazy { "com.google.dagger:dagger-compiler:${Versions.daggerVersion}" }
+    private val circleImageView by lazy { "de.hdodenhof:circleimageview:${Versions.circleImageView}" }
 
     val appLibraries = arrayListOf<String>().apply {
         add(kotlinStdLib)
@@ -39,6 +44,10 @@ object Deps {
         add(uiKtx)
         add(materialDesign)
         add(timber)
+        add(legacySupport)
+        add(glide)
+        add(circleImageView)
+        add(coordinator)
     }
 
     val androidTestLibraries = arrayListOf<String>().apply {

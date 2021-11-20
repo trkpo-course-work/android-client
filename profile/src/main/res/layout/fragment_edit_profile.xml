@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/frg_edit_profile__toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_back_24">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/frg_edit_profile__toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/white"
+            android:text="Редактирование"
+            android:textAllCaps="true"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <ImageButton
+            android:id="@+id/frg_edit_profile__ib_actions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|end"
+            android:background="?selectableItemBackground"
+            android:padding="8dp"
+            android:src="@drawable/ic_confirm_24" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/frg_edit_profile__iv_avatar"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="24dp"
+        android:src="@color/gray"
+        app:civ_border_color="@color/black"
+        app:civ_border_width="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/frg_edit_profile__toolbar" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/frg_edit_profile__iv_avatar_stub"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_edit_24"
+        app:layout_constraintBottom_toBottomOf="@id/frg_edit_profile__iv_avatar"
+        app:layout_constraintEnd_toEndOf="@id/frg_edit_profile__iv_avatar"
+        app:layout_constraintStart_toStartOf="@id/frg_edit_profile__iv_avatar"
+        app:layout_constraintTop_toTopOf="@id/frg_edit_profile__iv_avatar" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/frg_edit_profile__tv_name_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:text="Имя"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/frg_edit_profile__mc_name"
+        app:layout_constraintEnd_toStartOf="@id/frg_edit_profile__mc_name"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/frg_edit_profile__iv_avatar" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/frg_edit_profile__mc_name"
+        android:layout_width="@dimen/profile_tv_width"
+        android:layout_height="@dimen/profile_tv_height"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="60dp"
+        android:background="@color/white"
+        app:cardCornerRadius="@dimen/auth_mc_corner_radius"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/frg_edit_profile__tv_name_label"
+        app:layout_constraintTop_toBottomOf="@id/frg_edit_profile__iv_avatar"
+        app:strokeColor="@color/black"
+        app:strokeWidth="1dp">
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/frg_edit_profile__et_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:paddingHorizontal="@dimen/auth_et_padding_horizontal"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textColorHint="@color/text_secondary" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/frg_edit_profile__tv_login_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:text="Логин"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/frg_edit_profile__mc_login"
+        app:layout_constraintEnd_toStartOf="@id/frg_edit_profile__mc_login"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/frg_edit_profile__mc_name" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/frg_edit_profile__mc_login"
+        android:layout_width="@dimen/profile_tv_width"
+        android:layout_height="@dimen/profile_tv_height"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="60dp"
+        android:background="@color/white"
+        app:cardCornerRadius="@dimen/auth_mc_corner_radius"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/frg_edit_profile__tv_login_label"
+        app:layout_constraintTop_toBottomOf="@id/frg_edit_profile__mc_name"
+        app:strokeColor="@color/black"
+        app:strokeWidth="1dp">
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/frg_edit_profile__et_login"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:paddingHorizontal="@dimen/auth_et_padding_horizontal"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textColorHint="@color/text_secondary" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/frg_edit_profile__tv_old_pass_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:text="Старый пароль"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/frg_edit_profile__mc_old_pass"
+        app:layout_constraintEnd_toStartOf="@id/frg_edit_profile__mc_old_pass"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/frg_edit_profile__mc_login" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/frg_edit_profile__mc_old_pass"
+        android:layout_width="@dimen/profile_tv_width"
+        android:layout_height="@dimen/profile_tv_height"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="60dp"
+        android:background="@color/white"
+        app:cardCornerRadius="@dimen/auth_mc_corner_radius"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@id/frg_edit_profile__tv_old_pass_label"
+        app:layout_constraintTop_toBottomOf="@id/frg_edit_profile__mc_login"
+        app:strokeColor="@color/black"
+        app:strokeWidth="1dp">
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/frg_edit_profile__et_old_pass"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:paddingHorizontal="@dimen/auth_et_padding_horizontal"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textColorHint="@color/text_secondary" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/frg_edit_profile__tv_new_pass_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:text="Новый пароль"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/frg_edit_profile__mc_new_pass"
+        app:layout_constraintEnd_toStartOf="@id/frg_edit_profile__mc_new_pass"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/frg_edit_profile__mc_old_pass" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/frg_edit_profile__mc_new_pass"
+        android:layout_width="@dimen/profile_tv_width"
+        android:layout_height="@dimen/profile_tv_height"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="60dp"
+        android:background="@color/white"
+        app:cardCornerRadius="@dimen/auth_mc_corner_radius"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@id/frg_edit_profile__tv_new_pass_label"
+        app:layout_constraintTop_toBottomOf="@id/frg_edit_profile__mc_old_pass"
+        app:strokeColor="@color/black"
+        app:strokeWidth="1dp">
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/frg_edit_profile__et_new_pass"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:paddingHorizontal="@dimen/auth_et_padding_horizontal"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textColorHint="@color/text_secondary" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/frg_edit_profile__tv_conf_new_pass_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:text="Подтверждение"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/frg_edit_profile__mc_conf_new_pass"
+        app:layout_constraintEnd_toStartOf="@id/frg_edit_profile__mc_conf_new_pass"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/frg_edit_profile__mc_new_pass" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/frg_edit_profile__mc_conf_new_pass"
+        android:layout_width="@dimen/profile_tv_width"
+        android:layout_height="@dimen/profile_tv_height"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="60dp"
+        android:background="@color/white"
+        app:cardCornerRadius="@dimen/auth_mc_corner_radius"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@id/frg_edit_profile__tv_conf_new_pass_label"
+        app:layout_constraintTop_toBottomOf="@id/frg_edit_profile__mc_new_pass"
+        app:strokeColor="@color/black"
+        app:strokeWidth="1dp">
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/frg_edit_profile__et_conf_new_pass"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:paddingHorizontal="@dimen/auth_et_padding_horizontal"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textColorHint="@color/text_secondary" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

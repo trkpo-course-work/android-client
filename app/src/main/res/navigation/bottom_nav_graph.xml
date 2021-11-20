@@ -1,6 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/bottom_nav_graph">
+    android:id="@+id/bottom_nav_graph"
+    app:startDestination="@id/blogFragment">
+
+    <fragment
+        android:id="@+id/blogFragment"
+        android:name="ru.spbstu.wall.blog.presentation.BlogFragment"
+        android:label="BlogFragment">
+        <action
+            android:id="@+id/action_blogFragment_to_userProfileFragment"
+            app:destination="@id/userProfileFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="ru.spbstu.search.search.presentation.SearchFragment"
+        android:label="SearchFragment" />
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="ru.spbstu.profile.profile.presentation.ProfileFragment"
+        android:label="ProfileFragment">
+        <action
+            android:id="@+id/action_profileFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_favoritesFragment"
+            app:destination="@id/favoritesFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/userProfileFragment"
+        android:name="ru.spbstu.profile.user_profile.presentation.UserProfileFragment"
+        android:label="UserProfileFragment" />
+
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="ru.spbstu.profile.edit_profile.presentation.EditProfileFragment"
+        android:label="EditProfileFragment" />
+
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="ru.spbstu.profile.favorites.presentation.FavoritesFragment"
+        android:label="FavoritesFragment" />
+
+    <fragment
+        android:id="@+id/diaryFragment"
+        android:name="ru.spbstu.diary.diary.presentation.DiaryFragment"
+        android:label="DiaryFragment" >
+        <action
+            android:id="@+id/action_diaryFragment_to_postFragment"
+            app:destination="@id/postFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/postFragment"
+        android:name="ru.spbstu.diary.post.presentation.PostFragment"
+        android:label="PostFragment" />
 
 </navigation>

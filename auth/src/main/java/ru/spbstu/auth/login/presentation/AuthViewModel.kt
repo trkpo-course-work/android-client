@@ -48,7 +48,7 @@ class AuthViewModel(private val authRouter: AuthRouter) : ViewModel() {
     fun onMainActionButtonClick() {
         when (_authState.value) {
             AuthState.LOGIN -> {
-
+                authRouter.openMainPage()
             }
             AuthState.SIGNIN -> {
                 _authState.value = AuthState.CONFIRMATION
@@ -63,7 +63,7 @@ class AuthViewModel(private val authRouter: AuthRouter) : ViewModel() {
                 _authState.value = AuthState.RESET_PASSWORD_NEW_PASSWORD
             }
             AuthState.RESET_PASSWORD_NEW_PASSWORD -> {
-                // navigate on main page
+                _authState.value = AuthState.LOGIN
             }
         }
     }

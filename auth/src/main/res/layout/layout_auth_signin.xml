@@ -26,6 +26,7 @@
                 android:id="@+id/layout_signin__et_name"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:textColor="@color/black"
                 android:background="@color/white"
                 android:gravity="center_vertical"
                 android:hint="@string/name"
@@ -50,6 +51,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/white"
+                android:textColor="@color/black"
                 android:gravity="center_vertical"
                 android:hint="@string/login"
                 android:paddingHorizontal="@dimen/auth_et_padding_horizontal"
@@ -74,6 +76,7 @@
                 android:layout_height="match_parent"
                 android:background="@color/white"
                 android:gravity="center_vertical"
+                android:textColor="@color/black"
                 android:hint="@string/email"
                 android:paddingHorizontal="@dimen/auth_et_padding_horizontal"
                 android:textColorHint="@color/text_secondary" />
@@ -98,6 +101,7 @@
                 android:background="@color/white"
                 android:gravity="center_vertical"
                 android:hint="@string/password"
+                android:textColor="@color/black"
                 android:paddingHorizontal="@dimen/auth_et_padding_horizontal"
                 android:textColorHint="@color/text_secondary" />
 
@@ -120,6 +124,7 @@
                 android:layout_height="match_parent"
                 android:background="@color/white"
                 android:gravity="center_vertical"
+                android:textColor="@color/black"
                 android:hint="@string/password_conf"
                 android:paddingHorizontal="@dimen/auth_et_padding_horizontal"
                 android:textColorHint="@color/text_secondary" />

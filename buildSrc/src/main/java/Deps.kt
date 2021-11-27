@@ -27,11 +27,19 @@ object Deps {
     private val uiKtx by lazy { "androidx.navigation:navigation-ui-ktx:${Versions.navigationKtx}" }
     private val legacySupport by lazy { "androidx.legacy:legacy-support-v4:1.0.0" }
     private val glide by lazy { "com.github.bumptech.glide:glide:4.12.0" }
-    private val coordinator by lazy { "androidx.coordinatorlayout:coordinatorlayout:${Versions.coordinator}"}
+    private val coordinator by lazy { "androidx.coordinatorlayout:coordinatorlayout:${Versions.coordinator}" }
     val daggerDep by lazy { "com.google.dagger:dagger:${Versions.daggerVersion}" }
     val glideKapt by lazy { "com.github.bumptech.glide:compiler:4.12.0" }
     val daggerKapt by lazy { "com.google.dagger:dagger-compiler:${Versions.daggerVersion}" }
     private val circleImageView by lazy { "de.hdodenhof:circleimageview:${Versions.circleImageView}" }
+    private val gson by lazy { "com.google.code.gson:gson:${Versions.gson}" }
+    private val okhttp by lazy { "com.squareup.okhttp3:okhttp:${Versions.okhttp}" }
+    private val retrofit by lazy { "com.squareup.retrofit2:retrofit:${Versions.retrofit}" }
+    private val eventBus by lazy { "org.greenrobot:eventbus:${Versions.eventBus}" }
+    private val rxJava3Adapter by lazy { "com.github.akarnokd:rxjava3-retrofit-adapter:${Versions.rxJava3Adapter}" }
+    private val rxJava3 by lazy { "io.reactivex.rxjava3:rxandroid:${Versions.rxJava3}" }
+    private val gsonConverter by lazy { "com.squareup.retrofit2:converter-gson:${Versions.retrofit}" }
+    private val security by lazy { "androidx.security:security-crypto:${Versions.security}" }
 
     val appLibraries = arrayListOf<String>().apply {
         add(kotlinStdLib)
@@ -48,6 +56,17 @@ object Deps {
         add(glide)
         add(circleImageView)
         add(coordinator)
+        add(eventBus)
+        add(rxJava3)
+        add(security)
+    }
+
+    val network = arrayListOf<String>().apply {
+        add(gson)
+        add(okhttp)
+        add(retrofit)
+        add(rxJava3Adapter)
+        add(gsonConverter)
     }
 
     val androidTestLibraries = arrayListOf<String>().apply {

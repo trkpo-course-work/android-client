@@ -6,6 +6,7 @@ import ru.spbstu.blog.App
 import ru.spbstu.blog.di.deps.ComponentHolderModule
 import ru.spbstu.common.di.CommonApi
 import ru.spbstu.common.di.modules.CommonModule
+import ru.spbstu.common.di.modules.CommonModuleAbstract
 import ru.spbstu.common.di.modules.NetworkModule
 import ru.spbstu.common.di.scope.ApplicationScope
 
@@ -17,7 +18,8 @@ import ru.spbstu.common.di.scope.ApplicationScope
         NetworkModule::class,
         NavigationModule::class,
         ComponentHolderModule::class,
-        FeatureManagerModule::class
+        FeatureManagerModule::class,
+        CommonModuleAbstract::class
     ]
 )
 interface AppComponent : CommonApi {

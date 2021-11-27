@@ -15,5 +15,12 @@ object Versions {
     const val daggerVersion = "2.25.2"
     const val circleImageView = "3.1.0"
     const val coordinator = "1.1.0"
+    const val gson = "2.8.9"
+    const val okhttp = "4.9.0"
+    const val retrofit = "2.9.0"
+    const val eventBus = "3.2.0"
+    const val rxJava3Adapter = "3.0.0"
+    const val rxJava3 = "3.0.0"
+    const val security = "1.1.0-alpha01"
 
 }

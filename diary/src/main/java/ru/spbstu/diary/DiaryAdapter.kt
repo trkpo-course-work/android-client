@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import ru.spbstu.common.domain.Blog
 import ru.spbstu.diary.databinding.ItemNoteBinding
 
-class DiaryAdapter : RecyclerView.Adapter<DiaryAdapter.NoteViewHolder>() {
+class DiaryAdapter(private val onActionsClick: (View, Blog) -> Unit) : RecyclerView.Adapter<DiaryAdapter.NoteViewHolder>() {
     private val notes: ArrayList<Blog> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
@@ -36,7 +36,7 @@ class DiaryAdapter : RecyclerView.Adapter<DiaryAdapter.NoteViewHolder>() {
 
     override fun getItemCount(): Int = notes.size
 
-    class NoteViewHolder(private val binding: ItemNoteBinding) :
+    inner class NoteViewHolder(private val binding: ItemNoteBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(blog: Blog) {
             binding.itemNoteTvDate.text = blog.date
@@ -50,6 +50,9 @@ class DiaryAdapter : RecyclerView.Adapter<DiaryAdapter.NoteViewHolder>() {
                     .into(binding.itemNoteIvImage)
             } else {
                 binding.itemNoteIvImage.visibility = View.GONE
+            }
+            binding.itemNoteIvActions.setOnClickListener {
+                onActionsClick.invoke(it, blog)
             }
         }
     }

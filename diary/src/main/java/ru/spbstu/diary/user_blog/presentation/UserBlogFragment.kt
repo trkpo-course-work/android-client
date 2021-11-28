@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,6 +15,7 @@ import kotlinx.coroutines.launch
 import ru.spbstu.common.di.FeatureUtils
 import ru.spbstu.common.extensions.setDebounceClickListener
 import ru.spbstu.diary.DiaryAdapter
+import ru.spbstu.diary.R
 import ru.spbstu.diary.databinding.FragmentUserBlogBinding
 import ru.spbstu.diary.databinding.LayoutUserNotesBinding
 import ru.spbstu.diary.di.DiaryApi
@@ -28,7 +30,22 @@ class UserBlogFragment : Fragment() {
     private var _postsBinding: LayoutUserNotesBinding? = null
     private val postsBinding get() = _postsBinding!!
 
-    private val adapter = DiaryAdapter()
+    private val adapter = DiaryAdapter { v, blog ->
+        val menu = PopupMenu(requireContext(), v)
+        menu.menuInflater.inflate(R.menu.menu_post_actions, menu.menu)
+        menu.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.edit -> {
+                    true
+                }
+                R.id.delete -> {
+                    true
+                }
+                else -> false
+            }
+        }
+        menu.show()
+    }
 
     @Inject
     lateinit var viewModel: UserBlogViewModel

@@ -13,6 +13,7 @@
     <string name="email">email</string>
     <string name="password_conf">подтвердите пароль</string>
     <string name="send_code_again">Отправить код повторно (%1$d)</string>
+    <string name="send_code_again_no_args">Отправить код повторно</string>
     <string name="enter_code">введите код</string>
     <string name="get_code">Получить код</string>
     <string name="change_password">Изменить пароль</string>

@@ -1,27 +1,16 @@
 package ru.spbstu.auth.di
 
 import dagger.Module
+import dagger.Provides
+import ru.spbstu.auth.repository.AuthRepository
+import ru.spbstu.common.api.Api
+import ru.spbstu.common.di.scope.FeatureScope
+import ru.spbstu.common.tokens.TokensRepository
 
 @Module
-abstract class AuthDataModule {
-    /*@Binds
+class AuthDataModule {
+    @Provides
     @FeatureScope
-    abstract fun bindFeatureRepository(featureRepositoryImpl: FeatureRepositoryImpl): FeatureRepository
-
-    @Binds
-    @FeatureScope
-    abstract fun bindFeatureDataSource(featureDataSourceImpl: FeatureDataSourceImpl): FeatureDataSource
-
-    companion object {
-        @Provides
-        @FeatureScope
-        fun provideFeatureApiService(retrofit: Retrofit): FeatureApiService =
-            retrofit.create(FeatureApiService::class.java)
-
-        @Provides
-        @FeatureScope
-        fun provideDataWrapper(): FinancesClassesDataWrapper {
-            return FinancesClassesDataWrapper()
-        }
-    }*/
+    fun provideAuthRepository(api: Api, tokensRepository: TokensRepository): AuthRepository =
+        AuthRepository(api, tokensRepository)
 }

@@ -8,6 +8,7 @@ import dagger.Provides
 import dagger.multibindings.IntoMap
 import ru.spbstu.auth.AuthRouter
 import ru.spbstu.auth.login.presentation.AuthViewModel
+import ru.spbstu.auth.repository.AuthRepository
 import studio.clapp.common.di.viewmodel.ViewModelKey
 import studio.clapp.common.di.viewmodel.ViewModelModule
 
@@ -20,8 +21,8 @@ class LoginModule {
     @Provides
     @IntoMap
     @ViewModelKey(AuthViewModel::class)
-    fun provideViewModel(authRouter: AuthRouter): ViewModel {
-        return AuthViewModel(authRouter)
+    fun provideViewModel(authRouter: AuthRouter, authRepository: AuthRepository): ViewModel {
+        return AuthViewModel(authRouter, authRepository)
     }
 
     @Provides

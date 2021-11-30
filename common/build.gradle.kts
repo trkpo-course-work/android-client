@@ -18,12 +18,12 @@ android {
     buildTypes {
         getByName("debug") {
             isMinifyEnabled = false
-            buildConfigField("String", "ENDPOINT", "\"https://stage.yarepetitor.com\"")
-            buildConfigField("String", "REFRESH_ENDPOINT", "\"https://stage.yarepetitor.com/auth/refresh\"")
+            buildConfigField("String", "ENDPOINT", "\"https://blogin.ru.com/\"")
+            buildConfigField("String", "REFRESH_ENDPOINT", "\"https://blogin.ru.com/api/v1/auth/refresh\"")
         }
         getByName("release") {
-            buildConfigField("String", "ENDPOINT", "\"https://stage.yarepetitor.com\"")
-            buildConfigField("String", "REFRESH_ENDPOINT", "\"https://stage.yarepetitor.com/auth/refresh\"")
+            buildConfigField("String", "ENDPOINT", "\"https://blogin.ru.com/\"")
+            buildConfigField("String", "REFRESH_ENDPOINT", "\"https://blogin.ru.com/api/v1/auth//refresh\"")
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),

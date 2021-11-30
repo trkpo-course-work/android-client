@@ -48,6 +48,7 @@ dependencies {
     implementation(project(mapOf("path" to ":diary")))
     implementation(Deps.appLibraries)
     implementation(Deps.daggerDep)
+    implementation(Deps.network)
     kapt(Deps.daggerKapt)
     testImplementation(Deps.testLibraries)
     androidTestImplementation(Deps.androidTestLibraries)

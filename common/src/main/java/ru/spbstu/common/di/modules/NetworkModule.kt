@@ -12,6 +12,7 @@ import org.greenrobot.eventbus.EventBus
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.spbstu.common.BuildConfig
+import ru.spbstu.common.api.Api
 import ru.spbstu.common.data.TokensResponse
 import ru.spbstu.common.di.scope.ApplicationScope
 import ru.spbstu.common.events.AuthEvent
@@ -104,4 +105,8 @@ class NetworkModule {
             .addConverterFactory(GsonConverterFactory.create(gson))
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
             .build()
+
+    @Provides
+    @ApplicationScope
+    fun provideApi(retrofit: Retrofit): Api = retrofit.create(Api::class.java)
 }

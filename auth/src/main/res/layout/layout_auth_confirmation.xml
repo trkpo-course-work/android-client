@@ -30,6 +30,7 @@
                 android:background="@color/white"
                 android:textColor="@color/black"
                 android:gravity="center_vertical"
+                android:inputType="textNoSuggestions"
                 android:hint="@string/enter_code"
                 android:paddingHorizontal="@dimen/auth_et_padding_horizontal"
                 android:textColorHint="@color/text_secondary" />

@@ -154,6 +154,13 @@ class AuthFragment : Fragment() {
                         newPasswordBinding.layoutNewPasswordEmailEtConf.text?.toString()?.trim()
                     if (newPass != null && confPass != null && newPass.length >= AuthViewModel.PASSWORD_MIN_LENGTH && newPass == confPass) {
                         viewModel.setNewPassword(newPass)
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            "Пароли не совпадают или длина пароля меньше ${AuthViewModel.PASSWORD_MIN_LENGTH}",
+                            Toast.LENGTH_SHORT
+                        )
+                            .show()
                     }
                 }
             }

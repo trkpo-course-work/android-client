@@ -109,7 +109,10 @@ class AuthViewModel(
                                     })
                                     .addTo(disposable)
                             }
-                            else -> _error.value = "Ошибка входа"
+                            else -> {
+                                _buttonState.value = true
+                                _error.value = "Ошибка входа"
+                            }
                         }
                     }
                 }

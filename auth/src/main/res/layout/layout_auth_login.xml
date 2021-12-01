@@ -28,9 +28,10 @@
                 android:layout_height="match_parent"
                 android:background="@color/white"
                 android:gravity="center_vertical"
-                android:textColor="@color/black"
                 android:hint="@string/login"
+                android:inputType="textNoSuggestions"
                 android:paddingHorizontal="@dimen/auth_et_padding_horizontal"
+                android:textColor="@color/black"
                 android:textColorHint="@color/text_secondary" />
 
         </com.google.android.material.card.MaterialCardView>
@@ -51,10 +52,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/white"
-                android:textColor="@color/black"
                 android:gravity="center_vertical"
                 android:hint="@string/password"
+                android:inputType="textPassword"
                 android:paddingHorizontal="@dimen/auth_et_padding_horizontal"
+                android:textColor="@color/black"
                 android:textColorHint="@color/text_secondary" />
 
         </com.google.android.material.card.MaterialCardView>

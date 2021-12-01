@@ -27,7 +27,7 @@ interface Api {
     fun checkResetCode(@Body checkResetBody: CheckResetBody): Single<Response<Void>>
 
     @POST("/api/v1/auth/reset")
-    fun reset(resetBody: ResetBody): Single<Response<Void>>
+    fun reset(@Body resetBody: ResetBody): Single<Response<Void>>
 
     @POST("/api/v1/auth/signup")
     fun signIn(@Body signInBody: SignInBody): Single<Response<Void>>

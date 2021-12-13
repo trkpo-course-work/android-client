@@ -27,6 +27,16 @@
             android:textSize="20sp"
             tools:text="Главная" />
 
+        <ImageButton
+            android:id="@+id/frg_blog__refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginEnd="16dp"
+            android:background="?selectableItemBackground"
+            android:padding="8dp"
+            android:src="@drawable/ic_refresh_24" />
+
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView

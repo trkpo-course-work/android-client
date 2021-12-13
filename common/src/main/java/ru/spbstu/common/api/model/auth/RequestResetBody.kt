@@ -1,4 +1,4 @@
-package ru.spbstu.common.api.model
+package ru.spbstu.common.api.model.auth
 
 import com.google.gson.annotations.SerializedName
 

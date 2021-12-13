@@ -7,6 +7,8 @@ import androidx.security.crypto.MasterKey
 import dagger.Module
 import dagger.Provides
 import ru.spbstu.common.di.scope.ApplicationScope
+import ru.spbstu.common.tokens.TokensRepository
+import ru.spbstu.common.utils.PictureUrlHelper
 import javax.inject.Named
 
 const val SHARED_PREFERENCES_FILE = "ru.spbstu.blogin.preferences"
@@ -32,4 +34,9 @@ class CommonModule {
             EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
         )
     }
+
+    @Provides
+    @ApplicationScope
+    fun providePictureUrlHelper(tokensRepository: TokensRepository): PictureUrlHelper =
+        PictureUrlHelper(tokensRepository)
 }

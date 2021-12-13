@@ -4,10 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import ru.spbstu.common.extensions.setDebounceClickListener
 import ru.spbstu.search.databinding.ItemSearchBinding
 import ru.spbstu.search.search.domain.SearchResult
 
-class SearchAdapter : RecyclerView.Adapter<SearchAdapter.SearchViewHolder>() {
+class SearchAdapter(private val onUserClick: (Long) -> Unit) :
+    RecyclerView.Adapter<SearchAdapter.SearchViewHolder>() {
     private val searchs: ArrayList<SearchResult> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchViewHolder {
@@ -22,9 +24,9 @@ class SearchAdapter : RecyclerView.Adapter<SearchAdapter.SearchViewHolder>() {
 
     fun bingData(newSearchs: List<SearchResult>) {
         val callback = SearchDiffUtilCallback(searchs, newSearchs)
+        val diffResult = DiffUtil.calculateDiff(callback)
         searchs.clear()
         searchs.addAll(newSearchs)
-        val diffResult = DiffUtil.calculateDiff(callback)
         diffResult.dispatchUpdatesTo(this)
     }
 
@@ -34,11 +36,13 @@ class SearchAdapter : RecyclerView.Adapter<SearchAdapter.SearchViewHolder>() {
 
     override fun getItemCount(): Int = searchs.size
 
-    class SearchViewHolder(private val binding: ItemSearchBinding) :
+    inner class SearchViewHolder(private val binding: ItemSearchBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(search: SearchResult) {
             binding.itemSearchResult.text = search.name
-
+            binding.root.setDebounceClickListener {
+                onUserClick.invoke(search.userId)
+            }
         }
     }
 
@@ -52,7 +56,7 @@ class SearchAdapter : RecyclerView.Adapter<SearchAdapter.SearchViewHolder>() {
         override fun getNewListSize(): Int = newList.size
 
         override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            return oldList[oldItemPosition].id == newList[newItemPosition].id
+            return oldList[oldItemPosition].userId == newList[newItemPosition].userId
         }
 
         override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {

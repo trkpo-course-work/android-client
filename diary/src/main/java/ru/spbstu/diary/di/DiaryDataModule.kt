@@ -1,27 +1,15 @@
 package ru.spbstu.diary.di
 
 import dagger.Module
+import dagger.Provides
+import ru.spbstu.common.api.Api
+import ru.spbstu.common.di.scope.FeatureScope
+import ru.spbstu.diary.repository.DiaryRepository
 
 @Module
-abstract class DiaryDataModule {
-    /*@Binds
+class DiaryDataModule {
+    @Provides
     @FeatureScope
-    abstract fun bindFeatureRepository(featureRepositoryImpl: FeatureRepositoryImpl): FeatureRepository
-
-    @Binds
-    @FeatureScope
-    abstract fun bindFeatureDataSource(featureDataSourceImpl: FeatureDataSourceImpl): FeatureDataSource
-
-    companion object {
-        @Provides
-        @FeatureScope
-        fun provideFeatureApiService(retrofit: Retrofit): FeatureApiService =
-            retrofit.create(FeatureApiService::class.java)
-
-        @Provides
-        @FeatureScope
-        fun provideDataWrapper(): FinancesClassesDataWrapper {
-            return FinancesClassesDataWrapper()
-        }
-    }*/
+    fun provideDiaryRepository(api: Api): DiaryRepository =
+        DiaryRepository(api)
 }

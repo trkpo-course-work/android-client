@@ -12,6 +12,7 @@ import ru.spbstu.diary.DiaryRouter
 import ru.spbstu.diary.post.presentation.PostFragment
 import ru.spbstu.diary.post.presentation.PostFragment.Companion.MODE_KEY
 import ru.spbstu.profile.ProfileRouter
+import ru.spbstu.profile.user_profile.presentation.UserProfileFragment.Companion.ID_KEY
 import ru.spbstu.search.SearchRouter
 import ru.spbstu.wall.WallRouter
 
@@ -45,12 +46,22 @@ class Navigator : RootRouter, AuthRouter, WallRouter, SearchRouter, ProfileRoute
         bottomNavController?.popBackStack()
     }
 
+    override fun openProfileFromFavorites(id: Long) {
+        bottomNavController?.navigate(
+            R.id.action_favoritesFragment_to_userProfileFragment,
+            bundleOf(ID_KEY to id)
+        )
+    }
+
     override fun openMainPage() {
         navController?.navigate(R.id.action_loginFragment_to_mainFragment)
     }
 
-    override fun openUserProfile() {
-        bottomNavController?.navigate(R.id.action_blogFragment_to_userProfileFragment)
+    override fun openUserProfile(id: Long) {
+        bottomNavController?.navigate(
+            R.id.action_blogFragment_to_userProfileFragment,
+            bundleOf(ID_KEY to id)
+        )
     }
 
     override fun navigateToPostFragment(isBlog: Boolean, isEdit: Boolean, blog: Blog?) {
@@ -58,5 +69,16 @@ class Navigator : RootRouter, AuthRouter, WallRouter, SearchRouter, ProfileRoute
             R.id.action_diaryFragment_to_postFragment,
             bundleOf(MODE_KEY to PostFragment.Mode(isBlog, isEdit, blog))
         )
+    }
+
+    override fun goToUserProfile(id: Long) {
+        bottomNavController?.navigate(
+            R.id.action_searchFragment_to_userProfileFragment,
+            bundleOf(ID_KEY to id)
+        )
+    }
+
+    fun goToLogin() {
+        navController?.navigate(R.id.action_mainFragment_to_loginFragment)
     }
 }

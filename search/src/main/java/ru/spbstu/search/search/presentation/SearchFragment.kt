@@ -29,7 +29,9 @@ class SearchFragment : Fragment() {
     @Inject
     lateinit var viewModel: SearchViewModel
 
-    private val adapter: SearchAdapter = SearchAdapter()
+    private val adapter: SearchAdapter = SearchAdapter {
+        viewModel.onUserClick(it)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

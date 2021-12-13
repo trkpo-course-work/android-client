@@ -6,9 +6,10 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class Blog(
     val id: Long,
-    val name: String,
-    val date: String,
-    val post: String,
-    val avatarUrl: String,
-    val photoUrl: String?
+    val user: UserProfile,
+    val text: String,
+    val spans: List<Span>?,
+    val isPrivate: Boolean,
+    val dateTime: Long,
+    val pictureId: Long?,
 ) : Parcelable

@@ -27,7 +27,7 @@ class DiaryFragment : Fragment() {
     ): View {
         inject()
         _binding = FragmentDiaryBinding.inflate(inflater, container, false)
-        val pagerAdapter = DiaryPagerAdapter(requireActivity())
+        val pagerAdapter = DiaryPagerAdapter(this)
         binding.frgDiaryPager.adapter = pagerAdapter
         TabLayoutMediator(
             binding.frgDiaryTabs, binding.frgDiaryPager

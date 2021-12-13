@@ -1,62 +1,66 @@
 package ru.spbstu.wall.blog.presentation
 
 import androidx.lifecycle.ViewModel
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.kotlin.addTo
+import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import ru.spbstu.wall.WallRouter
 import ru.spbstu.common.domain.Blog
+import ru.spbstu.common.domain.BlogInResult
+import ru.spbstu.wall.repository.WallRepository
+import timber.log.Timber
 
-class BlogViewModel(private val wallRouter: WallRouter) : ViewModel() {
+class BlogViewModel(
+    private val wallRouter: WallRouter,
+    private val wallRepository: WallRepository
+) : ViewModel() {
 
     private val _state = MutableStateFlow<State?>(null)
     val state = _state.asStateFlow()
+
+    private val _error = MutableStateFlow<String?>(null)
+    val error = _error.asStateFlow()
+
+    private val disposable = CompositeDisposable()
 
     init {
         loadData()
     }
 
-    fun onUserAvatarClick() {
-        wallRouter.openUserProfile()
+    fun onUserAvatarClick(blog: Blog) {
+        wallRouter.openUserProfile(blog.user.id)
     }
 
-    private fun loadData() {
-        _state.value = State(
-            listOf(
-                Blog(
-                    1,
-                    "akapolix",
-                    "10.10.2010",
-                    "LoremIpsum LoremIpsum LoremIpsum LoremIpsum LoremIpsum ",
-                    "https://static.remove.bg/remove-bg-web/e88d40fe6b242c5a4872a70c3c93599d93563581/assets/start_remove-c851bdf8d3127a24e2d137a55b1b427378cd17385b01aec6e59d5d4b5f39d2ec.png",
-                    "https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg"
-                ),
-                Blog(
-                    2,
-                    "akapolix",
-                    "10.10.2010",
-                    "LoremIpsum LoremIpsum LoremIpsum LoremIpsum LoremIpsum ",
-                    "https://static.remove.bg/remove-bg-web/e88d40fe6b242c5a4872a70c3c93599d93563581/assets/start_remove-c851bdf8d3127a24e2d137a55b1b427378cd17385b01aec6e59d5d4b5f39d2ec.png",
-                    null
-                ),
-                Blog(
-                    3,
-                    "akapolix",
-                    "10.10.2010",
-                    "LoremIpsum LoremIpsum LoremIpsum LoremIpsum LoremIpsum ",
-                    "https://static.remove.bg/remove-bg-web/e88d40fe6b242c5a4872a70c3c93599d93563581/assets/start_remove-c851bdf8d3127a24e2d137a55b1b427378cd17385b01aec6e59d5d4b5f39d2ec.png",
-                    "https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg"
-                ),
-                Blog(
-                    4,
-                    "akapolix",
-                    "10.10.2010",
-                    "LoremIpsum LoremIpsum LoremIpsum LoremIpsum LoremIpsum ",
-                    "https://static.remove.bg/remove-bg-web/e88d40fe6b242c5a4872a70c3c93599d93563581/assets/start_remove-c851bdf8d3127a24e2d137a55b1b427378cd17385b01aec6e59d5d4b5f39d2ec.png",
-                    "https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg"
-                ),
-            )
-        )
+    fun loadData() {
+        wallRepository.getNews()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                when (it) {
+                    is BlogInResult.Success -> {
+                        _state.value = State(it.data)
+                    }
+                    is BlogInResult.Error -> {
+                        _error.value = "Не удалось загрузить новости"
+                    }
+                }
+            }, {
+                Timber.e(TAG, it)
+            })
+            .addTo(disposable)
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        disposable.dispose()
     }
 
     data class State(val blogs: List<Blog>)
+
+    companion object {
+        private val TAG = BlogViewModel::class.simpleName
+    }
 }

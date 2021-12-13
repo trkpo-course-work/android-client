@@ -8,6 +8,7 @@ import dagger.Provides
 import dagger.multibindings.IntoMap
 import ru.spbstu.profile.ProfileRouter
 import ru.spbstu.profile.profile.presentation.ProfileViewModel
+import ru.spbstu.profile.repository.ProfileRepository
 import studio.clapp.common.di.viewmodel.ViewModelKey
 import studio.clapp.common.di.viewmodel.ViewModelModule
 
@@ -20,8 +21,11 @@ class ProfileProfileModule {
     @Provides
     @IntoMap
     @ViewModelKey(ProfileViewModel::class)
-    fun provideViewModel(searchRouter: ProfileRouter): ViewModel {
-        return ProfileViewModel(searchRouter)
+    fun provideViewModel(
+        profileRouter: ProfileRouter,
+        profileRepository: ProfileRepository
+    ): ViewModel {
+        return ProfileViewModel(profileRouter, profileRepository)
     }
 
     @Provides

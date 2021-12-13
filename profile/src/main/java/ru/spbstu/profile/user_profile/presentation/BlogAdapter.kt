@@ -7,9 +7,15 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import ru.spbstu.common.domain.Blog
+import ru.spbstu.common.utils.PictureUrlHelper
+import ru.spbstu.common.utils.getSpannableText
 import ru.spbstu.profile.databinding.ItemProfilePostBinding
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
-class BlogAdapter : RecyclerView.Adapter<BlogAdapter.BlogViewHolder>() {
+class BlogAdapter(private val pictureUrlHelper: PictureUrlHelper) :
+    RecyclerView.Adapter<BlogAdapter.BlogViewHolder>() {
     private val blogs: ArrayList<Blog> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BlogViewHolder {
@@ -24,9 +30,9 @@ class BlogAdapter : RecyclerView.Adapter<BlogAdapter.BlogViewHolder>() {
 
     fun bingData(newBlogs: List<Blog>) {
         val callback = BlogDiffUtilCallback(blogs, newBlogs)
+        val diffResult = DiffUtil.calculateDiff(callback)
         blogs.clear()
         blogs.addAll(newBlogs)
-        val diffResult = DiffUtil.calculateDiff(callback)
         diffResult.dispatchUpdatesTo(this)
     }
 
@@ -36,27 +42,33 @@ class BlogAdapter : RecyclerView.Adapter<BlogAdapter.BlogViewHolder>() {
 
     override fun getItemCount(): Int = blogs.size
 
-    class BlogViewHolder(private val binding: ItemProfilePostBinding) :
+    inner class BlogViewHolder(private val binding: ItemProfilePostBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
+        private val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
         fun bind(blog: Blog) {
-            Glide.with(binding.root)
-                .load(blog.avatarUrl)
-                .centerCrop()
-                .into(binding.itemPostIvAvatar)
-
-            binding.itemPostTvDate.text = blog.date
-            binding.itemPostTvName.text = blog.name
-            binding.itemPostTvPost.text = blog.post
-
-            if (blog.photoUrl != null) {
+            val pictureId = blog.pictureId
+            if (pictureId != null) {
                 binding.itemPostIvImage.visibility = View.VISIBLE
                 Glide.with(binding.root)
-                    .load(blog.photoUrl)
+                    .load(pictureUrlHelper.getPictureUrl(pictureId))
                     .centerCrop()
                     .into(binding.itemPostIvImage)
             } else {
                 binding.itemPostIvImage.visibility = View.GONE
             }
+
+            val avatarId = blog.user.pictureId
+            if (avatarId != null) {
+                Glide.with(binding.root)
+                    .load(pictureUrlHelper.getPictureUrl(avatarId))
+                    .centerCrop()
+                    .into(binding.itemPostIvAvatar)
+            }
+
+            binding.itemPostTvDate.text = dateFormat.format(Date(blog.dateTime))
+            binding.itemPostTvName.text = blog.user.name
+            binding.itemPostTvPost.text = getSpannableText(blog.spans, blog.text)
 
         }
     }

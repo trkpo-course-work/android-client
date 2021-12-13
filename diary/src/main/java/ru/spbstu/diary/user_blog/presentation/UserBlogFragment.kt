@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
+import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,6 +15,7 @@ import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 import ru.spbstu.common.di.FeatureUtils
 import ru.spbstu.common.extensions.setDebounceClickListener
+import ru.spbstu.common.utils.PictureUrlHelper
 import ru.spbstu.diary.DiaryAdapter
 import ru.spbstu.diary.R
 import ru.spbstu.diary.databinding.FragmentUserBlogBinding
@@ -30,22 +32,10 @@ class UserBlogFragment : Fragment() {
     private var _postsBinding: LayoutUserNotesBinding? = null
     private val postsBinding get() = _postsBinding!!
 
-    private val adapter = DiaryAdapter { v, blog ->
-        val menu = PopupMenu(requireContext(), v)
-        menu.menuInflater.inflate(R.menu.menu_post_actions, menu.menu)
-        menu.setOnMenuItemClickListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.edit -> {
-                    true
-                }
-                R.id.delete -> {
-                    true
-                }
-                else -> false
-            }
-        }
-        menu.show()
-    }
+    @Inject
+    lateinit var pictureUrlHelper: PictureUrlHelper
+
+    private lateinit var adapter: DiaryAdapter
 
     @Inject
     lateinit var viewModel: UserBlogViewModel
@@ -57,12 +47,30 @@ class UserBlogFragment : Fragment() {
         inject()
         _binding = FragmentUserBlogBinding.inflate(inflater, container, false)
         _postsBinding = LayoutUserNotesBinding.bind(binding.root)
+        adapter = DiaryAdapter(pictureUrlHelper) { v, blog ->
+            val menu = PopupMenu(requireContext(), v)
+            menu.menuInflater.inflate(R.menu.menu_post_actions, menu.menu)
+            menu.setOnMenuItemClickListener { menuItem ->
+                when (menuItem.itemId) {
+                    R.id.edit -> {
+                        viewModel.editBlog(blog)
+                        true
+                    }
+                    R.id.delete -> {
+                        viewModel.deleteBlog(blog)
+                        true
+                    }
+                    else -> false
+                }
+            }
+            menu.show()
+        }
         postsBinding.layoutNotesRvPosts.adapter = adapter
         postsBinding.layoutNotesRvPosts.addOnScrollListener(object :
             RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                if ((postsBinding.layoutNotesRvPosts.layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition() == 0) {
+                if ((postsBinding.layoutNotesRvPosts.layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition() == 0 || adapter.itemCount == 0) {
                     binding.frgUserBlogFab.visibility = View.VISIBLE
                 } else {
                     binding.frgUserBlogFab.visibility = View.GONE
@@ -85,6 +93,17 @@ class UserBlogFragment : Fragment() {
                 adapter.bingData(it.blogs)
             }
         }
+
+        lifecycleScope.launch {
+            viewModel.error.filterNotNull().collect {
+                Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.loadData()
     }
 
     private fun inject() {

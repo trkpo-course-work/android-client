@@ -2,6 +2,7 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frg_user_profile__coordinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -10,7 +11,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/frg_user_profile__appBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,23 +22,21 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:layout_scrollFlags="scroll|snap"
             app:titleEnabled="false">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
-                app:layout_collapseMode="parallax">
+                android:layout_gravity="center">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/frg__user_profile__iv_avatar"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="24dp"
                     app:civ_border_color="@color/primary_color"
                     app:civ_border_width="1dp"
-                    app:layout_collapseMode="parallax"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -49,7 +48,6 @@
                     android:layout_height="40dp"
                     android:src="@drawable/ic_unknown_user_30"
                     android:visibility="gone"
-                    app:layout_collapseMode="parallax"
                     app:layout_constraintBottom_toBottomOf="@id/frg__user_profile__iv_avatar"
                     app:layout_constraintEnd_toEndOf="@id/frg__user_profile__iv_avatar"
                     app:layout_constraintStart_toStartOf="@id/frg__user_profile__iv_avatar"
@@ -59,44 +57,50 @@
                     android:id="@+id/frg__user_profile__toolbar_title_expanded"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
                     android:background="@color/white"
+                    android:paddingHorizontal="16dp"
                     android:textColor="@color/black"
                     android:textSize="18sp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@id/frg__user_profile__iv_avatar"
                     app:layout_constraintStart_toStartOf="@id/frg__user_profile__iv_avatar"
                     app:layout_constraintTop_toBottomOf="@id/frg__user_profile__iv_avatar"
-                    tools:text="Поиск" />
+                    app:layout_constraintVertical_bias="0.0"
+                    tools:text="svyat" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/frg__user_profile__toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/white"
-                app:layout_collapseMode="pin">
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/frg__user_profile__toolbar_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:background="@color/white"
-                    android:gravity="center"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    tools:text="Поиск" />
-
-                <ImageView
-                    android:id="@+id/frg__user_profile__ib_favorite"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical|end"
-                    android:background="?selectableItemBackground"
-                    android:padding="8dp" />
-
-            </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/frg__user_profile__toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/white"
+            app:layout_collapseMode="pin">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/frg__user_profile__toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:background="@color/white"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                tools:text="Поиск" />
+
+            <ImageView
+                android:id="@+id/frg__user_profile__ib_favorite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|end"
+                android:background="?selectableItemBackground"
+                android:padding="8dp" />
+
+        </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -104,13 +108,14 @@
         android:id="@+id/frg_user_profile__rv_posts"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/frg_user_profile__appBarLayout"
         tools:itemCount="3"
         tools:listitem="@layout/item_profile_post" />
+
+    <include layout="@layout/empty_posts" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

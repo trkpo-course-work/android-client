@@ -8,6 +8,7 @@ import dagger.Provides
 import dagger.multibindings.IntoMap
 import ru.spbstu.profile.ProfileRouter
 import ru.spbstu.profile.favorites.presentation.FavoritesViewModel
+import ru.spbstu.profile.repository.ProfileRepository
 import studio.clapp.common.di.viewmodel.ViewModelKey
 import studio.clapp.common.di.viewmodel.ViewModelModule
 
@@ -21,9 +22,10 @@ class FavoritesModule {
     @IntoMap
     @ViewModelKey(FavoritesViewModel::class)
     fun provideViewModel(
-        router: ProfileRouter
+        router: ProfileRouter,
+        repository: ProfileRepository,
     ): ViewModel {
-        return FavoritesViewModel(router)
+        return FavoritesViewModel(router, repository)
     }
 
     @Provides

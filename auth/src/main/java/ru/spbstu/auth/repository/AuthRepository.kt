@@ -4,7 +4,7 @@ import io.reactivex.rxjava3.core.Single
 import ru.spbstu.auth.domain.LoginError
 import ru.spbstu.auth.domain.Tokens
 import ru.spbstu.common.api.Api
-import ru.spbstu.common.api.model.*
+import ru.spbstu.common.api.model.auth.*
 import ru.spbstu.common.domain.BlogInResult
 import ru.spbstu.common.domain.EMPTY_RESULT
 import ru.spbstu.common.domain.UNKNOWN_ERROR

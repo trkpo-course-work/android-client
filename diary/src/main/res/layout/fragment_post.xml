@@ -28,6 +28,14 @@
             android:textSize="20sp"
             tools:text="Главная" />
 
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/frg_post__finish_post"
+            android:layout_width="?attr/actionBarSize"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_gravity="end|center_horizontal"
+            android:background="?selectableItemBackground"
+            android:src="@drawable/ic_confirm_24" />
+
     </androidx.appcompat.widget.Toolbar>
 
     <View
@@ -56,18 +64,21 @@
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/frg_post__et_post"
                 android:layout_width="match_parent"
-                android:layout_height="640dp"
+                android:layout_height="wrap_content"
                 android:background="@null"
                 android:gravity="start|top"
                 android:hint="Введите текст..."
                 android:inputType="textMultiLine|textCapSentences|textLongMessage"
+                android:minHeight="200dp"
                 android:minLines="1"
                 android:overScrollMode="always"
                 android:paddingHorizontal="8dp"
+                android:paddingBottom="32dp"
                 android:textColor="@color/black"
                 android:textColorHint="@color/text_secondary"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_min="200dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="321321312dmlsasakdsakldsa" />
@@ -85,9 +96,12 @@
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:cornerRadius="24dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/frg_post__et_post" />
+                app:layout_constraintTop_toBottomOf="@id/frg_post__et_post"
+                app:layout_constraintVertical_bias="1.0"
+                tools:visibility="visible" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/frg_post__iv_image"
@@ -100,7 +114,6 @@
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/frg_post__et_post"
                 tools:src="@tools:sample/avatars"

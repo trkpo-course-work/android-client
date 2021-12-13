@@ -6,7 +6,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import ru.spbstu.diary.user_blog.presentation.UserBlogFragment
 import ru.spbstu.diary.user_diary.presentation.UserDiaryFragment
 
-class DiaryPagerAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
+class DiaryPagerAdapter(fa: Fragment) : FragmentStateAdapter(fa) {
     override fun getItemCount(): Int = 2
 
     override fun createFragment(position: Int): Fragment = when (position) {

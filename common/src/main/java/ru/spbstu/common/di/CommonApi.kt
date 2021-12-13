@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import ru.spbstu.common.api.Api
 import ru.spbstu.common.tokens.TokensRepository
+import ru.spbstu.common.utils.PictureUrlHelper
 
 interface CommonApi {
     fun context(): Context
@@ -16,4 +17,6 @@ interface CommonApi {
     fun provideApi(): Api
 
     fun tokensRepository(): TokensRepository
+
+    fun pictureUrlHelper(): PictureUrlHelper
 }

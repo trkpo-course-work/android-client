@@ -1,57 +1,70 @@
 package ru.spbstu.diary.user_blog.presentation
 
 import androidx.lifecycle.ViewModel
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import ru.spbstu.common.domain.Blog
+import ru.spbstu.common.domain.BlogInResult
 import ru.spbstu.diary.DiaryRouter
+import ru.spbstu.diary.repository.DiaryRepository
+import timber.log.Timber
 
-class UserBlogViewModel(private val router: DiaryRouter) : ViewModel() {
+class UserBlogViewModel(
+    private val router: DiaryRouter,
+    private val diaryRepository: DiaryRepository
+) : ViewModel() {
 
     private val _state = MutableStateFlow<State?>(null)
     val state = _state.asStateFlow()
+
+    private val _error = MutableStateFlow<String?>(null)
+    val error = _error.asStateFlow()
 
     init {
         loadData()
     }
 
-    private fun loadData() {
-        _state.value = State(
-            listOf(
-                Blog(
-                    1,
-                    "akapolix",
-                    "10.10.2010",
-                    "LoremIpsum LoremIpsum LoremIpsum LoremIpsum LoremIpsum ",
-                    "https://static.remove.bg/remove-bg-web/e88d40fe6b242c5a4872a70c3c93599d93563581/assets/start_remove-c851bdf8d3127a24e2d137a55b1b427378cd17385b01aec6e59d5d4b5f39d2ec.png",
-                    "https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg"
-                ),
-                Blog(
-                    2,
-                    "akapolix",
-                    "10.10.2010",
-                    "LoremIpsum LoremIpsum LoremIpsum LoremIpsum LoremIpsum ",
-                    "https://static.remove.bg/remove-bg-web/e88d40fe6b242c5a4872a70c3c93599d93563581/assets/start_remove-c851bdf8d3127a24e2d137a55b1b427378cd17385b01aec6e59d5d4b5f39d2ec.png",
-                    null
-                ),
-                Blog(
-                    3,
-                    "akapolix",
-                    "10.10.2010",
-                    "LoremIpsum LoremIpsum LoremIpsum LoremIpsum LoremIpsum ",
-                    "https://static.remove.bg/remove-bg-web/e88d40fe6b242c5a4872a70c3c93599d93563581/assets/start_remove-c851bdf8d3127a24e2d137a55b1b427378cd17385b01aec6e59d5d4b5f39d2ec.png",
-                    "https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg"
-                ),
-                Blog(
-                    4,
-                    "akapolix",
-                    "10.10.2010",
-                    "LoremIpsum LoremIpsum LoremIpsum LoremIpsum LoremIpsum ",
-                    "https://static.remove.bg/remove-bg-web/e88d40fe6b242c5a4872a70c3c93599d93563581/assets/start_remove-c851bdf8d3127a24e2d137a55b1b427378cd17385b01aec6e59d5d4b5f39d2ec.png",
-                    "https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg"
-                ),
-            )
-        )
+    fun loadData() {
+        diaryRepository.getPublicBlogs()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                when (it) {
+                    is BlogInResult.Success -> {
+                        _state.value = State(it.data)
+                    }
+                    is BlogInResult.Error -> {
+                        _error.value = "Не удалось получить ваши посты"
+                    }
+                }
+            }, {
+                Timber.e(TAG, it)
+            })
+    }
+
+    fun deleteBlog(blog: Blog) {
+        diaryRepository.deleteBlog(blog.id)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                when (it) {
+                    is BlogInResult.Success -> {
+                        loadData()
+                        _error.value = "Блог успешно удалён"
+                    }
+                    is BlogInResult.Error -> {
+                        _error.value = "Не удалось получить ваши посты"
+                    }
+                }
+            }, {
+                Timber.e(TAG, it)
+            })
+    }
+
+    fun editBlog(blog: Blog) {
+        router.navigateToPostFragment(true, true, blog)
     }
 
     fun openPostFragment(isEdit: Boolean) {
@@ -59,4 +72,8 @@ class UserBlogViewModel(private val router: DiaryRouter) : ViewModel() {
     }
 
     data class State(val blogs: List<Blog>)
+
+    companion object {
+        private val TAG = UserBlogViewModel::class.simpleName
+    }
 }

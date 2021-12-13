@@ -1,3 +1,3 @@
 package ru.spbstu.search.search.domain
 
-data class SearchResult(val id: Long, val name: String)
+data class SearchResult(val userId: Long, val name: String)

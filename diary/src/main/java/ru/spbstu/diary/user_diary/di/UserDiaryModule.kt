@@ -7,6 +7,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap
 import ru.spbstu.diary.DiaryRouter
+import ru.spbstu.diary.repository.DiaryRepository
 import ru.spbstu.diary.user_diary.presentation.UserDiaryViewModel
 import studio.clapp.common.di.viewmodel.ViewModelKey
 import studio.clapp.common.di.viewmodel.ViewModelModule
@@ -20,8 +21,8 @@ class UserDiaryModule {
     @Provides
     @IntoMap
     @ViewModelKey(UserDiaryViewModel::class)
-    fun provideViewModel(router: DiaryRouter): ViewModel {
-        return UserDiaryViewModel(router)
+    fun provideViewModel(router: DiaryRouter, diaryRepository: DiaryRepository): ViewModel {
+        return UserDiaryViewModel(router, diaryRepository)
     }
 
     @Provides

@@ -1,27 +1,16 @@
 package ru.spbstu.profile.di
 
 import dagger.Module
+import dagger.Provides
+import ru.spbstu.common.api.Api
+import ru.spbstu.common.di.scope.FeatureScope
+import ru.spbstu.common.tokens.TokensRepository
+import ru.spbstu.profile.repository.ProfileRepository
 
 @Module
-abstract class ProfileDataModule {
-    /*@Binds
+class ProfileDataModule {
+    @Provides
     @FeatureScope
-    abstract fun bindFeatureRepository(featureRepositoryImpl: FeatureRepositoryImpl): FeatureRepository
-
-    @Binds
-    @FeatureScope
-    abstract fun bindFeatureDataSource(featureDataSourceImpl: FeatureDataSourceImpl): FeatureDataSource
-
-    companion object {
-        @Provides
-        @FeatureScope
-        fun provideFeatureApiService(retrofit: Retrofit): FeatureApiService =
-            retrofit.create(FeatureApiService::class.java)
-
-        @Provides
-        @FeatureScope
-        fun provideDataWrapper(): FinancesClassesDataWrapper {
-            return FinancesClassesDataWrapper()
-        }
-    }*/
+    fun provideProfileRepository(api: Api, tokensRepository: TokensRepository): ProfileRepository =
+        ProfileRepository(api, tokensRepository)
 }

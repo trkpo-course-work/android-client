@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.filterNotNull
@@ -23,7 +24,11 @@ class FavoritesFragment : Fragment() {
     @Inject
     lateinit var viewModel: FavoritesViewModel
 
-    private val adapter: FavoritesAdapter = FavoritesAdapter()
+    private val adapter: FavoritesAdapter = FavoritesAdapter({
+        viewModel.openUserProfile(it)
+    }, {
+        viewModel.deleteFromFavorite(it)
+    })
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,6 +47,14 @@ class FavoritesFragment : Fragment() {
                 adapter.bingData(it.favorites)
             }
         }
+
+        lifecycleScope.launch {
+            viewModel.error.filterNotNull().collect {
+                Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        viewModel.loadData()
     }
 
     private fun inject() {

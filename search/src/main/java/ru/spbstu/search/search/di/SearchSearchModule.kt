@@ -7,6 +7,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap
 import ru.spbstu.search.SearchRouter
+import ru.spbstu.search.repository.SearchRepository
 import ru.spbstu.search.search.presentation.SearchViewModel
 import studio.clapp.common.di.viewmodel.ViewModelKey
 import studio.clapp.common.di.viewmodel.ViewModelModule
@@ -20,8 +21,8 @@ class SearchSearchModule {
     @Provides
     @IntoMap
     @ViewModelKey(SearchViewModel::class)
-    fun provideViewModel(searchRouter: SearchRouter): ViewModel {
-        return SearchViewModel(searchRouter)
+    fun provideViewModel(searchRouter: SearchRouter, searchRepository: SearchRepository): ViewModel {
+        return SearchViewModel(searchRouter, searchRepository)
     }
 
     @Provides

@@ -10,6 +10,7 @@ import dagger.Provides
 import dagger.multibindings.IntoMap
 import ru.spbstu.profile.ProfileRouter
 import ru.spbstu.profile.edit_profile.presentation.EditProfileViewModel
+import ru.spbstu.profile.repository.ProfileRepository
 import studio.clapp.common.di.viewmodel.ViewModelKey
 import studio.clapp.common.di.viewmodel.ViewModelModule
 
@@ -24,9 +25,10 @@ class EditProfileModule {
     @ViewModelKey(EditProfileViewModel::class)
     fun provideViewModel(
         router: ProfileRouter,
-        contentResolver: ContentResolver
+        contentResolver: ContentResolver,
+        profileRepository: ProfileRepository
     ): ViewModel {
-        return EditProfileViewModel(router, contentResolver)
+        return EditProfileViewModel(router, contentResolver, profileRepository)
     }
 
     @Provides

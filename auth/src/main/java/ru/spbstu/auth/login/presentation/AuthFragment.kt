@@ -98,10 +98,10 @@ class AuthFragment : Fragment() {
                         ).show()
                         return@setDebounceClickListener
                     }
-                    if (login == null || login.isEmpty()) {
+                    if (login == null || login.isEmpty() || login.length < 3) {
                         Toast.makeText(
                             requireContext(),
-                            "Логин не может быть пустым",
+                            "Логин не может быть пустым и меньше 3х символов",
                             Toast.LENGTH_SHORT
                         ).show()
                         return@setDebounceClickListener

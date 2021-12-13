@@ -16,10 +16,15 @@
         <entry key="..\:/Users/anurt/AndroidStudioProjects/BlogIn/common/src/main/res/drawable/drawable_fab.xml" value="0.2703125" />
         <entry key="..\:/Users/anurt/AndroidStudioProjects/BlogIn/common/src/main/res/drawable/ic_plus_35.xml" value="0.2703125" />
         <entry key="..\:/Users/anurt/AndroidStudioProjects/BlogIn/common/src/main/res/drawable/ic_profile_30.xml" value="0.26615384615384613" />
+        <entry key="..\:/Users/anurt/AndroidStudioProjects/BlogIn/common/src/main/res/drawable/ic_search_30.xml" value="0.2703125" />
         <entry key="..\:/Users/anurt/AndroidStudioProjects/BlogIn/common/src/main/res/drawable/ic_unknown_user_30.xml" value="0.26615384615384613" />
         <entry key="..\:/Users/anurt/AndroidStudioProjects/BlogIn/common/src/main/res/drawable/item_decoration_drawable.xml" value="0.26615384615384613" />
+        <entry key="..\:/Users/anurt/AndroidStudioProjects/BlogIn/common/src/main/res/drawable/menu_background.xml" value="0.2703125" />
+        <entry key="..\:/Users/anurt/AndroidStudioProjects/BlogIn/common/src/main/res/drawable/placeholder_drawable.xml" value="0.2703125" />
+        <entry key="..\:/Users/anurt/AndroidStudioProjects/BlogIn/common/src/main/res/layout/empty_posts.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/anurt/AndroidStudioProjects/BlogIn/common/src/main/res/layout/menu_background.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/anurt/AndroidStudioProjects/BlogIn/diary/src/main/res/layout/fragment_diary.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/anurt/AndroidStudioProjects/BlogIn/diary/src/main/res/layout/fragment_post.xml" value="0.1" />
+        <entry key="..\:/Users/anurt/AndroidStudioProjects/BlogIn/diary/src/main/res/layout/fragment_post.xml" value="0.25630676084762866" />
         <entry key="..\:/Users/anurt/AndroidStudioProjects/BlogIn/diary/src/main/res/layout/fragment_user_blog.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/anurt/AndroidStudioProjects/BlogIn/diary/src/main/res/layout/fragment_user_diary.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/anurt/AndroidStudioProjects/BlogIn/diary/src/main/res/layout/item_note.xml" value="0.25416666666666665" />

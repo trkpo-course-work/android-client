@@ -1,27 +1,15 @@
 package ru.spbstu.search.di
 
 import dagger.Module
+import dagger.Provides
+import ru.spbstu.common.api.Api
+import ru.spbstu.common.di.scope.FeatureScope
+import ru.spbstu.search.repository.SearchRepository
 
 @Module
-abstract class SearchDataModule {
-    /*@Binds
+class SearchDataModule {
+    @Provides
     @FeatureScope
-    abstract fun bindFeatureRepository(featureRepositoryImpl: FeatureRepositoryImpl): FeatureRepository
-
-    @Binds
-    @FeatureScope
-    abstract fun bindFeatureDataSource(featureDataSourceImpl: FeatureDataSourceImpl): FeatureDataSource
-
-    companion object {
-        @Provides
-        @FeatureScope
-        fun provideFeatureApiService(retrofit: Retrofit): FeatureApiService =
-            retrofit.create(FeatureApiService::class.java)
-
-        @Provides
-        @FeatureScope
-        fun provideDataWrapper(): FinancesClassesDataWrapper {
-            return FinancesClassesDataWrapper()
-        }
-    }*/
+    fun provideSearchRepository(api: Api): SearchRepository =
+        SearchRepository(api)
 }

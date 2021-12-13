@@ -8,6 +8,7 @@ import dagger.Provides
 import dagger.multibindings.IntoMap
 import ru.spbstu.wall.WallRouter
 import ru.spbstu.wall.blog.presentation.BlogViewModel
+import ru.spbstu.wall.repository.WallRepository
 import studio.clapp.common.di.viewmodel.ViewModelKey
 import studio.clapp.common.di.viewmodel.ViewModelModule
 
@@ -20,8 +21,8 @@ class BlogModule {
     @Provides
     @IntoMap
     @ViewModelKey(BlogViewModel::class)
-    fun provideViewModel(wallRouter: WallRouter): ViewModel {
-        return BlogViewModel(wallRouter)
+    fun provideViewModel(wallRouter: WallRouter, wallRepository: WallRepository): ViewModel {
+        return BlogViewModel(wallRouter, wallRepository)
     }
 
     @Provides

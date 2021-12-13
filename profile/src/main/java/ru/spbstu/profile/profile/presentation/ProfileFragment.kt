@@ -2,6 +2,7 @@ package ru.spbstu.profile.profile.presentation
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
@@ -11,6 +12,7 @@ import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 import ru.spbstu.common.di.FeatureUtils
 import ru.spbstu.common.extensions.setDebounceClickListener
+import ru.spbstu.common.utils.PictureUrlHelper
 import ru.spbstu.profile.R
 import ru.spbstu.profile.databinding.FragmentProfileBinding
 import ru.spbstu.profile.di.ProfileApi
@@ -24,6 +26,9 @@ class ProfileFragment : Fragment() {
 
     @Inject
     lateinit var viewModel: ProfileViewModel
+
+    @Inject
+    lateinit var pictureUrlHelper: PictureUrlHelper
 
 
     override fun onCreateView(
@@ -40,6 +45,7 @@ class ProfileFragment : Fragment() {
         binding.frgProfileTvFavorites.setDebounceClickListener {
             viewModel.openFavorites()
         }
+        viewModel.loadData()
         return binding.root
     }
 
@@ -49,9 +55,11 @@ class ProfileFragment : Fragment() {
             viewModel.state.filterNotNull().collect {
                 binding.frgProfileTvName.text = it.profile.name
                 binding.frgProfileTvLogin.text = it.profile.login
-                if (it.profile.avatarUrl != null) {
+                val pictureId = it.profile.pictureId
+                if (pictureId != null) {
+                    val pictureUrl = pictureUrlHelper.getPictureUrl(pictureId)
                     Glide.with(binding.root)
-                        .load(it.profile.avatarUrl)
+                        .load(pictureUrl)
                         .centerCrop()
                         .into(binding.frgProfileIvAvatar)
                     binding.frgProfileIvAvatarStub.visibility = View.GONE
@@ -62,6 +70,12 @@ class ProfileFragment : Fragment() {
                         .into(binding.frgProfileIvAvatar)
                     binding.frgProfileIvAvatarStub.visibility = View.VISIBLE
                 }
+            }
+        }
+
+        lifecycleScope.launch {
+            viewModel.error.filterNotNull().collect {
+                Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -81,9 +95,11 @@ class ProfileFragment : Fragment() {
                 true
             }
             R.id.exit -> {
+                viewModel.logout()
                 true
             }
             R.id.delete -> {
+                viewModel.delete()
                 true
             }
             else -> false

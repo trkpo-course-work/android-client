@@ -7,9 +7,17 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import ru.spbstu.common.domain.Blog
+import ru.spbstu.common.utils.PictureUrlHelper
+import ru.spbstu.common.utils.getSpannableText
 import ru.spbstu.diary.databinding.ItemNoteBinding
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
-class DiaryAdapter(private val onActionsClick: (View, Blog) -> Unit) : RecyclerView.Adapter<DiaryAdapter.NoteViewHolder>() {
+class DiaryAdapter(
+    private val urlHelper: PictureUrlHelper,
+    private val onActionsClick: (View, Blog) -> Unit
+) : RecyclerView.Adapter<DiaryAdapter.NoteViewHolder>() {
     private val notes: ArrayList<Blog> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
@@ -24,9 +32,9 @@ class DiaryAdapter(private val onActionsClick: (View, Blog) -> Unit) : RecyclerV
 
     fun bingData(newBlogs: List<Blog>) {
         val callback = BlogDiffUtilCallback(notes, newBlogs)
+        val diffResult = DiffUtil.calculateDiff(callback)
         notes.clear()
         notes.addAll(newBlogs)
-        val diffResult = DiffUtil.calculateDiff(callback)
         diffResult.dispatchUpdatesTo(this)
     }
 
@@ -36,17 +44,21 @@ class DiaryAdapter(private val onActionsClick: (View, Blog) -> Unit) : RecyclerV
 
     override fun getItemCount(): Int = notes.size
 
+    private val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+
     inner class NoteViewHolder(private val binding: ItemNoteBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(blog: Blog) {
-            binding.itemNoteTvDate.text = blog.date
-            binding.itemNoteTvNote.text = blog.post
+            binding.itemNoteTvDate.text = dateFormat.format(blog.dateTime)
+            binding.itemNoteTvNote.text = getSpannableText(blog.spans, blog.text)
 
-            if (blog.photoUrl != null) {
+            val pictureId = blog.pictureId
+            if (pictureId != null) {
                 binding.itemNoteIvImage.visibility = View.VISIBLE
                 Glide.with(binding.root)
-                    .load(blog.photoUrl)
+                    .load(urlHelper.getPictureUrl(pictureId))
                     .centerCrop()
+                    .placeholder(R.drawable.placeholder_drawable)
                     .into(binding.itemNoteIvImage)
             } else {
                 binding.itemNoteIvImage.visibility = View.GONE

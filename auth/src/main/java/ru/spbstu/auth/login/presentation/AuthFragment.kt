@@ -73,8 +73,27 @@ class AuthFragment : Fragment() {
             when (viewModel.authState.value) {
                 AuthViewModel.AuthState.LOGIN -> {
                     val login = loginBinding.layoutLoginEtLogin.text?.toString()?.trim()
+                    if (login == null || login.isEmpty() || login.length < 3 || !login.matches(Regex("^[[A-Za-z][А-ЯЁ][-А-яЁё][0-9]_]*$"))) {
+                        Toast.makeText(
+                            requireContext(),
+                            "Логин не подходит. Длина должна быть не меньше трёх. Допускаются кириллические и латинские буквы, цифры и нижнее подчеркивание",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        return@setDebounceClickListener
+                    }
                     val password = loginBinding.layoutLoginEtPassword.text?.toString()?.trim()
-                    if (login?.isNotEmpty() == true && password?.isNotEmpty() == true) {
+                    if (password == null || password.length < AuthViewModel.PASSWORD_MIN_LENGTH || !password.matches(
+                            Regex("^[[A-Za-z][А-ЯЁ][-А-яЁё][_@#$%][0-9]]*$")
+                        )
+                    ) {
+                        Toast.makeText(
+                            requireContext(),
+                            "Пароль не подходит. Длина не может быть меньше ${AuthViewModel.PASSWORD_MIN_LENGTH}. Допускаются кириллические и латинские буквы, цифры и символы _@#\$%",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        return@setDebounceClickListener
+                    }
+                    if (login.isNotEmpty() && password.isNotEmpty()) {
                         viewModel.login(login, password)
                     } else {
                         Toast.makeText(
@@ -90,18 +109,18 @@ class AuthFragment : Fragment() {
                     val email = signinBinding.layoutSigninEtEmail.text?.toString()?.trim()
                     val pass = signinBinding.layoutSigninEtPassword.text?.toString()?.trim()
                     val confPass = signinBinding.layoutSigninEtPasswordConf.text?.toString()?.trim()
-                    if (name == null || name.isEmpty()) {
+                    if (name == null || name.isEmpty() || !name.matches(Regex("^[[A-Za-z][А-ЯЁ][-А-яЁё]\\s]*$"))) {
                         Toast.makeText(
                             requireContext(),
-                            "Имя не может быть пустым",
+                            "Имя не подходит. Длина должна быть не меньше одного. Допускаются кириллические и латинские буквы, пробелы",
                             Toast.LENGTH_SHORT
                         ).show()
                         return@setDebounceClickListener
                     }
-                    if (login == null || login.isEmpty() || login.length < 3) {
+                    if (login == null || login.isEmpty() || login.length < 3 || !login.matches(Regex("^[[A-Za-z][А-ЯЁ][-А-яЁё][0-9]_]*$"))) {
                         Toast.makeText(
                             requireContext(),
-                            "Логин не может быть пустым и меньше 3х символов",
+                            "Логин не подходит. Длина должна быть не меньше трёх. Допускаются кириллические и латинские буквы, цифры и нижнее подчеркивание",
                             Toast.LENGTH_SHORT
                         ).show()
                         return@setDebounceClickListener
@@ -111,10 +130,13 @@ class AuthFragment : Fragment() {
                             .show()
                         return@setDebounceClickListener
                     }
-                    if (pass == null || pass.length < AuthViewModel.PASSWORD_MIN_LENGTH || pass != confPass) {
+                    if (pass == null || pass.length < AuthViewModel.PASSWORD_MIN_LENGTH || pass != confPass || !pass.matches(
+                            Regex("^[[A-Za-z][А-ЯЁ][-А-яЁё][_@#$%][0-9]]*$")
+                        )
+                    ) {
                         Toast.makeText(
                             requireContext(),
-                            "Пароли не совпадают или длина пароля меньше ${AuthViewModel.PASSWORD_MIN_LENGTH}",
+                            "Пароли не подходят или не совпадают. Длина не может быть меньше ${AuthViewModel.PASSWORD_MIN_LENGTH}. Допускаются кириллические и латинские буквы, цифры и символы _@#\$%",
                             Toast.LENGTH_SHORT
                         ).show()
                         return@setDebounceClickListener
@@ -152,7 +174,18 @@ class AuthFragment : Fragment() {
                         newPasswordBinding.layoutNewPasswordEmailEtPassword.text?.toString()?.trim()
                     val confPass =
                         newPasswordBinding.layoutNewPasswordEmailEtConf.text?.toString()?.trim()
-                    if (newPass != null && confPass != null && newPass.length >= AuthViewModel.PASSWORD_MIN_LENGTH && newPass == confPass) {
+                    if (newPass == null || newPass.length < AuthViewModel.PASSWORD_MIN_LENGTH || newPass != confPass || !newPass.matches(
+                            Regex("^[[A-Za-z][А-ЯЁ][-А-яЁё][_@#$%][0-9]]*$")
+                        )
+                    ) {
+                        Toast.makeText(
+                            requireContext(),
+                            "Пароли не подходят или не совпадают. Длина не может быть меньше ${AuthViewModel.PASSWORD_MIN_LENGTH}. Допускаются кириллические и латинские буквы, цифры и символы _@#\$%",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        return@setDebounceClickListener
+                    }
+                    if (newPass.length >= AuthViewModel.PASSWORD_MIN_LENGTH && newPass == confPass) {
                         viewModel.setNewPassword(newPass)
                     } else {
                         Toast.makeText(

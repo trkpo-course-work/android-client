@@ -107,6 +107,7 @@
                 android:gravity="center_vertical"
                 android:hint="@string/password"
                 android:inputType="textPassword"
+                android:maxLength="20"
                 android:paddingHorizontal="@dimen/auth_et_padding_horizontal"
                 android:textColor="@color/black"
                 android:textColorHint="@color/text_secondary" />
@@ -132,6 +133,7 @@
                 android:gravity="center_vertical"
                 android:hint="@string/password_conf"
                 android:inputType="textPassword"
+                android:maxLength="20"
                 android:paddingHorizontal="@dimen/auth_et_padding_horizontal"
                 android:textColor="@color/black"
                 android:textColorHint="@color/text_secondary" />

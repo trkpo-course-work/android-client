@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
@@ -99,7 +100,16 @@ class ProfileFragment : Fragment() {
                 true
             }
             R.id.delete -> {
-                viewModel.delete()
+                MaterialAlertDialogBuilder(requireContext())
+                    .setTitle("Удаление профиля")
+                    .setMessage("Вы действительно хотите удалить ваш профиль?")
+                    .setPositiveButton("Да") { _, _ ->
+                        viewModel.delete()
+                    }
+                    .setNegativeButton("Нет") { dialog, _ ->
+                        dialog.dismiss()
+                    }
+                    .show()
                 true
             }
             else -> false

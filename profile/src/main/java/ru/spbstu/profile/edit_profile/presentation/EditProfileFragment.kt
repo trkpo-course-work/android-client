@@ -53,13 +53,13 @@ class EditProfileFragment : Fragment() {
         binding.frgEditProfileIbActions.setDebounceClickListener {
             var name = binding.frgEditProfileEtName.text?.toString()?.trim()
             var nameChange = true
-            if (name == null || name.isEmpty()) {
+            if (name == null || name.isEmpty() || !name.matches(Regex("^[[A-Za-z][А-ЯЁ][-А-яЁё]\\s]*$"))) {
                 name = viewModel.state.value?.profile?.name ?: return@setDebounceClickListener
                 nameChange = false
             }
             var login = binding.frgEditProfileEtLogin.text?.toString()?.trim()
             var loginChange = true
-            if (login == null || login.isEmpty()) {
+            if (login == null || login.isEmpty() || !login.matches(Regex("^[[A-Za-z][А-ЯЁ][-А-яЁё][0-9]_]*$"))) {
                 login = viewModel.state.value?.profile?.login ?: return@setDebounceClickListener
                 loginChange = false
             }
@@ -68,7 +68,9 @@ class EditProfileFragment : Fragment() {
             val confPass = binding.frgEditProfileEtConfNewPass.text?.toString()?.trim()
             var passChange = true
             if (newPass == null || newPass.isEmpty() || confPass == null || confPass.isEmpty() || newPass != confPass || oldPass == null || oldPass.isEmpty()
-            ) {
+                || !newPass.matches(
+                    Regex("^[[A-Za-z][А-ЯЁ][-А-яЁё][_@#$%][0-9]]*$")
+                )) {
                 passChange = false
             }
             if (!nameChange && !loginChange && !passChange) {

@@ -50,7 +50,7 @@ class NetworkModule {
             val request = requestBuilder.build()
             var response = chain.proceed(request)
             Timber.tag(TAG).i("Processed request(no tokens)=$original, response=$response")
-            if (response.code == 401 && !original.url.toString().contains("auth")) {
+            if ((response.code == 401 || response.code == 403) && !original.url.toString().contains("auth")) {
                 val refreshToken: RefreshToken? = tokenRepository.getRefresh()
                 val authRequest = request.newBuilder()
                     .post(gson.toJson(refreshToken).toRequestBody())

@@ -44,7 +44,7 @@ class UserProfileViewModel(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                when(it){
+                when (it) {
                     is BlogInResult.Success -> {
                         _state.value = State(it.data)
                     }
@@ -60,9 +60,10 @@ class UserProfileViewModel(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                when(it){
+                when (it) {
                     is BlogInResult.Success -> {
-                        _posts.value = it.data
+                        _posts.value =
+                            it.data.filter { !it.isPrivate }.sortedBy { it.dateTime }.reversed()
                     }
                     is BlogInResult.Error -> {
                         _error.value = "Не удалось получить посты пользователя"
@@ -80,7 +81,7 @@ class UserProfileViewModel(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                when(it){
+                when (it) {
                     is BlogInResult.Success -> {
                         _isFavorite.value = it.data
                     }
@@ -100,7 +101,7 @@ class UserProfileViewModel(
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    when(it){
+                    when (it) {
                         is BlogInResult.Success -> {
                             loadFavorite()
                         }
@@ -116,7 +117,7 @@ class UserProfileViewModel(
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    when(it){
+                    when (it) {
                         is BlogInResult.Success -> {
                             loadFavorite()
                         }
@@ -128,6 +129,10 @@ class UserProfileViewModel(
                     Timber.d(TAG, "changeFavoriteState: $it")
                 })
         }
+    }
+
+    fun back() {
+        router.pop()
     }
 
     override fun onCleared() {

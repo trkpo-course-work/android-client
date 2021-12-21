@@ -10,7 +10,7 @@ class SearchRepository(private val api: Api) {
     fun getSearchResults(): Single<BlogInResult<List<SearchResult>>> {
         return api.getUsers().map {
             if (it.isSuccessful) {
-                BlogInResult.Success(it.body()!!.map { SearchResult(it.id, it.name) })
+                BlogInResult.Success(it.body()!!.map { SearchResult(it.id, it.name, it.login) })
             } else {
                 BlogInResult.Error(UNKNOWN_ERROR)
             }

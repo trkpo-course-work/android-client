@@ -58,6 +58,9 @@ class UserProfileFragment : Fragment() {
                     return true
                 }
             }
+        binding.frgUserProfileIvBack.setDebounceClickListener {
+            viewModel.back()
+        }
         return binding.root
     }
 

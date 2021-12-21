@@ -33,7 +33,7 @@ class UserBlogViewModel(
             .subscribe({
                 when (it) {
                     is BlogInResult.Success -> {
-                        _state.value = State(it.data)
+                        _state.value = State(it.data.sortedBy { it.dateTime }.reversed())
                     }
                     is BlogInResult.Error -> {
                         _error.value = "Не удалось получить ваши посты"
@@ -52,7 +52,6 @@ class UserBlogViewModel(
                 when (it) {
                     is BlogInResult.Success -> {
                         loadData()
-                        _error.value = "Блог успешно удалён"
                     }
                     is BlogInResult.Error -> {
                         _error.value = "Не удалось получить ваши посты"

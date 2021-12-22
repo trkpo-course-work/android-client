@@ -79,6 +79,7 @@ class Navigator : RootRouter, AuthRouter, WallRouter, SearchRouter, ProfileRoute
     }
 
     fun goToLogin() {
-        navController?.navigate(R.id.action_mainFragment_to_loginFragment)
+        while (navController?.popBackStack() == true) {}
+        navController?.navigate(R.id.loginFragment)
     }
 }

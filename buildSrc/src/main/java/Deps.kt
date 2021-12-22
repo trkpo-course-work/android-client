@@ -24,6 +24,7 @@ object Deps {
     private val livedataKtx by lazy { "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifecycleKtx}" }
     private val viewModelKtx by lazy { "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycleKtx}" }
     private val fragmentKtx by lazy { "androidx.navigation:navigation-fragment-ktx:${Versions.navigationKtx}" }
+    private val runtimeNavKtx by lazy { "androidx.navigation:navigation-runtime-ktx:${Versions.navigationKtx}" }
     private val uiKtx by lazy { "androidx.navigation:navigation-ui-ktx:${Versions.navigationKtx}" }
     private val legacySupport by lazy { "androidx.legacy:legacy-support-v4:1.0.0" }
     private val glide by lazy { "com.github.bumptech.glide:glide:4.12.0" }
@@ -50,6 +51,7 @@ object Deps {
         add(livedataKtx)
         add(viewModelKtx)
         add(fragmentKtx)
+        add(runtimeNavKtx)
         add(uiKtx)
         add(materialDesign)
         add(timber)

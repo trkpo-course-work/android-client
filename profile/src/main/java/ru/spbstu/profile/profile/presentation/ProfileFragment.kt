@@ -96,7 +96,16 @@ class ProfileFragment : Fragment() {
                 true
             }
             R.id.exit -> {
-                viewModel.logout()
+                MaterialAlertDialogBuilder(requireContext())
+                    .setTitle("Выход")
+                    .setMessage("Вы действительно хотите выйти?")
+                    .setPositiveButton("Да") { _, _ ->
+                        viewModel.logout()
+                    }
+                    .setNegativeButton("Нет") { dialog, _ ->
+                        dialog.dismiss()
+                    }
+                    .show()
                 true
             }
             R.id.delete -> {

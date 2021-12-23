@@ -23,5 +23,6 @@ object Versions {
     const val rxJava3 = "3.0.0"
     const val security = "1.1.0-alpha01"
     const val rxKotlin = "3.0.1"
+    const val markwonVersion = "4.6.2"
 
 }

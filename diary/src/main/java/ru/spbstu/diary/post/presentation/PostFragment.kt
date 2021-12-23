@@ -4,6 +4,8 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.*
 import android.widget.TextView
 import android.widget.Toast
@@ -16,6 +18,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
+import org.commonmark.parser.Parser
 import ru.spbstu.common.api.model.toSpanType
 import ru.spbstu.common.di.FeatureUtils
 import ru.spbstu.common.domain.Blog
@@ -39,6 +42,9 @@ class PostFragment : Fragment(), ActionMode.Callback {
 
     @Inject
     lateinit var pictureUrlHelper: PictureUrlHelper
+
+    @Inject
+    lateinit var parser: Parser
 
     lateinit var mode: Mode
 
@@ -94,6 +100,18 @@ class PostFragment : Fragment(), ActionMode.Callback {
             }
             viewModel.onFinishClick(postText)
         }
+        binding.frgPostEtPost.addTextChangedListener(object: TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                binding.frgPostEtPostPreview.text = getSpannableText(parser, requireContext(), p0?.toString() ?: "")
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+            }
+
+        })
         return binding.root
     }
 
@@ -106,9 +124,10 @@ class PostFragment : Fragment(), ActionMode.Callback {
                 viewModel.addSpans(blog.spans!!)
             }
             binding.frgPostEtPost.setText(
-                getSpannableText(blog.spans, blog.text),
+                blog.text,
                 TextView.BufferType.EDITABLE
             )
+            binding.frgPostEtPostPreview.text = getSpannableText(parser, requireContext(), blog.text)
             val pictureId = blog.pictureId
             if (pictureId != null) {
                 viewModel.savePhoto(pictureUrlHelper.getPictureUrl(pictureId).toStringUrl(), requireContext())
@@ -145,16 +164,17 @@ class PostFragment : Fragment(), ActionMode.Callback {
             }
         }
 
-        lifecycleScope.launch {
-            viewModel.spans.filterNotNull().collect {
+        /*lifecycleScope.launch {
+            viewModel.markdownTimer.collect {
                 binding.frgPostEtPost.setText(
                     getSpannableText(
-                        it,
+                        parser,
+                        requireContext(),
                         binding.frgPostEtPost.text?.toString() ?: ""
                     ), TextView.BufferType.EDITABLE
                 )
             }
-        }
+        }*/
 
         lifecycleScope.launch {
             viewModel.buttonsState.collect {
@@ -183,7 +203,7 @@ class PostFragment : Fragment(), ActionMode.Callback {
     data class Mode(val isBlog: Boolean, val isEdit: Boolean, val post: Blog? = null) : Parcelable
 
     override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
-        requireActivity().menuInflater.inflate(R.menu.text_selection_menu, menu)
+//        requireActivity().menuInflater.inflate(R.menu.text_selection_menu, menu)
         return true
     }
 

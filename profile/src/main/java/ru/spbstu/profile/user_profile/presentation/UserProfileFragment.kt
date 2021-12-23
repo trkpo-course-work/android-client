@@ -14,6 +14,7 @@ import com.google.android.material.appbar.AppBarLayout
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
+import org.commonmark.parser.Parser
 import ru.spbstu.common.databinding.EmptyPostsBinding
 import ru.spbstu.common.di.FeatureUtils
 import ru.spbstu.common.extensions.setDebounceClickListener
@@ -39,6 +40,9 @@ class UserProfileFragment : Fragment() {
     @Inject
     lateinit var pictureUrlHelper: PictureUrlHelper
 
+    @Inject
+    lateinit var parser: Parser
+
     private lateinit var adapter: BlogAdapter
 
     override fun onCreateView(
@@ -46,7 +50,7 @@ class UserProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         inject()
-        adapter = BlogAdapter(pictureUrlHelper)
+        adapter = BlogAdapter(pictureUrlHelper, parser)
         _binding = FragmentUserProfileBinding.inflate(inflater, container, false)
         _emptyBinding = EmptyPostsBinding.bind(binding.root)
         viewModel.userId = requireArguments().getLong(ID_KEY)

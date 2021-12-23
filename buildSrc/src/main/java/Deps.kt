@@ -42,6 +42,7 @@ object Deps {
     private val gsonConverter by lazy { "com.squareup.retrofit2:converter-gson:${Versions.retrofit}" }
     private val security by lazy { "androidx.security:security-crypto:${Versions.security}" }
     private val rxKotlin by lazy { "io.reactivex.rxjava3:rxkotlin:${Versions.rxKotlin}" }
+    private val markdown by lazy { "io.noties.markwon:core:${Versions.markwonVersion}" }
 
     val appLibraries = arrayListOf<String>().apply {
         add(kotlinStdLib)
@@ -64,6 +65,7 @@ object Deps {
         add(security)
         add(rxKotlin)
         add(retrofit)
+        add(markdown)
     }
 
     val network = arrayListOf<String>().apply {

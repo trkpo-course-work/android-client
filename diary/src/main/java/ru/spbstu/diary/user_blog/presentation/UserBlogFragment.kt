@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
+import org.commonmark.parser.Parser
 import ru.spbstu.common.di.FeatureUtils
 import ru.spbstu.common.extensions.setDebounceClickListener
 import ru.spbstu.common.utils.PictureUrlHelper
@@ -35,6 +36,9 @@ class UserBlogFragment : Fragment() {
     @Inject
     lateinit var pictureUrlHelper: PictureUrlHelper
 
+    @Inject
+    lateinit var parser: Parser
+
     private lateinit var adapter: DiaryAdapter
 
     @Inject
@@ -47,7 +51,7 @@ class UserBlogFragment : Fragment() {
         inject()
         _binding = FragmentUserBlogBinding.inflate(inflater, container, false)
         _postsBinding = LayoutUserNotesBinding.bind(binding.root)
-        adapter = DiaryAdapter(pictureUrlHelper) { v, blog ->
+        adapter = DiaryAdapter(pictureUrlHelper, parser) { v, blog ->
             val menu = PopupMenu(requireContext(), v)
             menu.menuInflater.inflate(R.menu.menu_post_actions, menu.menu)
             menu.setOnMenuItemClickListener { menuItem ->

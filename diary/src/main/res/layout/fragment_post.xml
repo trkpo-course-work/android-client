@@ -69,7 +69,6 @@
                 android:gravity="start|top"
                 android:hint="Введите текст..."
                 android:inputType="textMultiLine|textCapSentences|textLongMessage"
-                android:maxLength="280"
                 android:minHeight="200dp"
                 android:minLines="1"
                 android:overScrollMode="always"
@@ -82,6 +81,41 @@
                 app:layout_constraintHeight_min="200dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                tools:text="321321312dmlsasakdsakldsa" />
+
+            <View
+                android:id="@+id/frg_post__divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray"
+                app:layout_constraintTop_toBottomOf="@id/frg_post__et_post" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/frg_post__preview_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="8dp"
+                android:text="Превью"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/frg_post__divider" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/frg_post__et_post_preview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:gravity="start|top"
+                android:overScrollMode="always"
+                android:paddingHorizontal="8dp"
+                android:paddingBottom="32dp"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_min="200dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/frg_post__preview_title"
                 tools:text="321321312dmlsasakdsakldsa" />
 
             <com.google.android.material.button.MaterialButton
@@ -100,7 +134,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/frg_post__et_post"
+                app:layout_constraintTop_toBottomOf="@id/frg_post__et_post_preview"
                 app:layout_constraintVertical_bias="1.0"
                 tools:visibility="visible" />
 
@@ -116,7 +150,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/frg_post__et_post"
+                app:layout_constraintTop_toBottomOf="@id/frg_post__et_post_preview"
                 tools:src="@tools:sample/avatars"
                 tools:visibility="visible" />
 

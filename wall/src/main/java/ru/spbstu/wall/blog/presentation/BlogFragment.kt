@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
+import org.commonmark.parser.Parser
 import ru.spbstu.common.di.FeatureUtils
 import ru.spbstu.common.extensions.setDebounceClickListener
 import ru.spbstu.common.utils.PictureUrlHelper
@@ -27,6 +28,9 @@ class BlogFragment : Fragment() {
     lateinit var viewModel: BlogViewModel
 
     @Inject
+    lateinit var parser: Parser
+
+    @Inject
     lateinit var pictureUrlHelper: PictureUrlHelper
 
     private lateinit var adapter: BlogAdapter
@@ -36,7 +40,7 @@ class BlogFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         inject()
-        adapter = BlogAdapter(pictureUrlHelper) {
+        adapter = BlogAdapter(pictureUrlHelper, parser) {
             viewModel.onUserAvatarClick(it)
         }
         _binding = FragmentBlogBinding.inflate(inflater, container, false)

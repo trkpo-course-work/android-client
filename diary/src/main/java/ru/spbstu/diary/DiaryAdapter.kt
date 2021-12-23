@@ -6,6 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import io.noties.markwon.Markwon
+import org.commonmark.parser.Parser
 import ru.spbstu.common.domain.Blog
 import ru.spbstu.common.utils.PictureUrlHelper
 import ru.spbstu.common.utils.getSpannableText
@@ -16,6 +18,7 @@ import kotlin.collections.ArrayList
 
 class DiaryAdapter(
     private val urlHelper: PictureUrlHelper,
+    private val parser: Parser,
     private val onActionsClick: (View, Blog) -> Unit
 ) : RecyclerView.Adapter<DiaryAdapter.NoteViewHolder>() {
     private val notes: ArrayList<Blog> = arrayListOf()
@@ -50,7 +53,7 @@ class DiaryAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(blog: Blog) {
             binding.itemNoteTvDate.text = dateFormat.format(blog.dateTime)
-            binding.itemNoteTvNote.text = getSpannableText(blog.spans, blog.text)
+            binding.itemNoteTvNote.text = getSpannableText(parser, itemView.context, blog.text)
 
             val pictureId = blog.pictureId
             if (pictureId != null) {

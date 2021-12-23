@@ -1,29 +1,18 @@
 package ru.spbstu.common.utils
 
+import android.content.Context
 import android.graphics.Typeface
 import android.text.Spannable
 import android.text.SpannableString
+import android.text.Spanned
 import android.text.style.StyleSpan
 import android.text.style.UnderlineSpan
+import io.noties.markwon.Markwon
+import io.noties.markwon.html.HtmlPlugin
+import org.commonmark.parser.Parser
 import ru.spbstu.common.api.model.SpanType
 import ru.spbstu.common.domain.Span
 
-fun getSpannableText(spans: List<Span>?, text: String): Spannable {
-    if (spans == null || spans.isEmpty()) return SpannableString(text)
-    val spannable = SpannableString(text)
-    spans.forEach {
-        if (it.end > text.length + 1) return spannable
-        when (it.type) {
-            SpanType.BOLD -> {
-                spannable.setSpan(StyleSpan(Typeface.BOLD), it.start, it.end, 1)
-            }
-            SpanType.UNDERLINE -> {
-                spannable.setSpan(UnderlineSpan(), it.start, it.end, 1)
-            }
-            SpanType.ITALIC -> {
-                spannable.setSpan(StyleSpan(Typeface.ITALIC), it.start, it.end, 1)
-            }
-        }
-    }
-    return spannable
+fun getSpannableText(parser: Parser, context: Context, text: String): Spanned {
+    return Markwon.builder(context).usePlugin(HtmlPlugin.create()).build().render(parser.parse(text.replace("\n", "  \n")))
 }

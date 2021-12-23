@@ -25,10 +25,8 @@ import timber.log.Timber
 import java.io.File
 import java.io.FileOutputStream
 import java.util.*
-import android.widget.Toast
 import java.io.OutputStream
 import java.lang.Exception
-
 
 class PostViewModel(
     private val router: DiaryRouter,

@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import org.commonmark.parser.Parser
 import ru.spbstu.common.domain.Blog
 import ru.spbstu.common.extensions.setDebounceClickListener
 import ru.spbstu.common.utils.PictureUrlHelper
@@ -18,6 +19,7 @@ import kotlin.collections.ArrayList
 
 class BlogAdapter(
     private val pictureUrlHelper: PictureUrlHelper,
+    private val parser: Parser,
     private val onUserAvatarClick: (Blog) -> Unit
 ) :
     RecyclerView.Adapter<BlogAdapter.BlogViewHolder>() {
@@ -64,7 +66,7 @@ class BlogAdapter(
 
             binding.itemPostTvDate.text = dateFormat.format(blog.dateTime)
             binding.itemPostTvName.text = blog.user.name
-            binding.itemPostTvPost.text = getSpannableText(blog.spans, blog.text)
+            binding.itemPostTvPost.text = getSpannableText(parser, itemView.context, blog.text)
 
             val pictureId = blog.pictureId
             if (pictureId != null) {

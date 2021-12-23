@@ -25,7 +25,13 @@ class SearchViewModel(
     private val disposable = CompositeDisposable()
 
     fun onNewText(text: CharSequence) {
-        _state.value = State(data.filter { it.name.contains(text, true) || it.login.contains(text, true) })
+        if (text.isBlank()) {
+            _state.value =
+                State(emptyList())
+        } else {
+            _state.value =
+                State(data.filter { it.name.contains(text, true) || it.login.contains(text, true) })
+        }
     }
 
     init {

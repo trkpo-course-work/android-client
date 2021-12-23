@@ -19,7 +19,6 @@ import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 import org.commonmark.parser.Parser
-import ru.spbstu.common.api.model.toSpanType
 import ru.spbstu.common.di.FeatureUtils
 import ru.spbstu.common.domain.Blog
 import ru.spbstu.common.extensions.setDebounceClickListener
@@ -95,17 +94,26 @@ class PostFragment : Fragment(), ActionMode.Callback {
         binding.frgPostFinishPost.setDebounceClickListener {
             val postText = binding.frgPostEtPost.text?.toString() ?: ""
             if (postText.isEmpty() && viewModel.photoUri == null) {
-                Toast.makeText(requireContext(), "Текст не может быть пустым", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Текст не может быть пустым", Toast.LENGTH_SHORT)
+                    .show()
                 return@setDebounceClickListener
+            }
+            if (binding.frgPostEtPostPreview.text.length > 280) {
+                Toast.makeText(
+                    requireContext(),
+                    "Длина поста не может быть больше 280",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
             viewModel.onFinishClick(postText)
         }
-        binding.frgPostEtPost.addTextChangedListener(object: TextWatcher {
+        binding.frgPostEtPost.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                binding.frgPostEtPostPreview.text = getSpannableText(parser, requireContext(), p0?.toString() ?: "")
+                binding.frgPostEtPostPreview.text =
+                    getSpannableText(parser, requireContext(), p0?.toString() ?: "")
             }
 
             override fun afterTextChanged(p0: Editable?) {
@@ -127,10 +135,14 @@ class PostFragment : Fragment(), ActionMode.Callback {
                 blog.text,
                 TextView.BufferType.EDITABLE
             )
-            binding.frgPostEtPostPreview.text = getSpannableText(parser, requireContext(), blog.text)
+            binding.frgPostEtPostPreview.text =
+                getSpannableText(parser, requireContext(), blog.text)
             val pictureId = blog.pictureId
             if (pictureId != null) {
-                viewModel.savePhoto(pictureUrlHelper.getPictureUrl(pictureId).toStringUrl(), requireContext())
+                viewModel.savePhoto(
+                    pictureUrlHelper.getPictureUrl(pictureId).toStringUrl(),
+                    requireContext()
+                )
 
                 binding.frgPostIbRemovePhoto.visibility = View.VISIBLE
                 binding.frgPostMbAddPhoto.visibility = View.GONE
@@ -164,18 +176,6 @@ class PostFragment : Fragment(), ActionMode.Callback {
             }
         }
 
-        /*lifecycleScope.launch {
-            viewModel.markdownTimer.collect {
-                binding.frgPostEtPost.setText(
-                    getSpannableText(
-                        parser,
-                        requireContext(),
-                        binding.frgPostEtPost.text?.toString() ?: ""
-                    ), TextView.BufferType.EDITABLE
-                )
-            }
-        }*/
-
         lifecycleScope.launch {
             viewModel.buttonsState.collect {
                 binding.frgPostFinishPost.isEnabled = it
@@ -203,7 +203,7 @@ class PostFragment : Fragment(), ActionMode.Callback {
     data class Mode(val isBlog: Boolean, val isEdit: Boolean, val post: Blog? = null) : Parcelable
 
     override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
-//        requireActivity().menuInflater.inflate(R.menu.text_selection_menu, menu)
+        requireActivity().menuInflater.inflate(R.menu.text_selection_menu, menu)
         return true
     }
 
@@ -216,15 +216,27 @@ class PostFragment : Fragment(), ActionMode.Callback {
         val end = binding.frgPostEtPost.selectionEnd
         return when (item?.itemId) {
             R.id.bold -> {
-                viewModel.addSpan("BOLD".toSpanType(), start, end)
+                val text = binding.frgPostEtPost.text?.toString() ?: ""
+                val sb = StringBuilder(text)
+                sb.insert(start, "**")
+                sb.insert(end + 2, "**")
+                binding.frgPostEtPost.setText(sb.toString())
                 true
             }
             R.id.italic -> {
-                viewModel.addSpan("ITALIC".toSpanType(), start, end)
+                val text = binding.frgPostEtPost.text?.toString() ?: ""
+                val sb = StringBuilder(text)
+                sb.insert(start, "*")
+                sb.insert(end + 1, "*")
+                binding.frgPostEtPost.setText(sb.toString())
                 true
             }
             R.id.underline -> {
-                viewModel.addSpan("UNDERLINE".toSpanType(), start, end)
+                val text = binding.frgPostEtPost.text?.toString() ?: ""
+                val sb = StringBuilder(text)
+                sb.insert(start, "<u>")
+                sb.insert(end + 3, "</u>")
+                binding.frgPostEtPost.setText(sb.toString())
                 true
             }
             else -> false

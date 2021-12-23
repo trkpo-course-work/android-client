@@ -43,6 +43,7 @@ object Deps {
     private val security by lazy { "androidx.security:security-crypto:${Versions.security}" }
     private val rxKotlin by lazy { "io.reactivex.rxjava3:rxkotlin:${Versions.rxKotlin}" }
     private val markdown by lazy { "io.noties.markwon:core:${Versions.markwonVersion}" }
+    private val markdownHtml by lazy { "io.noties.markwon:html:${Versions.markwonVersion}" }
 
     val appLibraries = arrayListOf<String>().apply {
         add(kotlinStdLib)
@@ -66,6 +67,7 @@ object Deps {
         add(rxKotlin)
         add(retrofit)
         add(markdown)
+        add(markdownHtml)
     }
 
     val network = arrayListOf<String>().apply {

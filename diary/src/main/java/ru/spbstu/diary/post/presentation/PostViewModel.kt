@@ -120,6 +120,7 @@ class PostViewModel(
                             )
                         }
                         is BlogInResult.Error -> {
+                            photoUri = null
                             _error.value = "Не удалось загрузить фото"
                         }
                     }

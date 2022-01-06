@@ -37,10 +37,13 @@ class FavoritesViewModel(
                     }
                     is BlogInResult.Error -> {
                         _error.value = "Не удалось получить избранное"
+                        _error.value = null
                     }
                 }
             }, {
                 Timber.d(TAG, "loadData: $it")
+                _error.value = "Ошибка подключения"
+                _error.value = null
             })
             .addTo(disposable)
     }
@@ -57,6 +60,8 @@ class FavoritesViewModel(
                 loadData()
             }, {
                 Timber.d(TAG, "deleteFromFavorite: $it")
+                _error.value = "Ошибка подключения"
+                _error.value = null
             })
             .addTo(disposable)
     }

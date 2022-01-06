@@ -48,14 +48,18 @@ class ProfileViewModel(
                 when (it) {
                     is BlogInResult.Success -> {
                         _error.value = "Профиль удалён"
+                        _error.value = null
                         EventBus.getDefault().post(AuthEvent())
                     }
                     is BlogInResult.Error -> {
                         _error.value = "Ошибка получения данных"
+                        _error.value = null
                     }
                 }
             }, {
                 Timber.d(TAG, "loadUserProfile: $it")
+                _error.value = "Ошибка подключения"
+                _error.value = null
             })
             .addTo(disposable)
     }
@@ -71,10 +75,13 @@ class ProfileViewModel(
                     }
                     is BlogInResult.Error -> {
                         _error.value = "Ошибка получения данных"
+                        _error.value = null
                     }
                 }
             }, {
                 Timber.d(TAG, "loadUserProfile: $it")
+                _error.value = "Ошибка подключения"
+                _error.value = null
             })
             .addTo(disposable)
     }
@@ -90,10 +97,13 @@ class ProfileViewModel(
                     }
                     is BlogInResult.Error -> {
                         _error.value = "Не удалось выйти"
+                        _error.value = null
                     }
                 }
             }, {
                 Timber.d(TAG, "logout: $it")
+                _error.value = "Ошибка подключения"
+                _error.value = null
             })
             .addTo(disposable)
     }

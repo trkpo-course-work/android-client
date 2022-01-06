@@ -1,5 +1,6 @@
 package ru.spbstu.diary
 
+import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,6 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import io.noties.markwon.Markwon
+import io.noties.markwon.image.AsyncDrawableScheduler
 import org.commonmark.parser.Parser
 import ru.spbstu.common.domain.Blog
 import ru.spbstu.common.utils.PictureUrlHelper
@@ -54,6 +56,8 @@ class DiaryAdapter(
         fun bind(blog: Blog) {
             binding.itemNoteTvDate.text = dateFormat.format(blog.dateTime)
             binding.itemNoteTvNote.text = getSpannableText(parser, itemView.context, blog.text)
+            AsyncDrawableScheduler.schedule(binding.itemNoteTvNote)
+            binding.itemNoteTvNote.movementMethod = LinkMovementMethod.getInstance()
 
             val pictureId = blog.pictureId
             if (pictureId != null) {

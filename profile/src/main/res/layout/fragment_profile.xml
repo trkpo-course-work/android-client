@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".profile.presentation.ProfileFragment">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/frg_profile__toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/frg_profile__toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/white"
+            android:textAllCaps="true"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            tools:text="Поиск" />
+
+        <ImageButton
+            android:id="@+id/frg_profile__ib_actions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|end"
+            android:background="?selectableItemBackground"
+            android:padding="8dp"
+            android:src="@drawable/ic_more_24" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/frg_profile__iv_avatar"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="24dp"
+        app:civ_border_color="@color/primary_color"
+        app:civ_border_width="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/frg_profile__toolbar" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/frg_profile__iv_avatar_stub"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_unknown_user_30"
+        app:layout_constraintBottom_toBottomOf="@id/frg_profile__iv_avatar"
+        app:layout_constraintEnd_toEndOf="@id/frg_profile__iv_avatar"
+        app:layout_constraintStart_toStartOf="@id/frg_profile__iv_avatar"
+        app:layout_constraintTop_toTopOf="@id/frg_profile__iv_avatar" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/frg_profile__tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/frg_profile__iv_avatar"
+        tools:text="полино44ка" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/frg_profile__tv_login_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Логин"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/frg_profile__mc_login"
+        app:layout_constraintEnd_toStartOf="@id/frg_profile__mc_login"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/frg_profile__tv_name" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/frg_profile__mc_login"
+        android:layout_width="@dimen/profile_tv_width"
+        android:layout_height="@dimen/profile_tv_height"
+        android:layout_marginTop="24dp"
+        android:background="@color/white"
+        app:cardCornerRadius="@dimen/auth_mc_corner_radius"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/frg_profile__tv_login_label"
+        app:layout_constraintTop_toBottomOf="@id/frg_profile__tv_name"
+        app:strokeColor="@color/black"
+        app:strokeWidth="1dp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/frg_profile__tv_login"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="@dimen/auth_et_padding_horizontal"
+            android:textColor="@color/black"
+            android:textColorHint="@color/text_secondary" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/frg_profile__tv_favorites"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:drawableEnd="@drawable/ic_next_24"
+        android:text="Перейти в избранное"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@id/frg_profile__mc_login"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@id/frg_profile__tv_login_label"
+        app:layout_constraintTop_toBottomOf="@id/frg_profile__mc_login" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

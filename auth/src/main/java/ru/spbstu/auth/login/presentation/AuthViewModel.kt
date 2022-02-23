@@ -101,23 +101,31 @@ class AuthViewModel(
                                             }
                                             is BlogInResult.Error -> {
                                                 _error.value = "Ошибка входа"
+                                                _error.value = null
                                                 _buttonState.value = true
                                             }
                                         }
                                     }, {
                                         Timber.d(TAG, "login: $it")
+                                        _buttonState.value = true
+                                        _error.value = "Ошибка подключения"
+                                        _error.value = null
                                     })
                                     .addTo(disposable)
                             }
                             else -> {
                                 _buttonState.value = true
                                 _error.value = "Ошибка входа"
+                                _error.value = null
                             }
                         }
                     }
                 }
             }, {
                 Timber.d(TAG, "login: $it")
+                _buttonState.value = true
+                _error.value = "Ошибка подключения"
+                _error.value = null
             })
     }
 
@@ -131,16 +139,21 @@ class AuthViewModel(
             .subscribe({
                 when (it) {
                     is BlogInResult.Success -> {
-                        login(login, password)
+//                        login(login, password)
+                        _authState.value = AuthState.LOGIN
                         _buttonState.value = true
                     }
                     is BlogInResult.Error -> {
                         _error.value = "Ошибка подтверждения аккаунта"
+                        _error.value = null
                         _buttonState.value = true
                     }
                 }
             }, {
                 Timber.d(TAG, "confirm: $it")
+                _buttonState.value = true
+                _error.value = "Ошибка подключения"
+                _error.value = null
             })
             .addTo(disposable)
     }
@@ -161,11 +174,15 @@ class AuthViewModel(
                     is BlogInResult.Error -> {
                         _error.value =
                             "Ошибка при сбросе пароля. Проверьте правильность введённого адреса"
+                        _error.value = null
                         _buttonState.value = true
                     }
                 }
             }, {
                 Timber.d(TAG, "requestReset: $it")
+                _buttonState.value = true
+                _error.value = "Ошибка подключения"
+                _error.value = null
             })
             .addTo(disposable)
     }
@@ -186,11 +203,15 @@ class AuthViewModel(
                     is BlogInResult.Error -> {
                         _error.value =
                             "Неверный код"
+                        _error.value = null
                         _buttonState.value = true
                     }
                 }
             }, {
                 Timber.d(TAG, "checkResetCode: $it")
+                _buttonState.value = true
+                _error.value = "Ошибка подключения"
+                _error.value = null
             })
             .addTo(disposable)
     }
@@ -208,15 +229,20 @@ class AuthViewModel(
                         _authState.value = AuthState.LOGIN
                         _buttonState.value = true
                         _error.value = "Пароль успешно изменён"
+                        _error.value = null
                     }
                     is BlogInResult.Error -> {
                         _error.value =
                             "Ошибка при изменении пароля"
+                        _error.value = null
                         _buttonState.value = true
                     }
                 }
             }, {
                 Timber.d(TAG, "setNewPassword: $it")
+                _buttonState.value = true
+                _error.value = "Ошибка подключения"
+                _error.value = null
             })
             .addTo(disposable)
     }
@@ -239,11 +265,15 @@ class AuthViewModel(
                     is BlogInResult.Error -> {
                         _error.value =
                             "Пользователь с такой почтой уже существует"
+                        _error.value = null
                         _buttonState.value = true
                     }
                 }
             }, {
                 Timber.d(TAG, "signIn: $it")
+                _buttonState.value = true
+                _error.value = "Ошибка подключения"
+                _error.value = null
             })
             .addTo(disposable)
     }
@@ -264,11 +294,15 @@ class AuthViewModel(
                     is BlogInResult.Success -> Unit
                     is BlogInResult.Error -> {
                         _error.value =
-                            "Ошибка при повторном запросе кода"
+                            "Ошибка при запросе кода"
+                        _error.value = null
                     }
                 }
             }, {
                 Timber.d(TAG, "sendConfCodeAgain: $it")
+                _buttonState.value = true
+                _error.value = "Ошибка подключения"
+                _error.value = null
             })
             .addTo(disposable)
     }

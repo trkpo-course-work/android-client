@@ -2,6 +2,7 @@ package ru.spbstu.profile.edit_profile.presentation
 
 import android.content.ContentResolver
 import android.net.Uri
+import android.provider.OpenableColumns
 import android.webkit.MimeTypeMap
 import androidx.lifecycle.ViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -39,6 +40,17 @@ class EditProfileViewModel(
         set(value) {
             field = value
             if (value != null) {
+                contentResolver.query(value, null, null, null, null)?.use { cursor ->
+                    val sizeIndex = cursor.getColumnIndex(OpenableColumns.SIZE)
+                    cursor.moveToFirst()
+                    val size = cursor.getLong(sizeIndex)
+                    if (size > 5 * 1024 * 1024) {
+                        _error.value = "Размер фото не может превышать 5MB"
+                        _error.value = null
+                        field = null
+                        return
+                    }
+                }
                 contentResolver.openInputStream(value)!!.use { input ->
                     photoFile = File.createTempFile(
                         System.currentTimeMillis().toString(),
@@ -65,7 +77,6 @@ class EditProfileViewModel(
         loadData()
     }
 
-
     fun editProfile(
         name: String,
         login: String,
@@ -89,10 +100,13 @@ class EditProfileViewModel(
                         }
                         is BlogInResult.Error -> {
                             _error.value = "Не удалось загрузить фото"
+                            _error.value = null
                         }
                     }
                 }, {
                     Timber.e(TAG, it)
+                    _error.value = "Ошибка подключения"
+                    _error.value = null
                 })
                 .addTo(disposable)
         } else {
@@ -128,13 +142,17 @@ class EditProfileViewModel(
                     is BlogInResult.Success -> {
                         router.pop()
                         _error.value = "Данные успешно изменены"
+                        _error.value = null
                     }
                     is BlogInResult.Error -> {
                         _error.value = "Ошибка изменения данных"
+                        _error.value = null
                     }
                 }
             }, {
                 Timber.d(TAG, "editProfile: $it")
+                _error.value = "Ошибка подключения"
+                _error.value = null
             })
             .addTo(disposable)
     }
@@ -159,10 +177,13 @@ class EditProfileViewModel(
                     }
                     is BlogInResult.Error -> {
                         _error.value = "Ошибка входа"
+                        _error.value = null
                     }
                 }
             }, {
                 Timber.d(TAG, "loadUserProfile: $it")
+                _error.value = "Ошибка подключения"
+                _error.value = null
             })
             .addTo(disposable)
     }

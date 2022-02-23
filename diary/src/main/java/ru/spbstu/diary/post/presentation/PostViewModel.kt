@@ -4,6 +4,7 @@ import android.content.ContentResolver
 import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
+import android.provider.OpenableColumns
 import android.webkit.MimeTypeMap
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -62,6 +63,17 @@ class PostViewModel(
         set(value) {
             field = value
             if (value != null) {
+                contentResolver.query(value, null, null, null, null)?.use { cursor ->
+                    val sizeIndex = cursor.getColumnIndex(OpenableColumns.SIZE)
+                    cursor.moveToFirst()
+                    val size = cursor.getLong(sizeIndex)
+                    if (size > 5 * 1024 * 1024) {
+                        _error.value = "Размер фото не может превышать 5MB"
+                        _error.value = null
+                        field = null
+                        return
+                    }
+                }
                 contentResolver.openInputStream(value)!!.use { input ->
                     photoFile = File.createTempFile(
                         System.currentTimeMillis().toString(),
@@ -120,11 +132,14 @@ class PostViewModel(
                         is BlogInResult.Error -> {
                             photoUri = null
                             _error.value = "Не удалось загрузить фото"
+                            _error.value = null
                         }
                     }
                     _buttonsState.value = true
                 }, {
                     Timber.e(TAG, it)
+                    _error.value = "Ошибка подключения"
+                    _error.value = null
                 })
                 .addTo(disposable)
         } else {
@@ -178,11 +193,14 @@ class PostViewModel(
                         }
                         is BlogInResult.Error -> {
                             _error.value = "Не удалось отредактировать пост"
+                            _error.value = null
                         }
                     }
                     _buttonsState.value = true
                 }, {
                     Timber.e(TAG, it)
+                    _error.value = "Ошибка подключения"
+                    _error.value = null
                 })
                 .addTo(disposable)
         } else {
@@ -196,11 +214,14 @@ class PostViewModel(
                         }
                         is BlogInResult.Error -> {
                             _error.value = "Не удалось создать пост"
+                            _error.value = null
                         }
                     }
                     _buttonsState.value = true
                 }, {
                     Timber.e(TAG, it)
+                    _error.value = "Ошибка подключения"
+                    _error.value = null
                 })
                 .addTo(disposable)
         }

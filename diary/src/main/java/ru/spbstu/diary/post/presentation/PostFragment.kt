@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
+import io.noties.markwon.image.AsyncDrawableScheduler
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
@@ -104,6 +105,7 @@ class PostFragment : Fragment(), ActionMode.Callback {
                     "Длина поста не может быть больше 280",
                     Toast.LENGTH_SHORT
                 ).show()
+                return@setDebounceClickListener
             }
             viewModel.onFinishClick(postText)
         }
@@ -114,6 +116,7 @@ class PostFragment : Fragment(), ActionMode.Callback {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 binding.frgPostEtPostPreview.text =
                     getSpannableText(parser, requireContext(), p0?.toString() ?: "")
+                AsyncDrawableScheduler.schedule(binding.frgPostEtPostPreview)
             }
 
             override fun afterTextChanged(p0: Editable?) {
@@ -137,6 +140,7 @@ class PostFragment : Fragment(), ActionMode.Callback {
             )
             binding.frgPostEtPostPreview.text =
                 getSpannableText(parser, requireContext(), blog.text)
+            AsyncDrawableScheduler.schedule(binding.frgPostEtPostPreview)
             val pictureId = blog.pictureId
             if (pictureId != null) {
                 viewModel.savePhoto(

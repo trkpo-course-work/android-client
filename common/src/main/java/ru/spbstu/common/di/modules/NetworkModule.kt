@@ -19,6 +19,7 @@ import ru.spbstu.common.events.AuthEvent
 import ru.spbstu.common.tokens.RefreshToken
 import ru.spbstu.common.tokens.TokensRepository
 import timber.log.Timber
+import java.io.IOException
 import java.util.concurrent.TimeUnit
 
 @Module
@@ -48,7 +49,9 @@ class NetworkModule {
                 requestBuilder.addHeader(AUTHORIZATION, BEARER + accessToken)
             }
             val request = requestBuilder.build()
-            var response = chain.proceed(request)
+            var response = kotlin.runCatching { chain.proceed(request) }.getOrElse {
+                throw IOException("Couldn't procees request. Probably no Internet connection")
+            }
             Timber.tag(TAG).i("Processed request(no tokens)=$original, response=$response")
             if ((response.code == 401 || response.code == 403) && !original.url.toString().contains("auth")) {
                 val refreshToken: RefreshToken? = tokenRepository.getRefresh()
@@ -89,8 +92,9 @@ class NetworkModule {
         restInterceptor: Interceptor,
     ): OkHttpClient {
         val builder = OkHttpClient.Builder()
-            .readTimeout(10, TimeUnit.SECONDS)
-            .connectTimeout(10, TimeUnit.SECONDS)
+            .readTimeout(20, TimeUnit.SECONDS)
+            .connectTimeout(20, TimeUnit.SECONDS)
+            .callTimeout(20, TimeUnit.SECONDS)
             .addInterceptor(restInterceptor)
         return builder.build()
     }

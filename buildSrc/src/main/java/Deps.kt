@@ -44,6 +44,10 @@ object Deps {
     private val rxKotlin by lazy { "io.reactivex.rxjava3:rxkotlin:${Versions.rxKotlin}" }
     private val markdown by lazy { "io.noties.markwon:core:${Versions.markwonVersion}" }
     private val markdownHtml by lazy { "io.noties.markwon:html:${Versions.markwonVersion}" }
+    private val markdownImage by lazy { "io.noties.markwon:image:${Versions.markwonVersion}" }
+    private val markdownImageGlide by lazy { "io.noties.markwon:image-glide:${Versions.markwonVersion}" }
+    private val markdownStrikethrough by lazy { "io.noties.markwon:ext-strikethrough:${Versions.markwonVersion}" }
+    private val markdownTables by lazy { "io.noties.markwon:ext-tables:${Versions.markwonVersion}" }
 
     val appLibraries = arrayListOf<String>().apply {
         add(kotlinStdLib)
@@ -68,6 +72,10 @@ object Deps {
         add(retrofit)
         add(markdown)
         add(markdownHtml)
+        add(markdownImage)
+        add(markdownImageGlide)
+        add(markdownStrikethrough)
+        add(markdownTables)
     }
 
     val network = arrayListOf<String>().apply {

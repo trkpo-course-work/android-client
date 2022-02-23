@@ -77,7 +77,6 @@ class EditProfileViewModel(
         loadData()
     }
 
-
     fun editProfile(
         name: String,
         login: String,

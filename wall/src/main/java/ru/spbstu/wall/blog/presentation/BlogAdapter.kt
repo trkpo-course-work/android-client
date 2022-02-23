@@ -54,7 +54,7 @@ class BlogAdapter(
     inner class BlogViewHolder(private val binding: ItemPostBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        private val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        private val dateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
 
         fun bind(blog: Blog) {
 

@@ -139,7 +139,8 @@ class AuthViewModel(
             .subscribe({
                 when (it) {
                     is BlogInResult.Success -> {
-                        login(login, password)
+//                        login(login, password)
+                        _authState.value = AuthState.LOGIN
                         _buttonState.value = true
                     }
                     is BlogInResult.Error -> {
@@ -293,7 +294,7 @@ class AuthViewModel(
                     is BlogInResult.Success -> Unit
                     is BlogInResult.Error -> {
                         _error.value =
-                            "Ошибка при повторном запросе кода"
+                            "Ошибка при запросе кода"
                         _error.value = null
                     }
                 }

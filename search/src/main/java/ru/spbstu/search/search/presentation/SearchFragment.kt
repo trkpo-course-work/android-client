@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 import ru.spbstu.common.di.FeatureUtils
+import ru.spbstu.common.utils.PictureUrlHelper
 import ru.spbstu.search.R
 import ru.spbstu.search.databinding.FragmentSearchBinding
 import ru.spbstu.search.di.SearchApi
@@ -29,9 +30,10 @@ class SearchFragment : Fragment() {
     @Inject
     lateinit var viewModel: SearchViewModel
 
-    private val adapter: SearchAdapter = SearchAdapter {
-        viewModel.onUserClick(it)
-    }
+    @Inject
+    lateinit var pictureUrlHelper: PictureUrlHelper
+
+    private lateinit var adapter: SearchAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,6 +42,11 @@ class SearchFragment : Fragment() {
         inject()
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
         binding.frgSearchToolbarTitle.text = "Поиск"
+        adapter = SearchAdapter(pictureUrlHelper, {
+            viewModel.onUserClick(it)
+        }, {
+            viewModel.changeFavState(it.userId, !it.isFav)
+        })
         binding.frgSearchRvSearchResults.adapter = adapter
         binding.frgSearchRvSearchResults.addItemDecoration(
             DividerItemDecoration(

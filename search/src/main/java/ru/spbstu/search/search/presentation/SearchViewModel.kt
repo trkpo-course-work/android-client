@@ -24,7 +24,10 @@ class SearchViewModel(
 
     private val disposable = CompositeDisposable()
 
+    private var lastText = ""
+
     fun onNewText(text: CharSequence) {
+        lastText = text.toString()
         if (text.isBlank()) {
             _state.value =
                 State(emptyList())
@@ -42,6 +45,25 @@ class SearchViewModel(
         router.goToUserProfile(id)
     }
 
+    fun changeFavState(id: Long, newFav: Boolean) {
+        searchRepository.setFavorite(id, newFav)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                when (it) {
+                    is BlogInResult.Success -> {
+                        loadData()
+                    }
+                    is BlogInResult.Error -> {
+
+                    }
+                }
+            }, {
+                Timber.e(TAG, it)
+            })
+            .addTo(disposable)
+    }
+
     private fun loadData() {
         searchRepository.getSearchResults()
             .subscribeOn(Schedulers.io())
@@ -51,6 +73,7 @@ class SearchViewModel(
                     is BlogInResult.Success -> {
                         data.clear()
                         data.addAll(it.data)
+                        onNewText(lastText)
                     }
                     is BlogInResult.Error -> {
 

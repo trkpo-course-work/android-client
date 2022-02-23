@@ -14,6 +14,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.filterNotNull
@@ -25,6 +26,7 @@ import ru.spbstu.auth.di.AuthComponent
 import ru.spbstu.common.di.FeatureUtils
 import ru.spbstu.common.extensions.setDebounceClickListener
 import javax.inject.Inject
+import kotlin.math.log
 
 class AuthFragment : Fragment() {
 
@@ -69,10 +71,19 @@ class AuthFragment : Fragment() {
                 requireActivity().finish()
             }
         }
+        updateButtonClickability()
+        loginBinding.layoutLoginEtLogin.addTextChangedListener {
+            updateButtonClickability()
+        }
+        loginBinding.layoutLoginEtPassword.addTextChangedListener {
+            updateButtonClickability()
+        }
         binding.frgLoginMbActionButton.setDebounceClickListener {
             when (viewModel.authState.value) {
                 AuthViewModel.AuthState.LOGIN -> {
                     val login = loginBinding.layoutLoginEtLogin.text?.toString()?.trim()
+                    val password = loginBinding.layoutLoginEtPassword.text?.toString()?.trim()
+                    if (login.isNullOrEmpty() && password.isNullOrEmpty()) return@setDebounceClickListener
                     if (login == null || login.isEmpty() || login.length < 3 || !login.matches(Regex("^[[A-Za-z][А-ЯЁ][-А-яЁё][0-9]_]*$"))) {
                         Toast.makeText(
                             requireContext(),
@@ -81,7 +92,6 @@ class AuthFragment : Fragment() {
                         ).show()
                         return@setDebounceClickListener
                     }
-                    val password = loginBinding.layoutLoginEtPassword.text?.toString()?.trim()
                     if (password == null || password.length < AuthViewModel.PASSWORD_MIN_LENGTH || !password.matches(
                             Regex("^[[A-Za-z][А-ЯЁ][-А-яЁё][_@#$%][0-9]]*$")
                         )
@@ -104,6 +114,8 @@ class AuthFragment : Fragment() {
                     }
                 }
                 AuthViewModel.AuthState.SIGNIN -> {
+                    binding.frgLoginMbActionButton.isClickable = true
+                    binding.frgLoginMbActionButton.isEnabled = true
                     val name = signinBinding.layoutSigninEtName.text?.toString()?.trim()
                     val login = signinBinding.layoutSigninEtLogin.text?.toString()?.trim()
                     val email = signinBinding.layoutSigninEtEmail.text?.toString()?.trim()
@@ -144,12 +156,16 @@ class AuthFragment : Fragment() {
                     viewModel.signIn(name, login, email, pass)
                 }
                 AuthViewModel.AuthState.CONFIRMATION -> {
+                    binding.frgLoginMbActionButton.isClickable = true
+                    binding.frgLoginMbActionButton.isEnabled = true
                     val code = confBinding.layoutConfEtCode.text?.toString()
                     if (code?.isNotEmpty() == true && code.length == AuthViewModel.CODE_LENGTH) {
                         viewModel.confirm(code)
                     }
                 }
                 AuthViewModel.AuthState.RESET_PASSWORD_EMAIL -> {
+                    binding.frgLoginMbActionButton.isClickable = true
+                    binding.frgLoginMbActionButton.isEnabled = true
                     val email =
                         resetPasswordBinding.layoutResetPasswordEmailEtEmail.text?.toString()
                             ?.trim()
@@ -163,6 +179,8 @@ class AuthFragment : Fragment() {
                     }
                 }
                 AuthViewModel.AuthState.RESET_PASSWORD_CODE -> {
+                    binding.frgLoginMbActionButton.isClickable = true
+                    binding.frgLoginMbActionButton.isEnabled = true
                     val code =
                         resetPasswordBinding.layoutResetPasswordEmailEtCode.text?.toString()?.trim()
                     if (code?.isNotEmpty() == true && code.length == AuthViewModel.CODE_LENGTH) {
@@ -170,6 +188,8 @@ class AuthFragment : Fragment() {
                     }
                 }
                 AuthViewModel.AuthState.RESET_PASSWORD_NEW_PASSWORD -> {
+                    binding.frgLoginMbActionButton.isClickable = true
+                    binding.frgLoginMbActionButton.isEnabled = true
                     val newPass =
                         newPasswordBinding.layoutNewPasswordEmailEtPassword.text?.toString()?.trim()
                     val confPass =
@@ -214,6 +234,13 @@ class AuthFragment : Fragment() {
         return binding.root
     }
 
+    private fun updateButtonClickability() {
+        val loginText = loginBinding.layoutLoginEtLogin.text?.toString()
+        val passText = loginBinding.layoutLoginEtPassword.text?.toString()
+        binding.frgLoginMbActionButton.isClickable = !loginText.isNullOrEmpty() && !passText.isNullOrEmpty()
+        binding.frgLoginMbActionButton.isEnabled = !loginText.isNullOrEmpty() && !passText.isNullOrEmpty()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         lifecycleScope.launch {
@@ -230,6 +257,7 @@ class AuthFragment : Fragment() {
 
         lifecycleScope.launch {
             viewModel.buttonState.collect {
+                binding.frgLoginMbActionButton.isClickable = it
                 binding.frgLoginMbActionButton.isEnabled = it
             }
         }
@@ -284,6 +312,7 @@ class AuthFragment : Fragment() {
     private fun handleAuthState(state: AuthViewModel.AuthState) {
         when (state) {
             is AuthViewModel.AuthState.LOGIN -> {
+                updateButtonClickability()
                 loginBinding.layoutLoginRlRoot.visibility = View.VISIBLE
                 signinBinding.layoutSigninRlRoot.visibility = View.GONE
                 confBinding.layoutConfRlRoot.visibility = View.GONE
@@ -295,6 +324,8 @@ class AuthFragment : Fragment() {
                 binding.frgLoginTvNoAccount.visibility = View.VISIBLE
             }
             AuthViewModel.AuthState.SIGNIN -> {
+                binding.frgLoginMbActionButton.isClickable = true
+                binding.frgLoginMbActionButton.isEnabled = true
                 loginBinding.layoutLoginRlRoot.visibility = View.GONE
                 signinBinding.layoutSigninRlRoot.visibility = View.VISIBLE
                 confBinding.layoutConfRlRoot.visibility = View.GONE
@@ -306,6 +337,8 @@ class AuthFragment : Fragment() {
                 binding.frgLoginTvNoAccount.visibility = View.GONE
             }
             AuthViewModel.AuthState.CONFIRMATION -> {
+                binding.frgLoginMbActionButton.isClickable = true
+                binding.frgLoginMbActionButton.isEnabled = true
                 loginBinding.layoutLoginRlRoot.visibility = View.GONE
                 signinBinding.layoutSigninRlRoot.visibility = View.GONE
                 confBinding.layoutConfRlRoot.visibility = View.VISIBLE
@@ -319,6 +352,8 @@ class AuthFragment : Fragment() {
                     getString(R.string.send_code_again, AuthViewModel.TIMER_START)
             }
             AuthViewModel.AuthState.RESET_PASSWORD_EMAIL -> {
+                binding.frgLoginMbActionButton.isClickable = true
+                binding.frgLoginMbActionButton.isEnabled = true
                 loginBinding.layoutLoginRlRoot.visibility = View.GONE
                 signinBinding.layoutSigninRlRoot.visibility = View.GONE
                 confBinding.layoutConfRlRoot.visibility = View.GONE
@@ -332,6 +367,8 @@ class AuthFragment : Fragment() {
                 binding.frgLoginTvNoAccount.visibility = View.GONE
             }
             AuthViewModel.AuthState.RESET_PASSWORD_CODE -> {
+                binding.frgLoginMbActionButton.isClickable = true
+                binding.frgLoginMbActionButton.isEnabled = true
                 loginBinding.layoutLoginRlRoot.visibility = View.GONE
                 signinBinding.layoutSigninRlRoot.visibility = View.GONE
                 confBinding.layoutConfRlRoot.visibility = View.GONE
@@ -347,6 +384,8 @@ class AuthFragment : Fragment() {
                     getString(R.string.send_code_again, AuthViewModel.TIMER_START)
             }
             AuthViewModel.AuthState.RESET_PASSWORD_NEW_PASSWORD -> {
+                binding.frgLoginMbActionButton.isClickable = true
+                binding.frgLoginMbActionButton.isEnabled = true
                 loginBinding.layoutLoginRlRoot.visibility = View.GONE
                 signinBinding.layoutSigninRlRoot.visibility = View.GONE
                 confBinding.layoutConfRlRoot.visibility = View.GONE

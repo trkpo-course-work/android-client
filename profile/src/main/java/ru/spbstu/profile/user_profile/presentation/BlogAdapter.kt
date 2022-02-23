@@ -48,7 +48,7 @@ class BlogAdapter(private val pictureUrlHelper: PictureUrlHelper, private val pa
     inner class BlogViewHolder(private val binding: ItemProfilePostBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        private val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        private val dateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
         fun bind(blog: Blog) {
             val pictureId = blog.pictureId
             if (pictureId != null) {

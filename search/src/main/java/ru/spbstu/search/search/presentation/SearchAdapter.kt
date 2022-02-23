@@ -1,14 +1,23 @@
 package ru.spbstu.search.search.presentation
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import ru.spbstu.common.extensions.setDebounceClickListener
+import ru.spbstu.common.utils.PictureUrlHelper
+import ru.spbstu.search.R
 import ru.spbstu.search.databinding.ItemSearchBinding
 import ru.spbstu.search.search.domain.SearchResult
 
-class SearchAdapter(private val onUserClick: (Long) -> Unit) :
+class SearchAdapter(
+    private val pictureUrlHelper: PictureUrlHelper,
+    private val onUserClick: (Long) -> Unit,
+    private val onFavoriteClick: (SearchResult) -> Unit
+) :
     RecyclerView.Adapter<SearchAdapter.SearchViewHolder>() {
     private val searchs: ArrayList<SearchResult> = arrayListOf()
 
@@ -42,6 +51,27 @@ class SearchAdapter(private val onUserClick: (Long) -> Unit) :
             binding.itemSearchResult.text = search.name
             binding.root.setDebounceClickListener {
                 onUserClick.invoke(search.userId)
+            }
+            binding.itemSearchFavorite.isChecked = search.isFav
+            binding.itemSearchFavorite.setDebounceClickListener {
+                onFavoriteClick.invoke(search)
+            }
+            val pictureId = search.pictureId
+            if (pictureId != null) {
+                Glide.with(binding.root)
+                    .load(pictureUrlHelper.getPictureUrl(pictureId))
+                    .centerCrop()
+                    .into(binding.itemSearchAvartar)
+            } else {
+                Glide.with(binding.root)
+                    .load(
+                        ContextCompat.getDrawable(
+                            itemView.context,
+                            R.drawable.ic_unknown_user_30
+                        )
+                    )
+                    .centerCrop()
+                    .into(binding.itemSearchAvartar)
             }
         }
     }

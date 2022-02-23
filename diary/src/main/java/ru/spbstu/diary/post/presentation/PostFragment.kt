@@ -105,6 +105,7 @@ class PostFragment : Fragment(), ActionMode.Callback {
                     "Длина поста не может быть больше 280",
                     Toast.LENGTH_SHORT
                 ).show()
+                return@setDebounceClickListener
             }
             viewModel.onFinishClick(postText)
         }

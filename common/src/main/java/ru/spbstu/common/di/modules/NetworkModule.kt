@@ -92,9 +92,9 @@ class NetworkModule {
         restInterceptor: Interceptor,
     ): OkHttpClient {
         val builder = OkHttpClient.Builder()
-            .readTimeout(10, TimeUnit.SECONDS)
-            .connectTimeout(10, TimeUnit.SECONDS)
-            .callTimeout(10, TimeUnit.SECONDS)
+            .readTimeout(20, TimeUnit.SECONDS)
+            .connectTimeout(20, TimeUnit.SECONDS)
+            .callTimeout(20, TimeUnit.SECONDS)
             .addInterceptor(restInterceptor)
         return builder.build()
     }

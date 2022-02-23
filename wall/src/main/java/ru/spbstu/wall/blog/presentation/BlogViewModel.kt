@@ -45,10 +45,13 @@ class BlogViewModel(
                     }
                     is BlogInResult.Error -> {
                         _error.value = "Не удалось загрузить новости"
+                        _error.value = null
                     }
                 }
             }, {
                 Timber.e(TAG, it)
+                _error.value = "Ошибка подключения"
+                _error.value = null
             })
             .addTo(disposable)
     }

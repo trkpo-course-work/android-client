@@ -120,11 +120,14 @@ class PostViewModel(
                         is BlogInResult.Error -> {
                             photoUri = null
                             _error.value = "Не удалось загрузить фото"
+                            _error.value = null
                         }
                     }
                     _buttonsState.value = true
                 }, {
                     Timber.e(TAG, it)
+                    _error.value = "Ошибка подключения"
+                    _error.value = null
                 })
                 .addTo(disposable)
         } else {
@@ -178,11 +181,14 @@ class PostViewModel(
                         }
                         is BlogInResult.Error -> {
                             _error.value = "Не удалось отредактировать пост"
+                            _error.value = null
                         }
                     }
                     _buttonsState.value = true
                 }, {
                     Timber.e(TAG, it)
+                    _error.value = "Ошибка подключения"
+                    _error.value = null
                 })
                 .addTo(disposable)
         } else {
@@ -196,11 +202,14 @@ class PostViewModel(
                         }
                         is BlogInResult.Error -> {
                             _error.value = "Не удалось создать пост"
+                            _error.value = null
                         }
                     }
                     _buttonsState.value = true
                 }, {
                     Timber.e(TAG, it)
+                    _error.value = "Ошибка подключения"
+                    _error.value = null
                 })
                 .addTo(disposable)
         }

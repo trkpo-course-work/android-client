@@ -37,10 +37,13 @@ class UserBlogViewModel(
                     }
                     is BlogInResult.Error -> {
                         _error.value = "Не удалось получить ваши посты"
+                        _error.value = null
                     }
                 }
             }, {
                 Timber.e(TAG, it)
+                _error.value = "Ошибка подключения"
+                _error.value = null
             })
     }
 
@@ -55,10 +58,13 @@ class UserBlogViewModel(
                     }
                     is BlogInResult.Error -> {
                         _error.value = "Не удалось получить ваши посты"
+                        _error.value = null
                     }
                 }
             }, {
                 Timber.e(TAG, it)
+                _error.value = "Ошибка подключения"
+                _error.value = null
             })
     }
 

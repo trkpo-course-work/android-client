@@ -1,11 +1,13 @@
 package ru.spbstu.profile.user_profile.presentation
 
+import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import io.noties.markwon.image.AsyncDrawableScheduler
 import org.commonmark.parser.Parser
 import ru.spbstu.common.domain.Blog
 import ru.spbstu.common.utils.PictureUrlHelper
@@ -70,7 +72,8 @@ class BlogAdapter(private val pictureUrlHelper: PictureUrlHelper, private val pa
             binding.itemPostTvDate.text = dateFormat.format(Date(blog.dateTime))
             binding.itemPostTvName.text = blog.user.name
             binding.itemPostTvPost.text = getSpannableText(parser, itemView.context, blog.text)
-
+            AsyncDrawableScheduler.schedule(binding.itemPostTvPost)
+            binding.itemPostTvPost.movementMethod = LinkMovementMethod.getInstance()
         }
     }
 

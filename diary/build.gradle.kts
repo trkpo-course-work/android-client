@@ -44,5 +44,7 @@ dependencies {
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     kapt(Deps.daggerKapt)
     testImplementation(Deps.testLibraries)
+    testImplementation("org.mockito:mockito-core:4.3.1")
+    testImplementation("junit:junit:4.13.2")
     androidTestImplementation(Deps.androidTestLibraries)
 }

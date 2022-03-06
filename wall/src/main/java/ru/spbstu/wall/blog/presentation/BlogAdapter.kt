@@ -1,11 +1,13 @@
 package ru.spbstu.wall.blog.presentation
 
+import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import io.noties.markwon.image.AsyncDrawableScheduler
 import org.commonmark.parser.Parser
 import ru.spbstu.common.domain.Blog
 import ru.spbstu.common.extensions.setDebounceClickListener
@@ -52,7 +54,7 @@ class BlogAdapter(
     inner class BlogViewHolder(private val binding: ItemPostBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        private val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        private val dateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
 
         fun bind(blog: Blog) {
 
@@ -67,6 +69,8 @@ class BlogAdapter(
             binding.itemPostTvDate.text = dateFormat.format(blog.dateTime)
             binding.itemPostTvName.text = blog.user.name
             binding.itemPostTvPost.text = getSpannableText(parser, itemView.context, blog.text)
+            AsyncDrawableScheduler.schedule(binding.itemPostTvPost)
+            binding.itemPostTvPost.movementMethod = LinkMovementMethod.getInstance()
 
             val pictureId = blog.pictureId
             if (pictureId != null) {

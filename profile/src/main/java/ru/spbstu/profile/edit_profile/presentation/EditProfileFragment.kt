@@ -11,6 +11,7 @@ import ru.spbstu.profile.di.ProfileApi
 import ru.spbstu.profile.di.ProfileComponent
 import javax.inject.Inject
 import android.net.Uri
+import android.widget.TextView
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import kotlinx.coroutines.flow.collect
@@ -53,13 +54,13 @@ class EditProfileFragment : Fragment() {
         binding.frgEditProfileIbActions.setDebounceClickListener {
             var name = binding.frgEditProfileEtName.text?.toString()?.trim()
             var nameChange = true
-            if (name == null || name.isEmpty() || !name.matches(Regex("^[[A-Za-z][А-ЯЁ][-А-яЁё]\\s]*$"))) {
+            if (name == null || name.isEmpty()) {
                 name = viewModel.state.value?.profile?.name ?: return@setDebounceClickListener
                 nameChange = false
             }
             var login = binding.frgEditProfileEtLogin.text?.toString()?.trim()
             var loginChange = true
-            if (login == null || login.isEmpty() || !login.matches(Regex("^[[A-Za-z][А-ЯЁ][-А-яЁё][0-9]_]*$"))) {
+            if (login == null || login.isEmpty()) {
                 login = viewModel.state.value?.profile?.login ?: return@setDebounceClickListener
                 loginChange = false
             }
@@ -67,10 +68,7 @@ class EditProfileFragment : Fragment() {
             val newPass = binding.frgEditProfileEtNewPass.text?.toString()?.trim()
             val confPass = binding.frgEditProfileEtConfNewPass.text?.toString()?.trim()
             var passChange = true
-            if (newPass == null || newPass.isEmpty() || confPass == null || confPass.isEmpty() || newPass != confPass || oldPass == null || oldPass.isEmpty()
-                || !newPass.matches(
-                    Regex("^[[A-Za-z][А-ЯЁ][-А-яЁё][_@#$%][0-9]]*$")
-                )) {
+            if (newPass.isNullOrEmpty() && confPass.isNullOrEmpty() && oldPass.isNullOrEmpty()) {
                 passChange = false
             }
             if (!nameChange && !loginChange && !passChange) {
@@ -81,6 +79,26 @@ class EditProfileFragment : Fragment() {
                     null,
                     false
                 )
+                return@setDebounceClickListener
+            }
+            if (loginChange && (login.isEmpty() || login.length < 3 || !login.matches(Regex("^[[A-Za-z][А-ЯЁ][-А-яЁё][0-9]_]*$")))) {
+                Toast.makeText(requireContext(), "Логин не подходит", Toast.LENGTH_SHORT).show()
+                return@setDebounceClickListener
+            }
+            if (nameChange && (name.isEmpty() || !name.matches(Regex("^[[A-Za-z][А-ЯЁ][-А-яЁё]\\s]*$")))) {
+                Toast.makeText(requireContext(), "Имя не подходит", Toast.LENGTH_SHORT).show()
+                return@setDebounceClickListener
+            }
+            if (passChange && ((newPass == null || newPass.isEmpty() || newPass.length < 6 || !newPass.matches(
+                    Regex("^[[A-Za-z][А-ЯЁ][-А-яЁё][_@#$%][0-9]]*$")
+                )) || (confPass == null || confPass.isEmpty() || confPass.length < 6 || !confPass.matches(
+                    Regex("^[[A-Za-z][А-ЯЁ][-А-яЁё][_@#$%][0-9]]*$")
+                ))) || confPass != newPass
+            ) {
+                binding.frgEditProfileEtOldPass.setText("", TextView.BufferType.EDITABLE)
+                binding.frgEditProfileEtNewPass.setText("", TextView.BufferType.EDITABLE)
+                binding.frgEditProfileEtConfNewPass.setText("", TextView.BufferType.EDITABLE)
+                Toast.makeText(requireContext(), "Пароли не подходят или не совпадают", Toast.LENGTH_SHORT).show()
                 return@setDebounceClickListener
             }
             val toChangeString =

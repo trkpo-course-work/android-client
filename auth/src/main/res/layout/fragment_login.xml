@@ -67,6 +67,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="48dp"
                 android:backgroundTint="@color/primary_color"
+                android:clickable="false"
                 android:paddingHorizontal="48dp"
                 android:paddingVertical="16dp"
                 android:text="@string/login_button_text"

@@ -14,13 +14,13 @@ jobs:
           java-version: 11
       - name: Build with Gradle
         run: ./gradlew assembleDebug
-      -name: Test wall
+      - name: Test wall
         run: ./gradlew :wall:testDebugUnitTest
-      -name: Test auth
+      - name: Test auth
         run: ./gradlew :auth:testDebugUnitTest
-      -name: Test diary
+      - name: Test diary
         run: ./gradlew :diary:testDebugUnitTest
-      -name: Test profile
+      - name: Test profile
         run: ./gradlew :profile:testDebugUnitTest
-      -name: Test search
+      - name: Test search
         run: ./gradlew :search:testDebugUnitTest

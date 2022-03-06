@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import ru.spbstu.common.domain.Blog
 import ru.spbstu.common.domain.BlogInResult
 import ru.spbstu.diary.DiaryRouter
-import ru.spbstu.diary.repository.DiaryRepository
+import ru.spbstu.diary.repo.DiaryRepository
 import timber.log.Timber
 
 class UserDiaryViewModel(

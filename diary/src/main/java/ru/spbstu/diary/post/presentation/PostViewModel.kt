@@ -20,7 +20,7 @@ import ru.spbstu.common.api.model.SpanType
 import ru.spbstu.common.domain.BlogInResult
 import ru.spbstu.common.domain.Span
 import ru.spbstu.diary.DiaryRouter
-import ru.spbstu.diary.repository.DiaryRepository
+import ru.spbstu.diary.repo.DiaryRepository
 import timber.log.Timber
 import java.io.File
 import java.io.FileOutputStream

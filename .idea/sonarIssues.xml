@@ -33,6 +33,16 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/diary/src/main/java/ru/spbstu/diary/repo/DiaryRepository.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/diary/src/test/java/ru/spbstu/diary/DiaryRepositoryTest.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
       </map>
     </option>
   </component>

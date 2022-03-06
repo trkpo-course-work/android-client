@@ -1,4 +1,4 @@
-package ru.spbstu.diary.repository
+package ru.spbstu.diary.repo
 
 import io.reactivex.rxjava3.core.Single
 import okhttp3.MediaType.Companion.toMediaTypeOrNull

@@ -9,7 +9,7 @@ import dagger.Provides
 import dagger.multibindings.IntoMap
 import ru.spbstu.diary.DiaryRouter
 import ru.spbstu.diary.post.presentation.PostViewModel
-import ru.spbstu.diary.repository.DiaryRepository
+import ru.spbstu.diary.repo.DiaryRepository
 import studio.clapp.common.di.viewmodel.ViewModelKey
 import studio.clapp.common.di.viewmodel.ViewModelModule
 

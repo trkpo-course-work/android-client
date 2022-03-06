@@ -21,6 +21,6 @@ jobs:
       - name: Test diary
         run: ./gradlew :diary:testDebugUnitTest --tests "ru.spbstu.diary.DiaryRepositoryTest"
       - name: Test profile
-        run: ./gradlew :profile:testDebugUnitTest --tests "ru.spbstu.profile.DiaryRepositoryTest"
+        run: ./gradlew :profile:testDebugUnitTest --tests "ru.spbstu.profile.ProfileRepositoryTest"
       - name: Test search
         run: ./gradlew :search:testDebugUnitTest --tests "ru.spbstu.search.SearchRepositoryTest"

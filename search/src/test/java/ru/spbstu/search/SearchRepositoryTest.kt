@@ -18,10 +18,10 @@ class SearchRepositoryTest {
     private lateinit var mockApi: Api
     private lateinit var mockSearchRepository: SearchRepository
 
-    private val userResponseApi1: UserResponse = UserResponse(1, "name", null, "login", "email", "pass", null)
-    private val searchResult1: SearchResult = SearchResult(userResponseApi1.id, userResponseApi1.name, userResponseApi1.login)
-    private val userResponseApi2: UserResponse = UserResponse(2, "name2", null, "login2", "email2", "pass2", null)
-    private val searchResult2: SearchResult = SearchResult(userResponseApi2.id, userResponseApi2.name, userResponseApi2.login)
+    private val userResponseApi1: UserResponse = UserResponse(1, "name", 0, "login", "email", "pass", null)
+    private val searchResult1: SearchResult = SearchResult(userResponseApi1.id, userResponseApi1.name, userResponseApi1.login, 0, false)
+    private val userResponseApi2: UserResponse = UserResponse(2, "name2", 1, "login2", "email2", "pass2", null)
+    private val searchResult2: SearchResult = SearchResult(userResponseApi2.id, userResponseApi2.name, userResponseApi2.login, 1, false)
     private val userList = listOf(userResponseApi1, userResponseApi2)
     private val searchResultList = listOf(searchResult1, searchResult2)
 
@@ -35,6 +35,8 @@ class SearchRepositoryTest {
     fun getSearchResults_with_correct_response() {
         val response = Single.just(Response.success(userList))
         `when`(mockApi.getUsers()).thenReturn(response)
+        `when`(mockApi.isFavoriteUser(1)).thenReturn(Single.just(Response.success(false)))
+        `when`(mockApi.isFavoriteUser(2)).thenReturn(Single.just(Response.success(false)))
         val requestGetSearchResults = mockSearchRepository.getSearchResults().blockingGet()
         assertEquals(BlogInResult.Success(searchResultList), requestGetSearchResults)
     }

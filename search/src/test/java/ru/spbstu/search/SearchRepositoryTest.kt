@@ -11,6 +11,7 @@ import retrofit2.Response
 import ru.spbstu.common.api.Api
 import ru.spbstu.common.api.model.profile.UserResponse
 import ru.spbstu.common.domain.BlogInResult
+import ru.spbstu.common.domain.EMPTY_RESULT
 import ru.spbstu.common.domain.UNKNOWN_ERROR
 import ru.spbstu.search.repository.SearchRepository
 
@@ -47,5 +48,25 @@ class SearchRepositoryTest {
         `when`(mockApi.getUsers()).thenReturn(response)
         val requestGetSearchResults = mockSearchRepository.getSearchResults().blockingGet()
         assertEquals(BlogInResult.Error<Any>(UNKNOWN_ERROR), requestGetSearchResults)
+    }
+
+    @Test
+    fun setFavorites_with_correct_response() {
+        val isFav = true
+        val id = 1L
+        val response = Single.just(Response.success<Void?>(null))
+        `when`(mockApi.addToFavorite(id)).thenReturn(response)
+        val requestGetSearchResults = mockSearchRepository.setFavorite(id, isFav).blockingGet()
+        assertEquals(BlogInResult.Success(EMPTY_RESULT), requestGetSearchResults)
+    }
+
+    @Test
+    fun removeFavorites_with_correct_response() {
+        val isFav = false
+        val id = 1L
+        val response = Single.just(Response.success<Void?>(null))
+        `when`(mockApi.deleteFromFavorites(id)).thenReturn(response)
+        val requestGetSearchResults = mockSearchRepository.setFavorite(id, isFav).blockingGet()
+        assertEquals(BlogInResult.Success(EMPTY_RESULT), requestGetSearchResults)
     }
 }

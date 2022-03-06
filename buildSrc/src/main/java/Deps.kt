@@ -45,6 +45,8 @@ object Deps {
     private val markdown by lazy { "io.noties.markwon:core:${Versions.markwonVersion}" }
     private val markdownHtml by lazy { "io.noties.markwon:html:${Versions.markwonVersion}" }
 
+    private val mockito by lazy { "org.mockito:mockito-core:${Versions.mockito}" }
+
     val appLibraries = arrayListOf<String>().apply {
         add(kotlinStdLib)
         add(coreKtx)
@@ -84,6 +86,7 @@ object Deps {
 
     val testLibraries = arrayListOf<String>().apply {
         add(junit)
+        add(mockito)
     }
 }
 

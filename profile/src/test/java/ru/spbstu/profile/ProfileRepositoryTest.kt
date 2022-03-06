@@ -1,4 +1,4 @@
-package ru.spbstu.profile.repository
+package ru.spbstu.profile
 
 import io.reactivex.rxjava3.core.Single
 import okhttp3.ResponseBody.Companion.toResponseBody
@@ -16,6 +16,7 @@ import ru.spbstu.common.domain.UNKNOWN_ERROR
 import ru.spbstu.common.domain.UserProfile
 import ru.spbstu.common.tokens.RefreshToken
 import ru.spbstu.common.tokens.TokensRepository
+import ru.spbstu.profile.repository.ProfileRepository
 
 class ProfileRepositoryTest {
     private lateinit var mockApi: Api

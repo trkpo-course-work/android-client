@@ -1,4 +1,4 @@
-package ru.spbstu.wall.repository
+package ru.spbstu.wall
 
 import io.reactivex.rxjava3.core.Single
 import okhttp3.ResponseBody.Companion.toResponseBody
@@ -13,6 +13,7 @@ import ru.spbstu.common.api.model.profile.UserResponse
 import ru.spbstu.common.domain.BlogInResult
 import ru.spbstu.common.domain.UNKNOWN_ERROR
 import ru.spbstu.common.domain.UserProfile
+import ru.spbstu.wall.repository.WallRepository
 
 class WallRepositoryTest {
     private lateinit var mockApi: Api

@@ -1,4 +1,4 @@
-package ru.spbstu.search.repository
+package ru.spbstu.search
 
 import ru.spbstu.search.search.domain.SearchResult
 import io.reactivex.rxjava3.core.Single
@@ -12,6 +12,7 @@ import ru.spbstu.common.api.Api
 import ru.spbstu.common.api.model.profile.UserResponse
 import ru.spbstu.common.domain.BlogInResult
 import ru.spbstu.common.domain.UNKNOWN_ERROR
+import ru.spbstu.search.repository.SearchRepository
 
 class SearchRepositoryTest {
     private lateinit var mockApi: Api

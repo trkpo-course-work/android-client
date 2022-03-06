@@ -1,4 +1,4 @@
-package ru.spbstu.auth.repository
+package ru.spbstu.auth
 
 import io.reactivex.rxjava3.core.Single
 import okhttp3.ResponseBody.Companion.toResponseBody
@@ -9,6 +9,7 @@ import org.mockito.Mockito.*
 import retrofit2.Response
 import ru.spbstu.auth.domain.LoginError
 import ru.spbstu.auth.domain.Tokens
+import ru.spbstu.auth.repository.AuthRepository
 import ru.spbstu.common.api.Api
 import ru.spbstu.common.api.model.auth.*
 import ru.spbstu.common.domain.BlogInResult

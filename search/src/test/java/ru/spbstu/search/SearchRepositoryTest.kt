@@ -39,7 +39,6 @@ class SearchRepositoryTest {
         `when`(mockApi.isFavoriteUser(2)).thenReturn(Single.just(Response.success(false)))
         val requestGetSearchResults = mockSearchRepository.getSearchResults().blockingGet()
         assertEquals(BlogInResult.Success(searchResultList), requestGetSearchResults)
-        assertEquals(1, 0)
     }
 
     @Test

@@ -15,12 +15,12 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew assembleDebug
       - name: Test wall
-        run: ./gradlew :wall:testDebugUnitTest
+        run: ./gradlew :wall:testDebugUnitTest --tests "ru.spbstu.wall.WallRepositoryTest"
       - name: Test auth
-        run: ./gradlew :auth:testDebugUnitTest
+        run: ./gradlew :auth:testDebugUnitTest --tests "ru.spbstu.auth.AuthRepositoryTest"
       - name: Test diary
-        run: ./gradlew :diary:testDebugUnitTest
+        run: ./gradlew :diary:testDebugUnitTest --tests "ru.spbstu.diary.DiaryRepositoryTest"
       - name: Test profile
-        run: ./gradlew :profile:testDebugUnitTest
+        run: ./gradlew :profile:testDebugUnitTest --tests "ru.spbstu.profile.DiaryRepositoryTest"
       - name: Test search
-        run: ./gradlew :search:testDebugUnitTest
+        run: ./gradlew :search:testDebugUnitTest --tests "ru.spbstu.search.SearchRepositoryTest"

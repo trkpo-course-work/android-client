@@ -1,6 +1,6 @@
 name: Android CI
 
-on: [push]
+on: [ push ]
 
 
 jobs:
@@ -14,3 +14,13 @@ jobs:
           java-version: 11
       - name: Build with Gradle
         run: ./gradlew assembleDebug
+      -name: Test wall
+        run: ./gradlew :wall:testDebugUnitTest
+      -name: Test auth
+        run: ./gradlew :auth:testDebugUnitTest
+      -name: Test diary
+        run: ./gradlew :diary:testDebugUnitTest
+      -name: Test profile
+        run: ./gradlew :profile:testDebugUnitTest
+      -name: Test search
+        run: ./gradlew :search:testDebugUnitTest

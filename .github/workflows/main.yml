@@ -1,15 +1,26 @@
 name: Android CI
 
-on: [push]
+on: [ push ]
+
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - name: set up JDK 1.8
+      - name: set up JDK 11
         uses: actions/setup-java@v1
         with:
-          java-version: 1.8
+          java-version: 11
       - name: Build with Gradle
         run: ./gradlew assembleDebug
+      - name: Test wall
+        run: ./gradlew :wall:testDebugUnitTest --tests "ru.spbstu.wall.WallRepositoryTest"
+      - name: Test auth
+        run: ./gradlew :auth:testDebugUnitTest --tests "ru.spbstu.auth.AuthRepositoryTest"
+      - name: Test diary
+        run: ./gradlew :diary:testDebugUnitTest --tests "ru.spbstu.diary.DiaryRepositoryTest"
+      - name: Test profile
+        run: ./gradlew :profile:testDebugUnitTest --tests "ru.spbstu.profile.ProfileRepositoryTest"
+      - name: Test search
+        run: ./gradlew :search:testDebugUnitTest --tests "ru.spbstu.search.SearchRepositoryTest"

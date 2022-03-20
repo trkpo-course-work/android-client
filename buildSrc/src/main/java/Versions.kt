@@ -1,7 +1,7 @@
 
 object Versions {
-    const val gradlePlugin = "7.0.3"
-    const val kotlin = "1.5.30"
+    const val gradlePlugin = "7.1.2"
+    const val kotlin = "1.6.10"
     const val timber = "5.0.1"
     const val appCompat = "1.3.1"
     const val material = "1.4.0"
@@ -24,5 +24,6 @@ object Versions {
     const val security = "1.1.0-alpha01"
     const val rxKotlin = "3.0.1"
     const val markwonVersion = "4.6.2"
+    const val mockito = "4.3.1"
 
 }

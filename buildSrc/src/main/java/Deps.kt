@@ -49,6 +49,8 @@ object Deps {
     private val markdownStrikethrough by lazy { "io.noties.markwon:ext-strikethrough:${Versions.markwonVersion}" }
     private val markdownTables by lazy { "io.noties.markwon:ext-tables:${Versions.markwonVersion}" }
 
+    private val mockito by lazy { "org.mockito:mockito-core:${Versions.mockito}" }
+
     val appLibraries = arrayListOf<String>().apply {
         add(kotlinStdLib)
         add(coreKtx)
@@ -92,6 +94,7 @@ object Deps {
 
     val testLibraries = arrayListOf<String>().apply {
         add(junit)
+        add(mockito)
     }
 }
 

@@ -13,6 +13,11 @@
             <set />
           </value>
         </entry>
+        <entry key="/fragment.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/.github/workflows/main.yml">
           <value>
             <set />
@@ -24,6 +29,26 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/build.gradle.kts">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/build/reports/tests/testDebugUnitTest/index.html">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/androidTest/java/ru/spbstu/blog/root/presentation/RootActivityTest.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/test/java/ru/spbstu/blog/ExampleUnitTest.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/test/java/ru/spbstu/blog/IntegrationTests.kt">
           <value>
             <set />
           </value>

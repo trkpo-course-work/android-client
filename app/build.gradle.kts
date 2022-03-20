@@ -55,6 +55,8 @@ dependencies {
     implementation(Deps.appLibraries)
     implementation(Deps.daggerDep)
     implementation(Deps.network)
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.0-alpha03")
+    androidTestImplementation("androidx.test:rules:1.4.0")
     kapt(Deps.daggerKapt)
     testImplementation(Deps.testLibraries)
     androidTestImplementation(Deps.androidTestLibraries)

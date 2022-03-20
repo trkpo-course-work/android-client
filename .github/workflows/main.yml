@@ -24,3 +24,5 @@ jobs:
         run: ./gradlew :profile:testDebugUnitTest --tests "ru.spbstu.profile.ProfileRepositoryTest"
       - name: Test search
         run: ./gradlew :search:testDebugUnitTest --tests "ru.spbstu.search.SearchRepositoryTest"
+      - name: Integration tests
+        run: ./gradlew :app:testDebugUnitTest --tests "ru.spbstu.blog.IntegrationTests"

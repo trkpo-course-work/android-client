@@ -1,6 +1,7 @@
 package ru.spbstu.blog
 
 import io.reactivex.rxjava3.core.Single
+import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.Test
 import org.junit.Assert.*
 import org.junit.Before
@@ -9,9 +10,7 @@ import retrofit2.Response
 import ru.spbstu.auth.domain.Tokens
 import ru.spbstu.auth.repository.AuthRepository
 import ru.spbstu.common.api.Api
-import ru.spbstu.common.api.model.auth.LoginBody
-import ru.spbstu.common.api.model.auth.SignInBody
-import ru.spbstu.common.api.model.auth.TokensResponse
+import ru.spbstu.common.api.model.auth.*
 import ru.spbstu.common.api.model.blog.BlogPostBody
 import ru.spbstu.common.api.model.profile.UserResponse
 import ru.spbstu.common.domain.*
@@ -34,6 +33,8 @@ class IntegrationTests {
     private lateinit var wallRepository: WallRepository
 
     private val correctLoginBody: LoginBody = LoginBody("correct", "correct")
+    private val incorrectLoginBody: LoginBody = LoginBody("incorrect", "incorrect")
+    private val emptyLoginBody: LoginBody = LoginBody("", "")
     private val accessToken = "access token"
     private val refreshToken = "refresh token"
 
@@ -346,6 +347,78 @@ class IntegrationTests {
         val data = (getUserBlogsResult as BlogInResult.Success).data
         assert(data.none { it.isPrivate })
         assert(data.none { it == blogData.toDomainModel() })
+    }
+
+    @Test
+    fun authWithInvalidData() {
+        val response = Single.just(Response.error<TokensResponse>(500, "".toResponseBody()))
+        Mockito.`when`(mockApi.login(incorrectLoginBody)).thenReturn(response)
+        val signInResponse = Single.just(Response.success<Void?>(null))
+        val correctSignInBody =
+            SignInBody("any", correctLoginBody.login, "anyEmail", correctLoginBody.password)
+        Mockito.`when`(mockApi.signIn(correctSignInBody)).thenReturn(signInResponse)
+
+        val signInResult = authRepository.signIn(
+            "any",
+            correctSignInBody.login,
+            "anyEmail",
+            correctSignInBody.password
+        ).blockingGet()
+        assertEquals(BlogInResult.Success(EMPTY_RESULT), signInResult)
+
+        val loginResponse = authRepository.login("incorrect", "incorrect").blockingGet()
+        assertEquals(BlogInResult.Error<Any>(UNKNOWN_ERROR), loginResponse)
+    }
+
+    @Test
+    fun authWithEmptyData() {
+        val response = Single.just(Response.error<TokensResponse>(500, "".toResponseBody()))
+        Mockito.`when`(mockApi.login(emptyLoginBody)).thenReturn(response)
+        val signInResponse = Single.just(Response.success<Void?>(null))
+        val correctSignInBody =
+            SignInBody("any", correctLoginBody.login, "anyEmail", correctLoginBody.password)
+        Mockito.`when`(mockApi.signIn(correctSignInBody)).thenReturn(signInResponse)
+
+        val signInResult = authRepository.signIn(
+            "any",
+            correctSignInBody.login,
+            "anyEmail",
+            correctSignInBody.password
+        ).blockingGet()
+        assertEquals(BlogInResult.Success(EMPTY_RESULT), signInResult)
+
+        val loginResponse = authRepository.login("", "").blockingGet()
+        assertEquals(BlogInResult.Error<Any>(UNKNOWN_ERROR), loginResponse)
+    }
+
+    @Test
+    fun signInWithIncorrectCode() {
+        val signInResponse = Single.just(Response.success<Void?>(null))
+        val correctSignInBody =
+            SignInBody("any", correctLoginBody.login, "anyEmail", correctLoginBody.password)
+        Mockito.`when`(mockApi.signIn(correctSignInBody)).thenReturn(signInResponse)
+
+        val signInResult = authRepository.signIn(
+            "any",
+            correctSignInBody.login,
+            "anyEmail",
+            correctSignInBody.password
+        ).blockingGet()
+        assertEquals(BlogInResult.Success(EMPTY_RESULT), signInResult)
+
+        val requestConfirmationBody = RequestConfirmationBody(correctLoginBody.login)
+        val responseConfirmationBody = Single.just(Response.success<Void?>(null))
+        Mockito.`when`(mockApi.requestConfirmation(requestConfirmationBody)).thenReturn(responseConfirmationBody)
+
+        val sendCodeResult = authRepository.requestConfirm(correctLoginBody.login).blockingGet()
+        assertEquals(BlogInResult.Success(EMPTY_RESULT), sendCodeResult)
+
+        val confirmBody = ConfirmBody(correctLoginBody.login, "incorrect")
+        val responseConfirmBody = Single.just(Response.error<Void>(500, "".toResponseBody()))
+        Mockito.`when`(mockApi.confirm(confirmBody)).thenReturn(responseConfirmBody)
+
+        val confirmResult = authRepository.confirm(confirmBody.login, confirmBody.code).blockingGet()
+        assertEquals(BlogInResult.Error<Any>(UNKNOWN_ERROR), confirmResult)
     }
 
 }

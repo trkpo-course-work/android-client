@@ -26,8 +26,3 @@ jobs:
         run: ./gradlew :search:testDebugUnitTest --tests "ru.spbstu.search.SearchRepositoryTest"
       - name: Integration tests
         run: ./gradlew :app:testDebugUnitTest --tests "ru.spbstu.blog.IntegrationTests"
-      - name: Publish Unit Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v1
-        if: always()
-        with:
-          files: "test-results/**/*.xml"

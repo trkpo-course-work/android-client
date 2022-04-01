@@ -38,7 +38,37 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/androidTest/java/ru/spbstu/blog/root/presentation/LoginTest.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/androidTest/java/ru/spbstu/blog/root/presentation/RootActivityTest.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/androidTest/java/ru/spbstu/blog/root/presentation/RootActivityTest2.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/androidTest/java/ru/spbstu/blog/root/presentation/RootActivityTest3.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/androidTest/java/ru/spbstu/blog/root/presentation/utils/ToastMatcher.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/ru/spbstu/blog/root/presentation/RootActivity.kt">
           <value>
             <set />
           </value>
@@ -49,6 +79,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/test/java/ru/spbstu/blog/IntegrationTests.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/test/java/ru/spbstu/blog/UnitTests.kt">
           <value>
             <set />
           </value>
@@ -109,6 +144,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/search/build.gradle.kts">
           <value>
             <set />
           </value>

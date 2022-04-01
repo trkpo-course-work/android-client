@@ -32,6 +32,7 @@ class MainPagesTest {
 
     @Test
     fun mainPagesTest() {
+        onView(isRoot()).perform(waitFor(1000))
         val appCompatEditText = onView(
             allOf(
                 withId(R.id.layout_login__et_login),

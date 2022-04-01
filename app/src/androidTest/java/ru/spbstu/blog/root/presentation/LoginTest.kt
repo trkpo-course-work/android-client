@@ -36,6 +36,7 @@ class LoginTest {
 
     @Test
     fun loginTest() {
+        onView(isRoot()).perform(waitFor(1000))
         // 1st try with incorrect symbols in login
         val appCompatEditText4 = onView(
             allOf(

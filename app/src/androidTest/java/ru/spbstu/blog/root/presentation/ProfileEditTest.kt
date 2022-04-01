@@ -35,6 +35,7 @@ class ProfileEditTest {
 
     @Test
     fun profileEditTest() {
+        onView(isRoot()).perform(waitFor(1000))
         val appCompatEditText = onView(
             allOf(
                 withId(R.id.layout_login__et_login),

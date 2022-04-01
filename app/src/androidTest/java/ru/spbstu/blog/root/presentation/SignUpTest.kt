@@ -37,6 +37,7 @@ class SignUpTest {
 
     @Test
     fun signUpTest() {
+        onView(isRoot()).perform(waitFor(1000))
         val materialTextView = onView(
             allOf(
                 withId(R.id.frg_login__tv_no_account), withText("Нет аккаунта? Зарегистрироваться"),

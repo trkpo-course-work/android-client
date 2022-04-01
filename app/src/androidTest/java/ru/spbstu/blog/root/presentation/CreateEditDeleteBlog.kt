@@ -117,6 +117,7 @@ class CreateEditDeleteBlog {
             )
         )
         floatingActionButton.perform(click())
+        onView(isRoot()).perform(waitFor(1000))
 
         val appCompatEditText3 = onView(
             allOf(

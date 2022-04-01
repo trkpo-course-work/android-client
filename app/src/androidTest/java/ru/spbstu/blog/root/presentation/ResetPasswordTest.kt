@@ -71,7 +71,7 @@ class ResetPasswordTest {
                 isDisplayed()
             )
         )
-        appCompatEditText.perform(replaceText("test@test.com"), closeSoftKeyboard())
+        appCompatEditText.perform(replaceText("test3@test.com"), closeSoftKeyboard())
 
         val materialButton = onView(
             allOf(
@@ -197,7 +197,7 @@ class ResetPasswordTest {
                 isDisplayed()
             )
         )
-        appCompatEditText5.perform(replaceText("testlogin1_"), closeSoftKeyboard())
+        appCompatEditText5.perform(replaceText("testlogin_3"), closeSoftKeyboard())
 
         val appCompatEditText6 = onView(
             allOf(

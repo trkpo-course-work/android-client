@@ -262,7 +262,7 @@ class LoginTest {
                 isDisplayed()
             )
         )
-        appCompatEditText2.perform(replaceText("testlogin1_@#$%"), closeSoftKeyboard())
+        appCompatEditText2.perform(replaceText("test4629_@#$%"), closeSoftKeyboard())
         appCompatEditText2.check { view, noViewFoundException ->
             view as AppCompatEditText
             assert(view.inputType - 1 == InputType.TYPE_TEXT_VARIATION_PASSWORD)

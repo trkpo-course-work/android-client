@@ -5,6 +5,7 @@ import android.text.InputFilter
 import android.text.InputType
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.*
@@ -49,7 +50,7 @@ class SignUpTest {
         )
         materialTextView.perform(scrollTo(), click())
 
-        waitFor(1000)
+        onView(isRoot()).perform(waitFor(1000))
 
         val button = onView(
             allOf(
@@ -60,7 +61,7 @@ class SignUpTest {
         )
         button.check(matches(isDisplayed()))
 
-        val randomNumber = Random(42).nextInt(until = 100000)
+        val randomNumber = Random(System.currentTimeMillis()).nextInt(until = 100000)
 
         val appCompatEditText = onView(
             allOf(
@@ -204,7 +205,7 @@ class SignUpTest {
         )
         materialButton.perform(scrollTo(), click())
 
-        waitFor(1000)
+        onView(isRoot()).perform(waitFor(1000))
 
         val appCompatEditText8 = onView(
             allOf(
@@ -238,7 +239,7 @@ class SignUpTest {
         )
         materialButton2.perform(scrollTo(), click())
 
-        waitFor(1000)
+        onView(isRoot()).perform(waitFor(1000))
 
         val textView = onView(
             allOf(
@@ -253,6 +254,105 @@ class SignUpTest {
             )
         )
         textView.check(matches(withText("АВТОРИЗАЦИЯ")))
+
+        onView(isRoot()).perform(waitFor(1000))
+
+        val appCompatEditText11 = onView(
+            allOf(
+                withId(R.id.layout_login__et_login),
+                childAtPosition(
+                    allOf(
+                        withId(R.id.layout_login__mc_login),
+                        childAtPosition(
+                            withId(R.id.layout_login__rl_root),
+                            0
+                        )
+                    ),
+                    0
+                ),
+                isDisplayed()
+            )
+        )
+        appCompatEditText11.perform(replaceText("testlogin_$randomNumber"), closeSoftKeyboard())
+
+        appCompatEditText11.check { view, noViewFoundException ->
+            view as AppCompatEditText
+            assert(view.filters.all { it is InputFilter.LengthFilter && it.max == 20 })
+        }
+
+        val materialButton1 = onView(
+            allOf(
+                withId(R.id.frg_login__mb_action_button), withText("ВОЙТИ"),
+                childAtPosition(
+                    childAtPosition(
+                        withClassName(`is`("android.widget.ScrollView")),
+                        0
+                    ),
+                    1
+                )
+            )
+        )
+
+        val appCompatEditText2 = onView(
+            allOf(
+                withId(R.id.layout_login__et_password),
+                childAtPosition(
+                    allOf(
+                        withId(R.id.layout_login__mc_password),
+                        childAtPosition(
+                            withId(R.id.layout_login__rl_root),
+                            1
+                        )
+                    ),
+                    0
+                ),
+                isDisplayed()
+            )
+        )
+        appCompatEditText2.perform(replaceText("testpass_@#$%"), closeSoftKeyboard())
+        appCompatEditText2.check { view, noViewFoundException ->
+            view as AppCompatEditText
+            assert(view.inputType - 1 == InputType.TYPE_TEXT_VARIATION_PASSWORD)
+        }
+
+        appCompatEditText2.check { view, noViewFoundException ->
+            view as AppCompatEditText
+            assert(view.filters.all { it is InputFilter.LengthFilter && it.max == 20 })
+        }
+
+        val materialButton3 = onView(
+            allOf(
+                withId(R.id.frg_login__mb_action_button), withText("ВОЙТИ"),
+                childAtPosition(
+                    childAtPosition(
+                        withClassName(`is`("android.widget.ScrollView")),
+                        0
+                    ),
+                    1
+                )
+            )
+        )
+        materialButton3.check { view, noViewFoundException ->
+            view as Button
+            assert(view.isEnabled)
+        }
+        materialButton3.perform(scrollTo(), click())
+
+        onView(isRoot()).perform(waitFor(1000))
+
+        val textView2 = onView(
+            allOf(
+                withId(R.id.frg_blog__toolbar_title), withText("ГЛАВНАЯ"),
+                withParent(
+                    allOf(
+                        withId(R.id.frg_blog__toolbar),
+                        withParent(IsInstanceOf.instanceOf(android.view.ViewGroup::class.java))
+                    )
+                ),
+                isDisplayed()
+            )
+        )
+        textView2.check(matches(withText("ГЛАВНАЯ")))
     }
 
     private fun childAtPosition(

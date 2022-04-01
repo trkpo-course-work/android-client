@@ -1,25 +1,24 @@
 package ru.spbstu.blog.root.presentation
 
-import android.text.InputFilter
+
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import androidx.recyclerview.widget.RecyclerView
-import androidx.test.espresso.Espresso.onData
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.UiController
 import androidx.test.espresso.ViewAction
 import androidx.test.espresso.action.ViewActions.*
-import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
 import org.hamcrest.Description
 import org.hamcrest.Matcher
-import org.hamcrest.Matchers.*
+import org.hamcrest.Matchers
+import org.hamcrest.Matchers.`is`
+import org.hamcrest.Matchers.allOf
 import org.hamcrest.TypeSafeMatcher
-import org.hamcrest.core.IsInstanceOf
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -29,14 +28,14 @@ import ru.spbstu.blog.root.presentation.utils.waitFor
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class CreateDeleteBlogTest {
+class DiaryCreateDeleteTest {
 
     @Rule
     @JvmField
     var mActivityTestRule = ActivityTestRule(RootActivity::class.java)
 
     @Test
-    fun createEditDeleteBlogTest() {
+    fun diaryCreateDeleteTest() {
         onView(isRoot()).perform(waitFor(1000))
         val appCompatEditText = onView(
             allOf(
@@ -103,11 +102,26 @@ class CreateDeleteBlogTest {
             )
         )
         bottomNavigationItemView.perform(click())
+
+        val tabView = onView(
+            allOf(
+                withContentDescription("Дневник"),
+                childAtPosition(
+                    childAtPosition(
+                        withId(R.id.frg_diary__tabs),
+                        0
+                    ),
+                    1
+                ),
+                isDisplayed()
+            )
+        )
+        tabView.perform(click())
         onView(isRoot()).perform(waitFor(1000))
 
         val floatingActionButton = onView(
             allOf(
-                withId(R.id.frg_user_blog__fab),
+                withId(R.id.frg_user_diary__fab),
                 childAtPosition(
                     childAtPosition(
                         withClassName(`is`("android.widget.FrameLayout")),
@@ -120,42 +134,6 @@ class CreateDeleteBlogTest {
         )
         floatingActionButton.perform(click())
         onView(isRoot()).perform(waitFor(1000))
-
-        val textView = onView(
-            allOf(
-                withId(R.id.frg_post__toolbar_title), withText("Новый блог"),
-                withParent(
-                    allOf(
-                        withId(R.id.frg_post__toolbar),
-                        withParent(IsInstanceOf.instanceOf(android.view.ViewGroup::class.java))
-                    )
-                ),
-                isDisplayed()
-            )
-        )
-        textView.check(matches(withText("Новый блог")))
-
-        val imageButton = onView(
-            allOf(
-                withId(R.id.frg_post__finish_post),
-                withParent(
-                    allOf(
-                        withId(R.id.frg_post__toolbar),
-                        withParent(IsInstanceOf.instanceOf(android.view.ViewGroup::class.java))
-                    )
-                ),
-                isDisplayed()
-            )
-        )
-        imageButton.check(matches(isDisplayed()))
-
-        val button = onView(
-            allOf(
-                withId(R.id.frg_post__mb_add_photo), withText("ДОБАВИТЬ ФОТО"),
-                isDisplayed()
-            )
-        )
-        button.check(matches(isDisplayed()))
 
         val appCompatEditText3 = onView(
             allOf(
@@ -170,15 +148,9 @@ class CreateDeleteBlogTest {
                 isDisplayed()
             )
         )
-        appCompatEditText3.check { view, noViewFoundException ->
-            view as EditText
-            assert(view.filters.all { it is InputFilter.LengthFilter && it.max == 20 })
-        }
-        appCompatEditText3.perform(replaceText("Test mimimi"), closeSoftKeyboard())
+        appCompatEditText3.perform(replaceText("Test diary"), closeSoftKeyboard())
 
-        onView(isRoot()).perform(waitFor(1000))
-
-        val appCompatImageButton2 = onView(
+        val appCompatImageButton = onView(
             allOf(
                 withId(R.id.frg_post__finish_post),
                 childAtPosition(
@@ -194,13 +166,13 @@ class CreateDeleteBlogTest {
                 isDisplayed()
             )
         )
-        appCompatImageButton2.perform(click())
+        appCompatImageButton.perform(click())
         onView(isRoot()).perform(waitFor(1000))
 
         val viewGroup = onView(
             withId(R.id.layout_notes__rv_posts),
         )
-        viewGroup.perform(object: ViewAction{
+        viewGroup.perform(object: ViewAction {
             override fun getConstraints(): Matcher<View> {
                 return allOf(
                     isAssignableFrom(RecyclerView::class.java),
@@ -216,13 +188,13 @@ class CreateDeleteBlogTest {
                 uiController?.loopMainThreadUntilIdle()
             }
         })
-        viewGroup.check(matches(atPosition(0, isDisplayed())))
+        viewGroup.check(ViewAssertions.matches(atPosition(0, isDisplayed())))
         onView(isRoot()).perform(waitFor(1000))
 
         onView(withId(R.id.layout_notes__rv_posts))
-            .check(matches(atPosition(0, hasDescendant(withText("Test mimimi")))))
+            .check(ViewAssertions.matches(atPosition(0, hasDescendant(withText("Test diary")))))
 
-        val appCompatImageButton3 = onView(
+        val appCompatImageButton2 = onView(
             allOf(
                 withId(R.id.item_note__iv_actions),
                 childAtPosition(
@@ -235,7 +207,7 @@ class CreateDeleteBlogTest {
                 isDisplayed()
             )
         )
-        appCompatImageButton3.perform(click())
+        appCompatImageButton2.perform(click())
         onView(isRoot()).perform(waitFor(1000))
 
         val materialTextView = onView(
@@ -254,7 +226,7 @@ class CreateDeleteBlogTest {
         materialTextView.perform(click())
         onView(isRoot()).perform(waitFor(1000))
 
-        val appCompatImageButton4 = onView(
+        val appCompatImageButton3 = onView(
             allOf(
                 childAtPosition(
                     allOf(
@@ -269,19 +241,10 @@ class CreateDeleteBlogTest {
                 isDisplayed()
             )
         )
-        // back
-        appCompatImageButton4.perform(click())
+        appCompatImageButton3.perform(click())
         onView(isRoot()).perform(waitFor(1000))
 
-        val viewGroup2 = onView(
-            withId(R.id.layout_notes__rv_posts),
-        )
-        viewGroup2.check(matches(atPosition(0, isDisplayed())))
-
-        onView(withId(R.id.layout_notes__rv_posts))
-            .check(matches(atPosition(0, hasDescendant(withText("Test mimimi")))))
-
-        val appCompatImageButton5 = onView(
+        val appCompatImageButton4 = onView(
             allOf(
                 withId(R.id.item_note__iv_actions),
                 childAtPosition(
@@ -294,7 +257,7 @@ class CreateDeleteBlogTest {
                 isDisplayed()
             )
         )
-        appCompatImageButton5.perform(click())
+        appCompatImageButton4.perform(click())
         onView(isRoot()).perform(waitFor(1000))
 
         val materialTextView2 = onView(
@@ -314,7 +277,14 @@ class CreateDeleteBlogTest {
         onView(isRoot()).perform(waitFor(1000))
 
         onView(withId(R.id.layout_notes__rv_posts))
-            .check(matches(atPosition(0, hasDescendant(not(withText("Test mimimi"))))))
+            .check(
+                ViewAssertions.matches(
+                    atPosition(
+                        0,
+                        hasDescendant(Matchers.not(withText("Test diary")))
+                    )
+                )
+            )
     }
 
     private fun childAtPosition(

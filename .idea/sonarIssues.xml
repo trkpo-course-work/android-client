@@ -38,6 +38,16 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/androidTest/java/ru/spbstu/blog/root/presentation/CreateDeleteBlogTest.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/androidTest/java/ru/spbstu/blog/root/presentation/CreateEditDeleteBlogTest.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/androidTest/java/ru/spbstu/blog/root/presentation/LoginTest.kt">
           <value>
             <set />

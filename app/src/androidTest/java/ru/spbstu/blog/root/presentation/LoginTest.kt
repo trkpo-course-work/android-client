@@ -2,6 +2,7 @@ package ru.spbstu.blog.root.presentation
 
 
 import android.text.InputFilter
+import android.text.InputType
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
@@ -264,6 +265,10 @@ class LoginTest {
             )
         )
         appCompatEditText2.perform(replaceText("testlogin1_@#$%"), closeSoftKeyboard())
+        appCompatEditText2.check { view, noViewFoundException ->
+            view as AppCompatEditText
+            assert(view.inputType - 1 == InputType.TYPE_TEXT_VARIATION_PASSWORD)
+        }
 
         appCompatEditText2.check { view, noViewFoundException ->
             view as AppCompatEditText
@@ -304,25 +309,6 @@ class LoginTest {
         )
         textView2.check(matches(withText("ГЛАВНАЯ")))
 
-    }
-
-    /**
-     * Perform action of waiting for a specific time.
-     */
-    fun waitFor(millis: Long): ViewAction {
-        return object : ViewAction {
-            override fun getConstraints(): Matcher<View> {
-                return isRoot()
-            }
-
-            override fun getDescription(): String {
-                return "Wait for $millis milliseconds."
-            }
-
-            override fun perform(uiController: UiController, view: View) {
-                uiController.loopMainThreadForAtLeast(millis)
-            }
-        }
     }
 
     private fun childAtPosition(

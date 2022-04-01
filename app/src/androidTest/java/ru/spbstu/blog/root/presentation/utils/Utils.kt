@@ -1,4 +1,4 @@
-package ru.spbstu.blog.root.presentation
+package ru.spbstu.blog.root.presentation.utils
 
 import android.view.View
 import androidx.test.espresso.UiController

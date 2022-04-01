@@ -24,6 +24,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import ru.spbstu.blog.R
+import ru.spbstu.blog.root.presentation.utils.waitFor
 import kotlin.random.Random
 
 @LargeTest

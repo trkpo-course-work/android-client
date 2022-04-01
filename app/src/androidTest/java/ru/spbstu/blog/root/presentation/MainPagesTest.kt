@@ -28,7 +28,7 @@ class MainPagesTest {
 
     @Rule
     @JvmField
-    var mActivityTestRule = ActivityTestRule(RootActivity::class.java)
+    var mActivityTestRule = ActivityTestRule(RootActivity::class.java, true)
 
     @Test
     fun mainPagesTest() {
@@ -350,6 +350,7 @@ class MainPagesTest {
             )
         )
         appCompatEditText3.perform(replaceText("test"), closeSoftKeyboard())
+        mActivityTestRule.finishActivity()
     }
 
     private fun childAtPosition(

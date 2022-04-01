@@ -31,7 +31,7 @@ class ProfileEditTest {
 
     @Rule
     @JvmField
-    var mActivityTestRule = ActivityTestRule(RootActivity::class.java)
+    var mActivityTestRule = ActivityTestRule(RootActivity::class.java, true)
 
     @Test
     fun profileEditTest() {
@@ -370,6 +370,7 @@ class ProfileEditTest {
             )
         )
         textView3.check(matches(withText(randomName)))
+        mActivityTestRule.finishActivity()
     }
 
     companion object {

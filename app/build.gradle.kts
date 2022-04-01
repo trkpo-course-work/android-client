@@ -16,6 +16,11 @@ android {
         versionName = ConfigData.versionName
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunnerArguments["clearPackageData"] = "true"
+
+        testOptions {
+            execution = "ANDROIDX_TEST_ORCHESTRATOR"
+        }
     }
 
     buildTypes {
@@ -60,4 +65,5 @@ dependencies {
     kapt(Deps.daggerKapt)
     testImplementation(Deps.testLibraries)
     androidTestImplementation(Deps.androidTestLibraries)
+    androidTestUtil("androidx.test:orchestrator:1.4.1")
 }

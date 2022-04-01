@@ -33,7 +33,7 @@ class SignUpTest {
 
     @Rule
     @JvmField
-    var mActivityTestRule = ActivityTestRule(RootActivity::class.java)
+    var mActivityTestRule = ActivityTestRule(RootActivity::class.java, true)
 
     @Test
     fun signUpTest() {
@@ -355,6 +355,7 @@ class SignUpTest {
             )
         )
         textView2.check(matches(withText("ГЛАВНАЯ")))
+        mActivityTestRule.finishActivity()
     }
 
     private fun childAtPosition(

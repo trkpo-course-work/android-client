@@ -33,7 +33,7 @@ class CreateDeleteBlogTest {
 
     @Rule
     @JvmField
-    var mActivityTestRule = ActivityTestRule(RootActivity::class.java)
+    var mActivityTestRule = ActivityTestRule(RootActivity::class.java, true)
 
     @Test
     fun createEditDeleteBlogTest() {
@@ -315,6 +315,8 @@ class CreateDeleteBlogTest {
 
         onView(withId(R.id.layout_notes__rv_posts))
             .check(matches(atPosition(0, hasDescendant(not(withText("Test mimimi"))))))
+
+        mActivityTestRule.finishActivity()
     }
 
     private fun childAtPosition(

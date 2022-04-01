@@ -29,7 +29,7 @@ class NewsTest {
 
     @Rule
     @JvmField
-    var mActivityTestRule = ActivityTestRule(RootActivity::class.java)
+    var mActivityTestRule = ActivityTestRule(RootActivity::class.java, true)
 
     @Test
     fun newsTest() {
@@ -242,6 +242,7 @@ class NewsTest {
             withId(R.id.frg_blog__rv_posts),
         )
         viewGroup5.check(matches(atPosition(1, isDisplayed())))
+        mActivityTestRule.finishActivity()
     }
 
     private fun childAtPosition(

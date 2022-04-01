@@ -29,7 +29,7 @@ class ProfileTest {
 
     @Rule
     @JvmField
-    var mActivityTestRule = ActivityTestRule(RootActivity::class.java)
+    var mActivityTestRule = ActivityTestRule(RootActivity::class.java, true)
 
     @Test
     fun profileTest() {
@@ -429,6 +429,7 @@ class ProfileTest {
             )
         )
         textView16.check(matches(withText("АВТОРИЗАЦИЯ")))
+        mActivityTestRule.finishActivity()
     }
 
     private fun childAtPosition(

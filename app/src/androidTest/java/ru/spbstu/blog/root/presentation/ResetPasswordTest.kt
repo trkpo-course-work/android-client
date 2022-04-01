@@ -29,7 +29,7 @@ class ResetPasswordTest {
 
     @Rule
     @JvmField
-    var mActivityTestRule = ActivityTestRule(RootActivity::class.java)
+    var mActivityTestRule = ActivityTestRule(RootActivity::class.java, true)
 
     @Test
     fun resetPasswordTest() {
@@ -246,6 +246,7 @@ class ResetPasswordTest {
             )
         )
         textView2.check(ViewAssertions.matches(withText("ГЛАВНАЯ")))
+        mActivityTestRule.finishActivity()
     }
 
     private fun childAtPosition(

@@ -32,7 +32,7 @@ class DiaryCreateEditDeleteTest {
 
     @Rule
     @JvmField
-    var mActivityTestRule = ActivityTestRule(RootActivity::class.java)
+    var mActivityTestRule = ActivityTestRule(RootActivity::class.java, true)
 
     @Test
     fun diaryCreateEditDeleteTest() {
@@ -341,6 +341,7 @@ class DiaryCreateEditDeleteTest {
                     )
                 )
             )
+        mActivityTestRule.finishActivity()
     }
 
     private fun childAtPosition(

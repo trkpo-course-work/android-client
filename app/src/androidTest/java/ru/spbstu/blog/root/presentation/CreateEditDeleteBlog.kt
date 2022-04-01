@@ -31,7 +31,7 @@ class CreateEditDeleteBlog {
 
     @Rule
     @JvmField
-    var mActivityTestRule = ActivityTestRule(RootActivity::class.java)
+    var mActivityTestRule = ActivityTestRule(RootActivity::class.java, true)
 
     @Test
     fun createEditDeleteBlog() {
@@ -289,6 +289,7 @@ class CreateEditDeleteBlog {
         )
         materialTextView2.perform(click())
         onView(isRoot()).perform(waitFor(1000))
+        mActivityTestRule.finishActivity()
     }
 
     private fun childAtPosition(

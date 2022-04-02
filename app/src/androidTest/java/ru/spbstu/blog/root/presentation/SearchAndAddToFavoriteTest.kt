@@ -119,7 +119,7 @@ class SearchAndAddToFavoriteTest {
             )
         )
         appCompatEditText3.perform(replaceText("svy"), closeSoftKeyboard())
-        onView(isRoot()).perform(waitFor(2000))
+        onView(isRoot()).perform(waitFor(4000))
 
         val materialCheckBox = onView(
             allOf(
@@ -135,7 +135,7 @@ class SearchAndAddToFavoriteTest {
             )
         )
         materialCheckBox.perform(click())
-        onView(isRoot()).perform(waitFor(2000))
+        onView(isRoot()).perform(waitFor(4000))
 
         val materialCheckBox2 = onView(
             allOf(
@@ -151,7 +151,7 @@ class SearchAndAddToFavoriteTest {
             )
         )
         materialCheckBox2.perform(click())
-        onView(isRoot()).perform(waitFor(2000))
+        onView(isRoot()).perform(waitFor(4000))
 
         val recyclerView = onView(
             allOf(
@@ -203,7 +203,7 @@ class SearchAndAddToFavoriteTest {
             )
         )
         recyclerView2.perform(actionOnItemAtPosition<ViewHolder>(0, click()))
-        onView(isRoot()).perform(waitFor(2000))
+        onView(isRoot()).perform(waitFor(4000))
 
         val appCompatImageView2 = onView(
             allOf(
@@ -222,7 +222,7 @@ class SearchAndAddToFavoriteTest {
             )
         )
         appCompatImageView2.perform(click())
-        onView(isRoot()).perform(waitFor(2000))
+        onView(isRoot()).perform(waitFor(4000))
 
         val appCompatImageView3 = onView(
             allOf(
@@ -241,7 +241,7 @@ class SearchAndAddToFavoriteTest {
             )
         )
         appCompatImageView3.perform(click())
-        onView(isRoot()).perform(waitFor(2000))
+        onView(isRoot()).perform(waitFor(4000))
 
         val appCompatImageView4 = onView(
             allOf(

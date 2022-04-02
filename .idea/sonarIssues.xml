@@ -108,6 +108,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/androidTest/java/ru/spbstu/blog/root/presentation/SearchAndAddToFavoriteTest.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/androidTest/java/ru/spbstu/blog/root/presentation/SignUpTest.kt">
           <value>
             <set />

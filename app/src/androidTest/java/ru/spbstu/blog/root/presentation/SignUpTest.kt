@@ -355,6 +355,73 @@ class SignUpTest {
             )
         )
         textView2.check(matches(withText("ГЛАВНАЯ")))
+
+        val bottomNavigationItemView = onView(
+            allOf(
+                withId(R.id.profileFragment), withContentDescription("Home"),
+                childAtPosition(
+                    childAtPosition(
+                        withId(R.id.bottomNavigationView),
+                        0
+                    ),
+                    0
+                ),
+                isDisplayed()
+            )
+        )
+        bottomNavigationItemView.perform(click())
+        onView(isRoot()).perform(waitFor(1000))
+
+        val appCompatImageButton3 = onView(
+            allOf(
+                withId(R.id.frg_profile__ib_actions),
+                childAtPosition(
+                    allOf(
+                        withId(R.id.frg_profile__toolbar),
+                        childAtPosition(
+                            withClassName(`is`("androidx.constraintlayout.widget.ConstraintLayout")),
+                            0
+                        )
+                    ),
+                    1
+                ),
+                isDisplayed()
+            )
+        )
+        appCompatImageButton3.perform(click())
+        onView(isRoot()).perform(waitFor(1000))
+
+        val materialTextView2 = onView(
+            allOf(
+                withId(android.R.id.title), withText("Удалить"),
+                childAtPosition(
+                    childAtPosition(
+                        withClassName(`is`("com.android.internal.view.menu.ListMenuItemView")),
+                        0
+                    ),
+                    0
+                ),
+                isDisplayed()
+            )
+        )
+        materialTextView2.perform(click())
+        onView(isRoot()).perform(waitFor(1000))
+
+        val materialButton4 = onView(
+            allOf(
+                withId(android.R.id.button1), withText("ДА"),
+                childAtPosition(
+                    childAtPosition(
+                        withId(androidx.appcompat.R.id.buttonPanel),
+                        0
+                    ),
+                    3
+                )
+            )
+        )
+        materialButton4.perform(scrollTo(), click())
+        onView(isRoot()).perform(waitFor(1000))
+
         mActivityTestRule.finishActivity()
     }
 

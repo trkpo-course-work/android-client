@@ -38,7 +38,112 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/androidTest/java/ru/spbstu/blog/root/presentation/CreateDeleteBlogTest.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/androidTest/java/ru/spbstu/blog/root/presentation/CreateEditDeleteBlog.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/androidTest/java/ru/spbstu/blog/root/presentation/CreateEditDeleteBlogTest.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/androidTest/java/ru/spbstu/blog/root/presentation/DiaryCreateDeleteTest.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/androidTest/java/ru/spbstu/blog/root/presentation/DiaryCreateEditDeleteTest.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/androidTest/java/ru/spbstu/blog/root/presentation/LoginTest.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/androidTest/java/ru/spbstu/blog/root/presentation/MainPagesTest.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/androidTest/java/ru/spbstu/blog/root/presentation/NewsTest.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/androidTest/java/ru/spbstu/blog/root/presentation/PhotoPickerTest.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/androidTest/java/ru/spbstu/blog/root/presentation/ProfileEditTest.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/androidTest/java/ru/spbstu/blog/root/presentation/ProfileTest.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/androidTest/java/ru/spbstu/blog/root/presentation/ResetPasswordTest.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/androidTest/java/ru/spbstu/blog/root/presentation/RootActivityTest.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/androidTest/java/ru/spbstu/blog/root/presentation/RootActivityTest2.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/androidTest/java/ru/spbstu/blog/root/presentation/RootActivityTest3.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/androidTest/java/ru/spbstu/blog/root/presentation/SearchAndAddToFavoriteTest.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/androidTest/java/ru/spbstu/blog/root/presentation/SignUpTest.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/androidTest/java/ru/spbstu/blog/root/presentation/Utils.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/androidTest/java/ru/spbstu/blog/root/presentation/utils/ToastMatcher.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/androidTest/java/ru/spbstu/blog/root/presentation/utils/Utils.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/ru/spbstu/blog/root/presentation/RootActivity.kt">
           <value>
             <set />
           </value>
@@ -49,6 +154,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/test/java/ru/spbstu/blog/IntegrationTests.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/test/java/ru/spbstu/blog/UnitTests.kt">
           <value>
             <set />
           </value>
@@ -109,6 +219,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/search/build.gradle.kts">
           <value>
             <set />
           </value>

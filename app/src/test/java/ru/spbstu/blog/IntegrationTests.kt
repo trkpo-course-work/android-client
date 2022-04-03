@@ -176,11 +176,13 @@ class IntegrationTests {
 
         val blogBody = BlogPostBody(null, "blog1", emptyList(), false, 1234L, 5)
         val currentUserApi = UserResponse(1, "name1", 9, "login1", "email1", null, null)
-        val blogData = ru.spbstu.common.api.model.blog.Blog(1, currentUserApi, "blog1", null, false, 1234L, 5)
+        val blogData =
+            ru.spbstu.common.api.model.blog.Blog(1, currentUserApi, "blog1", null, false, 1234L, 5)
         val blogResponse = Single.just(Response.success(blogData))
         Mockito.`when`(mockApi.newPost(blogBody)).thenReturn(blogResponse)
 
-        val createPostResult = diaryRepository.newPost("blog1", emptyList(), false, 1234L, 5).blockingGet()
+        val createPostResult =
+            diaryRepository.newPost("blog1", emptyList(), false, 1234L, 5).blockingGet()
         assertEquals(BlogInResult.Success(EMPTY_RESULT), createPostResult)
 
         val userBlogs = listOf(
@@ -204,17 +206,27 @@ class IntegrationTests {
 
         val blogBody = BlogPostBody(null, "blog1", emptyList(), true, 1234L, 5)
         val currentUserApi = UserResponse(1, "name1", 9, "login1", "email1", null, null)
-        val blogData = ru.spbstu.common.api.model.blog.Blog(1, currentUserApi, "blog1", null, true, 1234L, 5)
+        val blogData =
+            ru.spbstu.common.api.model.blog.Blog(1, currentUserApi, "blog1", null, true, 1234L, 5)
         val blogResponse = Single.just(Response.success(blogData))
         Mockito.`when`(mockApi.newPost(blogBody)).thenReturn(blogResponse)
 
-        val createPostResult = diaryRepository.newPost("blog1", emptyList(), true, 1234L, 5).blockingGet()
+        val createPostResult =
+            diaryRepository.newPost("blog1", emptyList(), true, 1234L, 5).blockingGet()
         assertEquals(BlogInResult.Success(EMPTY_RESULT), createPostResult)
 
         val anyBlogs = listOf(
             ru.spbstu.common.api.model.blog.Blog(2, currentUserApi, "blog1", null, false, 1254L, 5),
             ru.spbstu.common.api.model.blog.Blog(3, currentUserApi, "blog1", null, false, 1634L, 9),
-            ru.spbstu.common.api.model.blog.Blog(4, currentUserApi, "blog1", null, false, 1934L, 11),
+            ru.spbstu.common.api.model.blog.Blog(
+                4,
+                currentUserApi,
+                "blog1",
+                null,
+                false,
+                1934L,
+                11
+            ),
         )
         Mockito.`when`(mockApi.getNews()).thenReturn(Single.just(Response.success(anyBlogs)))
 
@@ -308,11 +320,13 @@ class IntegrationTests {
 
         val blogBody = BlogPostBody(1, "blog1", emptyList(), false, 1234L, 5)
         val currentUserApi = UserResponse(1, "name1", 9, "login1", "email1", null, null)
-        val blogData = ru.spbstu.common.api.model.blog.Blog(1, currentUserApi, "blog1", null, false, 1234L, 5)
+        val blogData =
+            ru.spbstu.common.api.model.blog.Blog(1, currentUserApi, "blog1", null, false, 1234L, 5)
         val blogResponse = Single.just(Response.success(blogData))
         Mockito.`when`(mockApi.editPost(1, blogBody)).thenReturn(blogResponse)
 
-        val createPostResult = diaryRepository.editPost(1, "blog1", emptyList(), false, 1234L, 5).blockingGet()
+        val createPostResult =
+            diaryRepository.editPost(1, "blog1", emptyList(), false, 1234L, 5).blockingGet()
         assertEquals(BlogInResult.Success(EMPTY_RESULT), createPostResult)
 
         val userBlogs = listOf(
@@ -328,17 +342,27 @@ class IntegrationTests {
     fun editPrivatePost() {
         val blogBody = BlogPostBody(1, "blog1", emptyList(), true, 1234L, 5)
         val currentUserApi = UserResponse(1, "name1", 9, "login1", "email1", null, null)
-        val blogData = ru.spbstu.common.api.model.blog.Blog(1, currentUserApi, "blog1", null, true, 1234L, 5)
+        val blogData =
+            ru.spbstu.common.api.model.blog.Blog(1, currentUserApi, "blog1", null, true, 1234L, 5)
         val blogResponse = Single.just(Response.success(blogData))
         Mockito.`when`(mockApi.editPost(1, blogBody)).thenReturn(blogResponse)
 
-        val createPostResult = diaryRepository.editPost(1, "blog1", emptyList(), true, 1234L, 5).blockingGet()
+        val createPostResult =
+            diaryRepository.editPost(1, "blog1", emptyList(), true, 1234L, 5).blockingGet()
         assertEquals(BlogInResult.Success(EMPTY_RESULT), createPostResult)
 
         val anyBlogs = listOf(
             ru.spbstu.common.api.model.blog.Blog(2, currentUserApi, "blog1", null, false, 1254L, 5),
             ru.spbstu.common.api.model.blog.Blog(3, currentUserApi, "blog1", null, false, 1634L, 9),
-            ru.spbstu.common.api.model.blog.Blog(4, currentUserApi, "blog1", null, false, 1934L, 11),
+            ru.spbstu.common.api.model.blog.Blog(
+                4,
+                currentUserApi,
+                "blog1",
+                null,
+                false,
+                1934L,
+                11
+            ),
         )
         Mockito.`when`(mockApi.getNews()).thenReturn(Single.just(Response.success(anyBlogs)))
 
@@ -408,7 +432,8 @@ class IntegrationTests {
 
         val requestConfirmationBody = RequestConfirmationBody(correctLoginBody.login)
         val responseConfirmationBody = Single.just(Response.success<Void?>(null))
-        Mockito.`when`(mockApi.requestConfirmation(requestConfirmationBody)).thenReturn(responseConfirmationBody)
+        Mockito.`when`(mockApi.requestConfirmation(requestConfirmationBody))
+            .thenReturn(responseConfirmationBody)
 
         val sendCodeResult = authRepository.requestConfirm(correctLoginBody.login).blockingGet()
         assertEquals(BlogInResult.Success(EMPTY_RESULT), sendCodeResult)
@@ -417,7 +442,8 @@ class IntegrationTests {
         val responseConfirmBody = Single.just(Response.error<Void>(500, "".toResponseBody()))
         Mockito.`when`(mockApi.confirm(confirmBody)).thenReturn(responseConfirmBody)
 
-        val confirmResult = authRepository.confirm(confirmBody.login, confirmBody.code).blockingGet()
+        val confirmResult =
+            authRepository.confirm(confirmBody.login, confirmBody.code).blockingGet()
         assertEquals(BlogInResult.Error<Any>(UNKNOWN_ERROR), confirmResult)
     }
 

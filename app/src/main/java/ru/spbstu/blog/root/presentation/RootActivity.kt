@@ -50,7 +50,7 @@ class RootActivity : AppCompatActivity() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 if (it.isSuccessful) {
-                    navigator.openMainPage()
+//                    navigator.openMainPage()
                 }
             }, {
             })

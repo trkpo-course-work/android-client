@@ -16,6 +16,11 @@ android {
         versionName = ConfigData.versionName
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunnerArguments["clearPackageData"] = "true"
+
+        testOptions {
+            execution = "ANDROIDX_TEST_ORCHESTRATOR"
+        }
     }
 
     buildTypes {
@@ -55,9 +60,11 @@ dependencies {
     implementation(Deps.appLibraries)
     implementation(Deps.daggerDep)
     implementation(Deps.network)
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.0-alpha03")
-    androidTestImplementation("androidx.test:rules:1.4.0")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.0-alpha05")
+    androidTestImplementation("androidx.test:rules:1.4.1-alpha05")
+    androidTestImplementation("androidx.test.espresso:espresso-contrib:3.5.0-alpha05")
     kapt(Deps.daggerKapt)
     testImplementation(Deps.testLibraries)
     androidTestImplementation(Deps.androidTestLibraries)
+    androidTestUtil("androidx.test:orchestrator:1.4.1")
 }
